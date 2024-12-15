@@ -5,15 +5,16 @@ namespace App\Http\Controllers\API\Auth;
 use App\Http\Controllers\Controller;
 use App\Mail\ResetPassword;
 use App\Models\User;
+use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
 class ForgotPasswordController extends Controller
 {
+    use ApiResponse;
     public function forgotPassword(Request $request)
     {
         try {
@@ -30,11 +31,11 @@ class ForgotPasswordController extends Controller
                 ]
             );
             Mail::to($user->email)->send(new ResetPassword($token, $user));
-            return responseJson(1,
+            return $this->responseJson(1,
                 "Your password reset code has been sent to your email. This code is valid for 30 minutes.",
                 ['token' => $token]);
         } catch (ValidationException $e) {
-            return responseJson(422, 'Validation failed.', [
+            return $this->responseJson(422, 'Validation failed.', [
                 'first error' => $e->getMessage(),
                 'all errors' => $e->errors()
             ]);

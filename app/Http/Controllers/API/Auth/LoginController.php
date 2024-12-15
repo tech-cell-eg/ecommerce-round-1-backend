@@ -6,10 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use App\Traits\ApiResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Password;
 use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
