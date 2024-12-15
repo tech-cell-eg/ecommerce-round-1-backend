@@ -13,15 +13,19 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up SSH
+    - name: Set up SSH Agent
       uses: webfactory/ssh-agent@v0.5.3
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    - name: Test SSH Connection
+    - name: Verify SSH Connection
       run: |
         ssh -o StrictHostKeyChecking=no digital07@176.58.102.23 'echo "SSH connection successful!"'
-        
+
     - name: Deploy to Server
       run: |
-        ssh -o StrictHostKeyChecking=no digital07@176.58.102.23 'cd /home/digital07/ecommerce-round-1-backend && git pull origin main && echo "Deployment completed successfully." || echo "Deployment failed."'
+        ssh -o StrictHostKeyChecking=no digital07@176.58.102.23 << EOF
+        cd /home/digital07/ecommerce-round-1-backend || exit 1
+        git pull origin main || exit 1
+        echo "Deployment completed successfully."
+        EOF
