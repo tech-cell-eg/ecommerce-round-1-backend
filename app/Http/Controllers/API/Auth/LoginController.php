@@ -36,4 +36,19 @@ class LoginController extends Controller
         }
 
     }
+
+
+    public function logout(Request $request)
+    {
+        try {
+            if ($request->user()) {
+                $request->user()->tokens()->delete();
+                return responseJson(200, 'User logged out successfully.');
+            }
+            return responseJson(401, 'User not authenticated.');
+        } catch (\Exception $e) {
+            return responseJson(500, 'Something went wrong.', ['error' => $e->getMessage()]);
+        }
+    }
+
 }
