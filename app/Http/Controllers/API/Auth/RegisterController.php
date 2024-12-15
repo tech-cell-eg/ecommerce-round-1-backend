@@ -31,9 +31,9 @@ class RegisterController extends Controller
                 'token' => $token
             ]);
         } catch (ValidationException $e) {
-            return responseJson(0, 'Validation failed.', [
+            return responseJson(422, 'Validation failed.', [
                 'first error' => $e->getMessage(),
-                'errors' => $e->errors()
+                'all errors' => $e->errors()
             ]);
         }
     }
