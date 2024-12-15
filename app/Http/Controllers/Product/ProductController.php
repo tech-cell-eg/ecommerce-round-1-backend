@@ -46,11 +46,24 @@ class ProductController extends Controller
         return new ProductResource($product);
     }
 
-// This function just for testing images
-    public function store(Request $request){
-        $data=$request->except('image'); // except image to can merge it 
-        $data['image'] = $this->uploadImage($request);  // the implementation in the base controller
-        $product = Product::create($data);
+    // This function just for testing images
+    public function store(Request $request)
+    {
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric|min:0',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif'
+        ]);
+
+        // Store the image and get its storage path
+        $validatedData['image'] = $request->file('image')->store('uploads', 'public');
+
+        // Create the product with the validated data
+        $product = Product::create($validatedData);
+
+        // Return the newly created product as a resource
         return new ProductResource($product);
     }
 
@@ -65,8 +78,8 @@ class ProductController extends Controller
 
         // Search products by name or keywords
         $products = Product::where('name', 'LIKE', "%{$query}%")
-                            ->orWhere('description', 'LIKE', "%{$query}%")
-                            ->get();
+            ->orWhere('description', 'LIKE', "%{$query}%")
+            ->get();
 
         return response()->json(ProductResource::collection($products));
     }
