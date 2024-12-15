@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\Auth\LoginController;
 use App\Http\Controllers\API\Auth\RegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -13,3 +14,4 @@ Route::get('/', function () {
 });
 
 Route::post('/register', [RegisterController::class, 'register'])->middleware('throttle:5,1');
+Route::post('/login', [LoginController::class, 'login'])->middleware('throttle:5,1');
