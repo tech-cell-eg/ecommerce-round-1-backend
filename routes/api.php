@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\Auth\ForgotPasswordController;
 use App\Http\Controllers\API\Auth\LoginController;
 use App\Http\Controllers\API\Auth\RegisterController;
 use Illuminate\Http\Request;
@@ -15,3 +16,4 @@ Route::get('/', function () {
 
 Route::post('/register', [RegisterController::class, 'register'])->middleware('throttle:5,1');
 Route::post('/login', [LoginController::class, 'login'])->middleware('throttle:5,1');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'forgotPassword'])->middleware('throttle:5,1');

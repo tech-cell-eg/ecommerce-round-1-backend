@@ -21,7 +21,7 @@ class LoginController extends Controller
             ]);
             $user = User::where('email', $request->email)->first();
             if (!$user || !Hash::check($request->password, $user->password)) {
-                return responseJson(0, 'Invalid Credentials.');
+                return responseJson(404, 'Invalid Credentials.');
             }
             $token = $user->createToken('API Token')->plainTextToken;
             return responseJson(200, 'User Logged In successfully.', [
@@ -36,4 +36,5 @@ class LoginController extends Controller
         }
 
     }
+
 }
