@@ -13,8 +13,9 @@ class FavoriteController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($user_id)
+    public function index()
     {
+        $user_id = Auth::id();
         // Fetching all favorite products for the specified user
         $favorites = Favorite::where('user_id', $user_id)->with('product')->get();
         return response()->json($favorites);
