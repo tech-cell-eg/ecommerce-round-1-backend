@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -22,12 +23,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             PermissionTableSeeder::class,
             AdminSeeder::class,
-<<<<<<< HEAD
             TestimonialSeeder::class,
-=======
             CategorySeeder::class,
             SubCategorySeeder::class
->>>>>>> bf8f32c97afc01f770044e60a9763e0572ece15e
         ]);
     }
 }
