@@ -21,7 +21,6 @@ Route::get('/', function () {
     return 'hello api';
 });
 
-
 Route::group(['middleware' => CatchErrorsMiddleware::class], function () {
     Route::post('/register', RegisterController::class)->middleware('throttle:5,1');
     Route::post('/login', LoginController::class)->middleware('throttle:10,1');
@@ -48,5 +47,6 @@ Route::delete('favorites/{user_id}/{product_id}', [FavoriteController::class, 'd
 
 
 Route::apiResource( "categories", CategoryController::class);
+
 
 
