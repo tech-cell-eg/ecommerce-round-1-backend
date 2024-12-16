@@ -13,32 +13,20 @@ class SubCategorySeeder extends Seeder
      */
     public function run(): void
     {
-        SubCategory::create(["name" => "t-shirts", "category_id" => "1"]);
-        SubCategory::create(["name" => "casual shirts", "category_id" => "1"]);
-        SubCategory::create(["name" => "formal shirts", "category_id" => "1"]);
-        SubCategory::create(["name" => "jackets", "category_id" => "1"]);
-        SubCategory::create(["name" => "blazers & coats", "category_id" => "1"]);
-        SubCategory::create(["name" => "kurtas & suits", "category_id" => "2"]);
-        SubCategory::create(["name" => "jackets", "category_id" => "2"]);
-        SubCategory::create(["name" => "sarees", "category_id" => "2"]);
-        SubCategory::create(["name" => "ethnic wear", "category_id" => "2"]);
-        SubCategory::create(["name" => "lehenga cholis", "category_id" => "2"]);
-        SubCategory::create(["name" => "t-shirts", "category_id" => "3"]);
-        SubCategory::create(["name" => "shirts", "category_id" => "3"]);
-        SubCategory::create(["name" => "jeans", "category_id" => "3"]);
-        SubCategory::create(["name" => "trousers", "category_id" => "3"]);
-        SubCategory::create(["name" => "party wear", "category_id" => "3"]);
-        SubCategory::create(["name" => "inner wear & thermal", "category_id" => "3"]);
-        SubCategory::create(["name" => "track pants", "category_id" => "3"]);
-        SubCategory::create(["name" => "value pack", "category_id" => "3"]);
-        SubCategory::create(["name" => "flats", "category_id" => "10"]);
-        SubCategory::create(["name" => "casual shoes", "category_id" => "10"]);
-        SubCategory::create(["name" => "heels", "category_id" => "10"]);
-        SubCategory::create(["name" => "boots", "category_id" => "10"]);
-        SubCategory::create(["name" => "sports shoes & floaters", "category_id" => "10"]);
-        SubCategory::create(["name" => "kurtas & kurta sets", "category_id" => "14"]);
-        SubCategory::create(["name" => "sherwanis", "category_id" => "14"]);
-        SubCategory::create(["name" => "dresses", "category_id" => "12"]);
-        SubCategory::create(["name" => "jumpsuits", "category_id" => "12"]);
+        $subCategories = [
+            "1" => ["t-shirts", "casual shirts", "formal shirts", "jackets", "blazers & coats"],
+            "2" => ["kurtas & suits", "jackets", "sarees", "ethnic wear", "lehenga cholis"],
+            "3" => ["t-shirts", "shirts", "jeans", "trousers", "party wear", "inner wear & thermal", "track pants", "value pack"],
+            "10" => ["flats", "casual shoes", "heels", "boots", "sports shoes & floaters"],
+            "14" => ["kurtas & kurta sets", "sherwanis"],
+            "12" => ["dresses", "jumpsuits"]
+        ];
+
+        foreach ($subCategories as $category_id => $sub_categories) {
+            foreach ($sub_categories as $sub_category) {
+                SubCategory::create(["name" => $sub_category, "category_id" => $category_id]);
+            }
+        }
+
     }
 }

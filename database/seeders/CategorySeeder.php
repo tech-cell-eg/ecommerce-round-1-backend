@@ -13,19 +13,9 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Category::create(["name" => "men"]);
-        Category::create(["name" => "women"]);
-        Category::create(["name" => "kids"]);
-        Category::create(["name" => "bags"]);
-        Category::create(["name" => "belts"]);
-        Category::create(["name" => "wallets"]);
-        Category::create(["name" => "watches"]);
-        Category::create(["name" => "accessories"]);
-        Category::create(["name" => "winter wear"]);
-        Category::create(["name" => "foot wear"]);
-        Category::create(["name" => "casual wear"]);
-        Category::create(["name" => "western wear"]);
-        Category::create(["name" => "ethnic wear"]);
-        Category::create(["name" => "indian & festive wear"]);
+        $categories = ["men", "women", "kids", "bags", "belts", "wallets", "watches", "accessories", "winter wear","foot wear", "casual wear", "western wear", "ethnic wear", "indian & festive wear"];
+        foreach ($categories as $category) {
+            Category::create(["name" => $category]);
+        }
     }
 }

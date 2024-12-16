@@ -14,7 +14,10 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return response($categories);
+        return response()->json([
+            'data' => $categories,
+            'message' => "all categories"
+        ]);
     }
 
     /**
@@ -48,21 +51,24 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(CategoryRequest $request, string $id)
+    public function update(CategoryRequest $request, Category $category)
     {
-        $category = Category::findOrFail($id);
-        $category->name = $request->name;
-        $category->save();
-        return response(["message"=> "category has been updated successfully!"]);
+    $category->update($request->validated());
+    return response(["message" => "Category has been updated successfully!"]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    // public function destroy(string $id)
+    // {
+    //     $category = Category::findOrFail($id);
+    //     $category->delete();
+    //     return response(["message"=> "category has been deleted successfully!"]);
+    // }
+    public function destroy(Category $category)
     {
-        $category = Category::findOrFail($id);
-        $category->delete();
-        return response(["message"=> "category has been deleted successfully!"]);
+    $category->delete();
+    return response(["message"=> "category has been deleted successfully!"]);
     }
 }
