@@ -32,5 +32,4 @@ class ResetPasswordController extends Controller
 
         return $this->success(200, 'Password reset successfully.');
     }
-
 }
