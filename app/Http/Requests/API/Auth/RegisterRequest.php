@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\API\Auth;
 
 use App\Traits\ApiResponse;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
-use Illuminate\Validation\ValidationException;
 
 class RegisterRequest extends FormRequest
 {
@@ -36,14 +34,6 @@ class RegisterRequest extends FormRequest
             'password' => ['required', Password::min(8)->mixedCase()],
             'terms_agreed' => ['required', 'accepted']
         ];
-    }
-
-    protected function failedValidation(Validator $validator)
-    {
-        $response = $this->responseJson(422, 'Validation failed.', [
-            'errors' => $validator->errors()
-        ]);
-        throw new ValidationException($validator, $response);
     }
 
 }

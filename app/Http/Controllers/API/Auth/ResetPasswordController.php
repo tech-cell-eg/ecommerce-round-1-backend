@@ -3,27 +3,21 @@
 namespace App\Http\Controllers\API\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\API\Auth\ResetPasswordRequest;
 use App\Models\User;
 use App\Traits\ApiResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules\Password;
 use Illuminate\Validation\ValidationException;
 
 class ResetPasswordController extends Controller
 {
     use ApiResponse;
-    public function resetPassword(Request $request)
+    public function resetPassword(ResetPasswordRequest $request)
     {
         try {
-            $request->validate([
-                'token' => ['required', 'integer'],
-                'password' => ['required', 'string', 'confirmed', Password::min(8)->mixedCase()],
-            ]);
             $reset = DB::table('password_reset_tokens')->where('token', $request->token)->first();
-            if (!$reset) {
-                return $this->responseJson(404, 'Invalid OTP.');
+            if (!$reset || $reset->created_at < now()->subMinutes(30)) {
+                return $this->responseJson(404, 'Invalid OTP, try again.');
             }
             $user = User::where('email', $reset->email)->first();
 

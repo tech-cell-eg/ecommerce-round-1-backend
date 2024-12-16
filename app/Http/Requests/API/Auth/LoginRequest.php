@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\API\Auth;
 
 use App\Traits\ApiResponse;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
 {
@@ -31,14 +29,6 @@ class LoginRequest extends FormRequest
             'email' => ['required', 'email', 'exists:users,email'],
             'password' => ['required', 'string', 'min:8'],
         ];
-    }
-
-    protected function failedValidation(Validator $validator)
-    {
-        $response = $this->responseJson(422, 'Validation failed.', [
-            'errors' => $validator->errors()
-        ]);
-        throw new ValidationException($validator, $response);
     }
 
 }

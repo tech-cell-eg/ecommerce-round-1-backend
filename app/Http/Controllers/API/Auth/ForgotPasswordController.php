@@ -3,24 +3,20 @@
 namespace App\Http\Controllers\API\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\API\Auth\ForgotPasswordRequest;
 use App\Mail\ResetPassword;
 use App\Models\User;
 use App\Traits\ApiResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
 class ForgotPasswordController extends Controller
 {
     use ApiResponse;
-    public function forgotPassword(Request $request)
+    public function forgotPassword(ForgotPasswordRequest $request)
     {
         try {
-            $request->validate([
-                'email' => ['required', 'email', Rule::exists('users', 'email')],
-            ]);
             $user = User::where('email', $request->email)->first();
             $token = rand(11111, 99999);
             DB::table('password_reset_tokens')->updateOrInsert(
