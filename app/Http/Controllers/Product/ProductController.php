@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Product;
 
+use App\Filters\ProductFilter;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -13,22 +15,9 @@ class ProductController extends Controller
     {
         $query = Product::query();
 
-        //     // Filter by category
-        // if ($request->has('category')) {
-        //     $query->filterByCategory($request->input('category'));
-        // }
+        $filters=new ProductFilter();
 
-        // Filter by price range
-        if ($request->has('min_price') && $request->has('max_price')) {
-            $query->filterByPrice($request->input('min_price'), $request->input('max_price'));
-        }
-
-        // Sort products
-        if ($request->has('sort_by')) {
-            $sortDirection = $request->input('sort_direction', 'asc'); // Default sort direction
-            $query->sortBy($request->input('sort_by'), $sortDirection);
-        }
-
+        $query=$filters->filter($query, $request->all());
         // Paginate results
         $products = $query->paginate();
 
@@ -47,23 +36,17 @@ class ProductController extends Controller
     }
 
     // This function just for testing images
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        // Validate the incoming request data
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'price' => 'required|numeric|min:0',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif'
-        ]);
+    
+        $validatedData = $request->validated();
 
-        // Store the image and get its storage path
-        $validatedData['image'] = $request->file('image')->store('uploads', 'public');
-
-        // Create the product with the validated data
+        if ($request->hasFile('image')) {
+            $validatedData['image'] = $request->file('image')->store('uploads', 'public');
+        }
+        // Create the product using validated and modified data
         $product = Product::create($validatedData);
 
-        // Return the newly created product as a resource
         return new ProductResource($product);
     }
 
