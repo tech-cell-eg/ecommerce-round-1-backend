@@ -31,7 +31,6 @@ class UserController extends Controller implements HasMiddleware
         $data = User::orderBy('id', 'DESC')->paginate(5);
         return view('users.index', compact('data'))->with('i', ($request->input('page', 1) - 1) * 5);
     }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -46,7 +45,7 @@ class UserController extends Controller implements HasMiddleware
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
@@ -88,7 +87,7 @@ class UserController extends Controller implements HasMiddleware
      */
     public function update(Request $request, string $id)
     {
-        $this->validate($request, [
+        $request->validate( [
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $id,
             'password' => 'same:confirm-password',
