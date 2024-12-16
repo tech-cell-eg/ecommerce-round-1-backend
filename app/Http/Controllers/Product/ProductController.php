@@ -15,9 +15,9 @@ class ProductController extends Controller
     {
         $query = Product::query();
 
-        $filters=new ProductFilter();
+        $filters = new ProductFilter();
 
-        $query=$filters->filter($query, $request->all());
+        $query = $filters->filter($query, $request->all());
         // Paginate results
         $products = $query->paginate();
 
@@ -27,18 +27,13 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-
-        // Eager load the related products
-        $product->load('relatedProducts');
-
-        // Return the product as a resource
         return new ProductResource($product);
     }
 
     // This function just for testing images
     public function store(StoreProductRequest $request)
     {
-    
+
         $validatedData = $request->validated();
 
         if ($request->hasFile('image')) {

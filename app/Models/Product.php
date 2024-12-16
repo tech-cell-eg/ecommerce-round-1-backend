@@ -10,10 +10,7 @@ class Product extends Model
     
 
     // Many to Many relationship for related products
-    public function relatedProducts()
-    {
-        return $this->belongsToMany(Product::class, 'product_related_product', 'product_id', 'related_product_id');
-    }
+
     // public function scopeFilterByCategory($query, $categoryId)
     // {
     //     return $query->where('category_id', $categoryId);

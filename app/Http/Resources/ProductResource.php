@@ -23,14 +23,6 @@ class ProductResource extends JsonResource
             'compare_price'=>$this->compare_price,
             'rating'=>$this->rating,
             'featured'=>$this->featured,
-            'related_products' => $this->relatedProducts->map(function ($relatedProduct) {
-                return [
-                    'id' => $relatedProduct->id,
-                    'name' => $relatedProduct->name,
-                    'price' => $relatedProduct->price,
-                    'image' => $relatedProduct->image,
-                ];
-            }),
             // 'category'=>[
             //     'id'=>$this->category->id,
             //     'name'=>$this->category->name,
