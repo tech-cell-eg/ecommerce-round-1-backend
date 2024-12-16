@@ -3,35 +3,39 @@
 namespace App\Http\Controllers\API\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\API\Auth\RegisterRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Traits\ApiResponse;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Password;
 use Illuminate\Validation\ValidationException;
 
 class RegisterController extends Controller
 {
-    public function register(Request $request)
+    use ApiResponse;
+
+    public function __invoke(RegisterRequest $request)
     {
         try {
-            $input = $request->validate([
-                'first_name' => ['required', 'string', 'max:255'],
-                'last_name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'email', Rule::unique('users', 'email')],
-                'password' => ['required', Password::min(8)->mixedCase()],
-                'terms_agreed' => ['required', 'accepted']
-            ]);
-            $input['password'] = Hash::make($input['password']);
-            $user = User::create($input);
+            // Gather validated data from the incoming request
+            $validatedData = $request->validated();
+            
+            // Hash the password before storing it
+            $validatedData['password'] = Hash::make($validatedData['password']);
+            
+            // Create a new user in the database
+            $user = User::create($validatedData);
+            
+            // Generate an API token for the new user
             $token = $user->createToken('API Token')->plainTextToken;
-            return responseJson(200, 'User created successfully.', [
+
+            // Return a successful response
+            return $this->responseJson(200, 'User created successfully.', [
                 'user' => $user,
                 'token' => $token
             ]);
         } catch (ValidationException $e) {
-            return responseJson(422, 'Validation failed.', [
+            // Handle validation errors
+            return $this->responseJson(422, 'Validation failed.', [
                 'first error' => $e->getMessage(),
                 'all errors' => $e->errors()
             ]);
