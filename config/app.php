@@ -105,6 +105,11 @@ return [
         ),
     ],
 
+    // 'providers' => [
+    // // ...
+    // Spatie\Permission\PermissionServiceProvider::class,
+    // ],
+
     /*
     |--------------------------------------------------------------------------
     | Maintenance Mode Driver
