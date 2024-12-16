@@ -5,20 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
-{
-<<<<<<< HEAD
-    
-=======
-  
+{ 
    protected $guarded=[];
 
     public function testimonials()
     {
-        return $this->hasMany(Testimonials::class);
-
+        return $this->hasMany(Testimonial::class);
     }
     
-
     // Many to Many relationship for related products
 
     // public function scopeFilterByCategory($query, $categoryId)
@@ -41,5 +35,4 @@ class Product extends Model
     {
         return $this->belongsToMany(User::class, 'favorites')->withTimestamps();
     }
->>>>>>> bf8f32c97afc01f770044e60a9763e0572ece15e
 }

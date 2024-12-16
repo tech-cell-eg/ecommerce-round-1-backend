@@ -22,7 +22,7 @@ class CatchErrorsMiddleware
         try {
             return $next($request);
         } catch (ValidationException $e) {
-            return $this->responseJson(422, 'Validation failed.', [
+            return $this->success(422, 'Validation failed.', [
                 'first error' => $e->getMessage(),
                 'all errors' => $e->errors()
             ]);
