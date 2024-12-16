@@ -57,9 +57,15 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
+    public function testimonials()
+    {
+        return $this->hasMany(Testimonials::class);
+    }
+
 
     public function favorites()
 {
     return $this->belongsToMany(Product::class, 'favorites')->withTimestamps();
 }
+
 }
