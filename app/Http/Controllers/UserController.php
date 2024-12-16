@@ -8,32 +8,36 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class UserController extends Controller
+class UserController extends Controller implements HasMiddleware
 {
-    function __construct()
+    public static function middleware()
     {
-        $this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => ['index','store']]);
-        $this->middleware('permission:user-create', ['only' => ['create','store']]);
-        $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
-        $this->middleware('permission:user-delete', ['only' => ['destroy']]);
+        return [
+            'permission:user-list|user-create|user-edit|user-delete',
+            new Middleware(\Spatie\Permission\Middleware\RoleMiddleware::using('permission:user-list|user-create|user-edit|user-delete'), only: ['index', 'store']),
+            new Middleware(\Spatie\Permission\Middleware\RoleMiddleware::using('permission:user-create'), only: ['create', 'store']),
+            new Middleware(\Spatie\Permission\Middleware\PermissionMiddleware::using('permission:user-edit'), only: ['edit', 'update']),
+            new Middleware(\Spatie\Permission\Middleware\PermissionMiddleware::using('permission:user-delete'), only: ['destroy']),
+        ];
     }
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $data = User::orderBy('id','DESC')->paginate(5);
-        return view('users.index',compact('data'))->with('i', ($request->input('page', 1) - 1) * 5);
+        $data = User::orderBy('id', 'DESC')->paginate(5);
+        return view('users.index', compact('data'))->with('i', ($request->input('page', 1) - 1) * 5);
     }
-
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        $roles = Role::pluck('name','name')->all();
-        return view('users.create',compact('roles'));
+        $roles = Role::pluck('name', 'name')->all();
+        return view('users.create', compact('roles'));
     }
 
     /**
@@ -41,7 +45,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
@@ -55,6 +59,7 @@ class UserController extends Controller
         $user->assignRole($request->input('roles'));
 
         return redirect()->route('users.index')->with('success','User created successfully');
+        
     }
 
     /**
@@ -83,7 +88,7 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $this->validate($request, [
+        $request->validate( [
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
             'password' => 'same:confirm-password',
