@@ -7,7 +7,6 @@ use App\Http\Requests\API\Auth\LoginRequest;
 use App\Models\User;
 use App\Traits\ApiResponse;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -17,7 +16,7 @@ class LoginController extends Controller
     {
         $user = User::where('email', $request->email)->first();
         if (!$user || !Hash::check($request->password, $user->password)) {
-            return $this->responseJson(404, 'Invalid Credentials.');
+            return $this->responseJson(401, 'Invalid Credentials.');
         }
         $token = $user->createToken('API Token')->plainTextToken;
         return $this->responseJson(200, 'User Logged In successfully.', [

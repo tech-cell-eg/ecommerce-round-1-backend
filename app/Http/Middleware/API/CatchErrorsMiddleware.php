@@ -27,5 +27,6 @@ class CatchErrorsMiddleware
                 'all errors' => $e->errors()
             ]);
         }
+        throw $e;
     }
 }

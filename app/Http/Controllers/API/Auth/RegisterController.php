@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\Auth\RegisterRequest;
 use App\Models\User;
 use App\Traits\ApiResponse;
-use Illuminate\Validation\ValidationException;
 
 class RegisterController extends Controller
 {
