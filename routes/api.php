@@ -48,5 +48,8 @@ Route::delete('favorites/{user_id}/{product_id}', [FavoriteController::class, 'd
 
 Route::apiResource( "categories", CategoryController::class);
 
+Route::apiResource('/testimonial', TestimonialController::class);
+
+
 
 
