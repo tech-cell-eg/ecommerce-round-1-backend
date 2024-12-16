@@ -10,6 +10,12 @@ class Category extends Model
 {
     protected $fillable = ["name"];
 
+    // hide unnecessary prop
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+
     function sub(): HasMany {
         return $this->hasMany(SubCategory::class);
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -19,7 +20,7 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
         Category::create([
             "name" => $request->name
@@ -33,15 +34,21 @@ class CategoryController extends Controller
     public function show(string $id)
     {
         $category = Category::findOrFail($id);
+
+        // extract Sub-category names from sub prop 
         $data = $category->sub->pluck("name")->toArray();
         $category["sub-category"] = $data;
+
+        // hide sub prop
+        $category->makeHidden(["sub"]);
+
         return response($category);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CategoryRequest $request, string $id)
     {
         $category = Category::findOrFail($id);
         $category->name = $request->name;
