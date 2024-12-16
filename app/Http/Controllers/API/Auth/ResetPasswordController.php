@@ -12,7 +12,6 @@ use Illuminate\Validation\Rules\Password;
 use Illuminate\Validation\ValidationException;
 use App\Http\Requests\API\Auth\ResetPasswordRequest;
 use App\Models\PasswordResetToken;
-use App\Models\User;
 use App\Traits\ApiResponse;
 
 class ResetPasswordController extends Controller
