@@ -3,13 +3,18 @@
 namespace App\Http\Controllers\API\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\API\Auth\ForgotPasswordRequest;
 use App\Mail\ResetPassword;
-use App\Models\PasswordResetToken;
 use App\Models\User;
-use App\Traits\ApiResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Validation\Rule;
+use App\Http\Requests\API\Auth\ForgotPasswordRequest;
+use App\Models\PasswordResetToken;
+use App\Traits\ApiResponse;
+
+
 use Illuminate\Validation\ValidationException;
 
 class ForgotPasswordController extends Controller
