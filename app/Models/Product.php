@@ -13,7 +13,7 @@ class Product extends Model
     {
         return $this->hasMany(Testimonials::class);
 
-   
+    }
     
 
     // Many to Many relationship for related products
