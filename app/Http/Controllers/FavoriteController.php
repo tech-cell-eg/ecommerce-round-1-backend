@@ -6,6 +6,7 @@ use App\Http\Requests\FavoriteRequest;
 use App\Models\Favorite;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FavoriteController extends Controller
 {
@@ -24,26 +25,25 @@ class FavoriteController extends Controller
 
     public function store(FavoriteRequest $request)
     {
-        // $user = Auth::user();
-        // $user->favorites()->syncWithoutDetaching([$request->product_id]);
-
-
-        // Create the favorite record using validated data
-        Favorite::create($request->validated());
-
+        $user = Auth::user();
+        optional($user)->favorites()->syncWithoutDetaching([$request->product_id]);
         return response()->json(['message' => 'Product added to favorites'], 201);
     }
 
 
 
-    public function destroy($user_id, $product_id)
-{
-    // It 's assumed that the user is authenticated 
-    $user = User::findOrFail($user_id);
+    public function destroy($product_id)
+    {
 
-    // Detach the product from the user's favorites
-    $user->favorites()->detach($product_id);
-
-    return response()->json(['message' => 'Product removed from favorites'], 200);
-}
+        $user_id = Auth::id();
+        // Detach the product from the user's favorites
+        $deleted = Favorite::where('user_id', $user_id)
+            ->where('product_id', $product_id)
+            ->delete();
+        if ($deleted) {
+            return response()->json(['success' => 'Favorite product detached successfully.']);
+        } else {
+            return response()->json(['error' => 'Product was not found in favorites.'], 404);
+        }
+    }
 }
