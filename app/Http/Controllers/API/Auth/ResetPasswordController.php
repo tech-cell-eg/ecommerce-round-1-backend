@@ -16,11 +16,11 @@ class ResetPasswordController extends Controller
     {
         $reset = PasswordResetToken::where('token', $request->token)->first();
         if (!$reset || $reset->created_at < now()->subMinutes(30)) {
-            return $this->failed(401, 'Invalid OTP, try again.');
+            return $this->failed(422, 'Invalid OTP, try again.');
         }
         $user = User::where('email', $reset->email)->first();
         if (!$user) {
-            return $this->failed(401, 'User not found.');
+            return $this->failed(422, 'User not found.');
         }
         $user->update([
             'password' => $request->password,

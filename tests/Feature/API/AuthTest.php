@@ -106,7 +106,7 @@ class AuthTest extends TestCase
             'password' => 'incorrectPassword123',
         ]);
         //Assert
-        $response->assertStatus(401)->assertJson([
+        $response->assertStatus(422)->assertJson([
             'message' => "Invalid Credentials."
         ]);
     }
@@ -178,8 +178,8 @@ class AuthTest extends TestCase
             'password_confirmation' => 'newPass123',
         ]);
         //Assert
-        $response->assertStatus(401)->assertJson([
-            'status' => 401,
+        $response->assertStatus(422)->assertJson([
+            'status' => 422,
             'message' => 'Invalid OTP, try again.',
         ]);
     }
