@@ -29,7 +29,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'first_name',
         'last_name',
         'password',
-        'terms_agreed'
+        'terms_agreed',
         'role'
 
     ];
@@ -67,5 +67,10 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     return $this->belongsToMany(Product::class, 'favorites')->withTimestamps();
 }
+
+    public function subscription()
+    {
+        return $this->hasOne(Subscription::class);
+    }
 
 }

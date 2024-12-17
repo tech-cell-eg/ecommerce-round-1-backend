@@ -6,18 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-<<<<<<< HEAD
-    
-=======
   
    protected $guarded=[];
-
-    public function testimonials()
-    {
-        return $this->hasMany(Testimonials::class);
-
-   
-    
 
     // Many to Many relationship for related products
 
@@ -41,5 +31,4 @@ class Product extends Model
     {
         return $this->belongsToMany(User::class, 'favorites')->withTimestamps();
     }
->>>>>>> bf8f32c97afc01f770044e60a9763e0572ece15e
 }
