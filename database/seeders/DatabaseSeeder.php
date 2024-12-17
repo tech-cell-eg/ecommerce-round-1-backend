@@ -23,6 +23,13 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         //    ]);
 
+        $this->call([
+            PermissionTableSeeder::class,
+            AdminSeeder::class,
+            TestimonialSeeder::class,
+            CategorySeeder::class,
+            SubCategorySeeder::class
+        ]);
         // $this->call([
         //     PermissionTableSeeder::class,
         //     AdminSeeder::class,
