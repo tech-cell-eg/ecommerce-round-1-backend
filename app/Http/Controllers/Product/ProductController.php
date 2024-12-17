@@ -18,8 +18,7 @@ class ProductController extends Controller
         $filters = new ProductFilter();
 
         $query = $filters->filter($query, $request->all());
-        // Paginate results
-        $products = $query->paginate();
+        $products = $query->paginate(); // Paginate results
 
         return ProductResource::collection($products);
     }
