@@ -5,17 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
-{
-  
+{ 
    protected $guarded=[];
 
     public function testimonials()
     {
-        return $this->hasMany(Testimonials::class);
-
+        return $this->hasMany(Testimonial::class);
     }
     
-
     // Many to Many relationship for related products
 
     // public function scopeFilterByCategory($query, $categoryId)

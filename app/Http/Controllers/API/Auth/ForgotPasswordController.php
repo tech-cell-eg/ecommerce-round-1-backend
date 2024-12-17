@@ -3,19 +3,12 @@
 namespace App\Http\Controllers\API\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Mail\ResetPassword;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Password;
-use Illuminate\Validation\Rule;
 use App\Http\Requests\API\Auth\ForgotPasswordRequest;
+use App\Mail\ResetPassword;
 use App\Models\PasswordResetToken;
+use App\Models\User;
 use App\Traits\ApiResponse;
-
-
-use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Mail;
 
 class ForgotPasswordController extends Controller
 {
@@ -33,7 +26,7 @@ class ForgotPasswordController extends Controller
             ]
         );
         Mail::to($user->email)->send(new ResetPassword($token, $user));
-        return $this->responseJson(1,
+        return $this->success(200,
             "Your password reset code has been sent to your email. This code is valid for 30 minutes.",
             ['token' => $token]);
     }
