@@ -18,8 +18,7 @@ class ProductController extends Controller
         $filters = new ProductFilter();
 
         $query = $filters->filter($query, $request->all());
-        // Paginate results
-        $products = $query->paginate();
+        $products = $query->paginate(); // Paginate results
 
         return ProductResource::collection($products);
     }
@@ -27,8 +26,12 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
+        $product->load('relatedProducts');
         return new ProductResource($product);
     }
+
+
+    
 
     // This function just for testing images
     public function store(StoreProductRequest $request)

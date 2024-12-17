@@ -23,10 +23,11 @@ class ProductResource extends JsonResource
             'compare_price'=>$this->compare_price,
             'rating'=>$this->rating,
             'featured'=>$this->featured,
-            // 'category'=>[
-            //     'id'=>$this->category->id,
-            //     'name'=>$this->category->name,
-            // ],
+            'category'=>[
+                'id'=>$this->category->id,
+                'name'=>$this->category->name,
+            ],
+            'related_products' => ProductResource::collection($this->whenLoaded('relatedProducts')),
         ];
     }
     }

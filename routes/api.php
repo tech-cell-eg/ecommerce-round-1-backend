@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\API\Auth\ForgotPasswordController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
@@ -12,6 +11,7 @@ use App\Http\Controllers\API\Auth\LogoutController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\API\Auth\RegisterController;
 use App\Http\Controllers\API\Auth\ResetPasswordController;
+use App\Http\Controllers\API\Auth\ForgotPasswordController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
