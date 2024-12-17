@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->float('price')->default(0);
             $table->float('compare_price')->nullable();
-            // $table->foreignId('category_id')->nullable()->constrained('categories')->nullOnDelete();    
             $table->float('rating')->default(0);
             $table->boolean('featured')->default(0);
             $table->timestamps();

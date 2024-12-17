@@ -30,7 +30,7 @@ class StoreProductRequest extends FormRequest
             'featured' => 'nullable|boolean',
             'image' => 'nullable|string',
             // 'image' => 'required|image|mimes:jpeg,png,jpg,gif',
-            // 'category_id' => 'required|exists:categories,id',
+            'category_id' => 'required|exists:categories,id',
         ];
     }
 }

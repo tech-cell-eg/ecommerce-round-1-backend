@@ -6,22 +6,25 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-  
-   protected $guarded=[];
+
+    protected $guarded = [];
 
     public function testimonials()
     {
         return $this->hasMany(Testimonials::class);
-
     }
-    
 
-    // Many to Many relationship for related products
 
-    // public function scopeFilterByCategory($query, $categoryId)
-    // {
-    //     return $query->where('category_id', $categoryId);
-    // }
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+
+    public function scopeFilterByCategory($query, $categoryId)
+    {
+        return $query->where('category_id', $categoryId);
+    }
 
     public function scopeFilterByPrice($query, $minPrice, $maxPrice)
     {
