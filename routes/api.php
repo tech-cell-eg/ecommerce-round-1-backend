@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\Auth\ForgotPasswordController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
@@ -25,11 +26,11 @@ Route::group(['middleware' => CatchErrorsMiddleware::class], function () {
     Route::post('/register', RegisterController::class)->middleware('throttle:5,1');
     Route::post('/login', LoginController::class)->middleware('throttle:10,1');
     Route::post('/logout', LogoutController::class)->middleware('auth:sanctum');
-    // Route::post('/forgot-password', ForgotPasswordController::class)->middleware('throttle:5,1');
+    Route::post('/forgot-password', ForgotPasswordController::class)->middleware('throttle:5,1');
     Route::post('/reset-password', ResetPasswordController::class)->middleware('throttle:5,1');
 });
 
-Route::apiResource('product',ProductController::class);
+Route::apiResource('product', ProductController::class);
 Route::get('products/search', [ProductController::class, 'search']);
 
 Route::post('favorites', [FavoriteController::class, 'store']); // Add favorite
@@ -37,7 +38,7 @@ Route::get('favorites/{user_id}', [FavoriteController::class, 'index']); // List
 Route::delete('favorites/{user_id}/{product_id}', [FavoriteController::class, 'destroy']); // Remove favorite
 
 
-Route::apiResource( "categories", CategoryController::class);
+Route::apiResource("categories", CategoryController::class);
 
 Route::apiResource('/testimonial', TestimonialController::class);
 
