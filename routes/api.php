@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\OurNewsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
@@ -43,8 +43,8 @@ Route::apiResource("categories", CategoryController::class);
 
 Route::apiResource('/testimonial', TestimonialController::class);
 
-Route::post('/subscription', [SubscriptionController::class, 'Subscribe']);
-Route::delete('/subscription/{id}', [SubscriptionController::class, 'Unsubscribe']);
+Route::post('/our-news', OurNewsController::class);
+
 // Route::group(['middleware'=> 'auth:sanctum'],function(){
 //     Route::apiResource('/testimonial', TestimonialController::class);
 // });
