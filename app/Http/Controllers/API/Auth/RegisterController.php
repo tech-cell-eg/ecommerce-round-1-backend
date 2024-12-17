@@ -29,13 +29,13 @@ class RegisterController extends Controller
             $token = $user->createToken('API Token')->plainTextToken;
 
             // Return a successful response
-            return $this->responseJson(200, 'User created successfully.', [
+            return $this->success(200, 'User created successfully.', [
                 'user' => $user,
                 'token' => $token
             ]);
         } catch (ValidationException $e) {
             // Handle validation errors
-            return $this->responseJson(422, 'Validation failed.', [
+            return $this->failed(422, 'Validation failed.', [
                 'first error' => $e->getMessage(),
                 'all errors' => $e->errors()
             ]);
