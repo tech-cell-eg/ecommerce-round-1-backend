@@ -14,7 +14,7 @@ class ForgotPasswordController extends Controller
 {
     use ApiResponse;
 
-    public function forgotPassword(ForgotPasswordRequest $request)
+    public function __invoke(ForgotPasswordRequest $request)
     {
         $user = User::where('email', $request->email)->first();
         $token = rand(11111, 99999);
