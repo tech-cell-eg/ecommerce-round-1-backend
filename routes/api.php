@@ -33,9 +33,9 @@ Route::group(['middleware' => CatchErrorsMiddleware::class], function () {
 Route::apiResource('product', ProductController::class);
 Route::get('products/search', [ProductController::class, 'search']);
 
-Route::post('favorites', [FavoriteController::class, 'store']); // Add favorite
-Route::get('favorites/{user_id}', [FavoriteController::class, 'index']); // List favorites
-Route::delete('favorites/{user_id}/{product_id}', [FavoriteController::class, 'destroy']); // Remove favorite
+Route::post('favorites', [FavoriteController::class, 'store'])->middleware(['auth:sanctum']); // Add favorite
+Route::get('favorites', [FavoriteController::class, 'index'])->middleware(['auth:sanctum']);; // List favorites
+Route::delete('favorites/{product_id}', [FavoriteController::class, 'destroy'])->middleware(['auth:sanctum']); // Remove favorite
 
 
 Route::apiResource("categories", CategoryController::class);

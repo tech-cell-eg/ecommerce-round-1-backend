@@ -3,7 +3,13 @@
 namespace App\Http\Controllers\API\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
+use Illuminate\Validation\ValidationException;
 use App\Models\User;
+
 use App\Http\Requests\API\Auth\ResetPasswordRequest;
 use App\Models\PasswordResetToken;
 use App\Traits\ApiResponse;
