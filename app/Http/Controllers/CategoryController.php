@@ -53,18 +53,12 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, Category $category)
     {
     $category->update($request->validated());
-    return response(["message" => "Category has been updated successfully!"]);
+    return response(["message" => "category has been updated successfully!"]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    // public function destroy(string $id)
-    // {
-    //     $category = Category::findOrFail($id);
-    //     $category->delete();
-    //     return response(["message"=> "category has been deleted successfully!"]);
-    // }
     public function destroy(Category $category)
     {
     $category->delete();

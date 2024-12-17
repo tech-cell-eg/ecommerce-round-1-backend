@@ -15,13 +15,10 @@ class LoginController extends Controller
     public function __invoke(LoginRequest $request)
     {
         $user = User::where('email', $request->email)->first();
-
         if (!$user || !Hash::check($request->password, $user->password)) {
-            return $this->failed(404, 'Invalid Credentials.');
+            return $this->failed(422, 'Invalid Credentials.');
         }
-
         $token = $user->createToken('API Token')->plainTextToken;
-
         return $this->success(200, 'User Logged In successfully.', [
             'user' => $user,
             'token' => $token

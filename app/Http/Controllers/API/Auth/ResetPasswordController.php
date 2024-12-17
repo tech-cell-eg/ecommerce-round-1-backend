@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API\Auth;
 
 use App\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -26,16 +25,13 @@ class ResetPasswordController extends Controller
             return $this->failed(422, 'Invalid OTP, try again.');
         }
         $user = User::where('email', $reset->email)->first();
-
         if (!$user) {
             return $this->failed(422, 'User not found.');
         }
         $user->update([
             'password' => $request->password,
         ]);
-        
         PasswordResetToken::where('token', $request->token)->delete();
-
         return $this->success(200, 'Password reset successfully.');
     }
 }
