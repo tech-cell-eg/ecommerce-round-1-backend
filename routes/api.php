@@ -11,6 +11,7 @@ use App\Http\Controllers\API\Auth\LogoutController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\API\Auth\RegisterController;
 use App\Http\Controllers\API\Auth\ResetPasswordController;
+use App\Http\Controllers\API\Auth\ForgotPasswordController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -24,9 +25,9 @@ Route::get('/', function () {
 Route::group(['middleware' => CatchErrorsMiddleware::class], function () {
     Route::post('/register', RegisterController::class)->middleware('throttle:5,1');
     Route::post('/login', LoginController::class)->middleware('throttle:10,1');
-    Route::post('/logout', LogoutController::class)->middleware('auth:sanctum');
+    Route::post('/logout', LogoutController::class)->middleware('auth:sanctum');     /////////////////////////////////
     // Route::post('/forgot-password', ForgotPasswordController::class)->middleware('throttle:5,1');
-    Route::post('/reset-password', ResetPasswordController::class)->middleware('throttle:5,1');
+    Route::post('/reset-password', ResetPasswordController::class)->middleware('throttle:5,1');///////////////////////
 });
 
 Route::apiResource('product',ProductController::class);

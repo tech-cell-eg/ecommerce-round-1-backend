@@ -27,8 +27,12 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
+        $product->load('relatedProducts');
         return new ProductResource($product);
     }
+
+
+    
 
     // This function just for testing images
     public function store(StoreProductRequest $request)

@@ -5,17 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
-<<<<<<< HEAD
-{
-
-    protected $guarded = [];
-
-    public function testimonials()
-    {
-        return $this->hasMany(Testimonials::class);
-    }
-
-=======
 { 
    protected $guarded=[];
 
@@ -25,11 +14,15 @@ class Product extends Model
     }
     
     // Many to Many relationship for related products
->>>>>>> d9dc43a8f2aef3a764f81359503a2af0c5279079
 
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function relatedProducts()
+    {
+        return $this->hasMany(Product::class, 'category_id', 'category_id')->where('id', '!=', $this->id);
     }
 
 

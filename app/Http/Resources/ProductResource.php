@@ -27,6 +27,7 @@ class ProductResource extends JsonResource
                 'id'=>$this->category->id,
                 'name'=>$this->category->name,
             ],
+            'related_products' => ProductResource::collection($this->whenLoaded('relatedProducts')),
         ];
     }
     }
