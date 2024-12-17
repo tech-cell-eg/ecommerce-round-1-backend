@@ -23,7 +23,6 @@ class FavoriteRequest extends FormRequest
     {
         return [
             'product_id' => 'required|exists:products,id',
-            'user_id' => 'required|exists:users,id',
         ];
     }
 }

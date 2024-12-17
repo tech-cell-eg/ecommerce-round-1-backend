@@ -8,15 +8,13 @@ use App\Mail\ResetPassword;
 use App\Models\PasswordResetToken;
 use App\Models\User;
 use App\Traits\ApiResponse;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Validation\ValidationException;
 
 class ForgotPasswordController extends Controller
 {
     use ApiResponse;
 
-    public function forgotPassword(ForgotPasswordRequest $request)
+    public function __invoke(ForgotPasswordRequest $request)
     {
         $user = User::where('email', $request->email)->first();
         $token = rand(11111, 99999);
@@ -28,7 +26,7 @@ class ForgotPasswordController extends Controller
             ]
         );
         Mail::to($user->email)->send(new ResetPassword($token, $user));
-        return $this->responseJson(1,
+        return $this->success(200,
             "Your password reset code has been sent to your email. This code is valid for 30 minutes.",
             ['token' => $token]);
     }

@@ -64,9 +64,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
 
     public function favorites()
-{
-    return $this->belongsToMany(Product::class, 'favorites')->withTimestamps();
-}
+    {
+        return $this->belongsToMany(Product::class, 'favorites')->withTimestamps();
+    }
 
     public function subscription()
     {

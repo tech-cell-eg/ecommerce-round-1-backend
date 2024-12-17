@@ -9,15 +9,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 class TestimonialController extends Controller
 {
-
-
     public function index()
     {
         return response()->json(Testimonial::all());
     }
 
     public function store(TestimonialStoreRequest $request)
-    {
+    {   
         // $user = $request->user();
         $user = User::find(1);
         $testimonial = $user->testimonials()->create($request->validated());
