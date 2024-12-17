@@ -28,7 +28,8 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             TestimonialSeeder::class,
             CategorySeeder::class,
-            SubCategorySeeder::class
+            SubCategorySeeder::class,
+            InstagramStoriesSeeder::class
         ]);
         // $this->call([
         //     PermissionTableSeeder::class,
