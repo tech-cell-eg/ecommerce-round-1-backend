@@ -61,4 +61,6 @@ class ProductController extends Controller
 
         return response()->json(ProductResource::collection($products));
     }
+
+
 }
