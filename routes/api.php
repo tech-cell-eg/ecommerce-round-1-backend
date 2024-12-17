@@ -12,6 +12,7 @@ use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\API\Auth\RegisterController;
 use App\Http\Controllers\API\Auth\ResetPasswordController;
 use App\Http\Controllers\API\Auth\ForgotPasswordController;
+use App\Models\Favorite;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -33,8 +34,8 @@ Route::group(['middleware' => CatchErrorsMiddleware::class], function () {
 Route::apiResource('product', ProductController::class);
 Route::get('products/search', [ProductController::class, 'search']);
 
-Route::post('favorites', [FavoriteController::class, 'store'])->middleware(['auth:sanctum']); // Add favorite
 Route::get('favorites', [FavoriteController::class, 'index'])->middleware(['auth:sanctum']);; // List favorites
+Route::post('favorites', [FavoriteController::class, 'store'])->middleware(['auth:sanctum']);;// Add favorite
 Route::delete('favorites/{product_id}', [FavoriteController::class, 'destroy'])->middleware(['auth:sanctum']); // Remove favorite
 
 
