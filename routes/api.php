@@ -13,6 +13,7 @@ use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\API\Auth\RegisterController;
 use App\Http\Controllers\API\Auth\ResetPasswordController;
 use App\Http\Controllers\API\Auth\ForgotPasswordController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\InstagramStoriesController;
 
 Route::get('/user', function (Request $request) {
@@ -53,3 +54,7 @@ Route::post('/our-news', OurNewsController::class);
 
 
 Route::get("instagram-stories", [InstagramStoriesController::class, "index"]);
+
+
+
+Route::apiResource("cart", CartController::class);
