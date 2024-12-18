@@ -28,6 +28,7 @@ class ProductResource extends JsonResource
                 'name'=>$this->category->name,
             ],
             'related_products' => ProductResource::collection($this->whenLoaded('relatedProducts')),
+            'reviews' => $this->reviews
         ];
     }
     }

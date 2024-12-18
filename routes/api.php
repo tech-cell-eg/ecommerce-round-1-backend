@@ -14,6 +14,7 @@ use App\Http\Controllers\API\Auth\RegisterController;
 use App\Http\Controllers\API\Auth\ResetPasswordController;
 use App\Http\Controllers\API\Auth\ForgotPasswordController;
 use App\Http\Controllers\InstagramStoriesController;
+use App\Http\Controllers\ReviewController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -53,3 +54,4 @@ Route::post('/our-news', OurNewsController::class);
 
 
 Route::get("instagram-stories", [InstagramStoriesController::class, "index"]);
+Route::apiResource("reviews", ReviewController::class);
