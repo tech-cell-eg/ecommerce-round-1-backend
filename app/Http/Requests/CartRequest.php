@@ -22,7 +22,7 @@ class CartRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "product_id" => "required"
+            "product_id" => ["required"]
         ];
     }
 }

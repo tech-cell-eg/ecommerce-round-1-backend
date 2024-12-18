@@ -4,20 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CartRequest;
 use App\Models\Cart;
+use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
+    use ApiResponse;
 
     public function index()
     {
         $carts = Cart::where("user_id", Auth::user()->id)->get();
         foreach ($carts as $cart) $cart->product;
-        return response([
-            "data" => $carts,
-            "message" => "all items in cart"
-        ]);
+        return $this->success(200, "all items in cart", $carts);
     }
 
     public function store(CartRequest $request)
@@ -27,7 +26,7 @@ class CartController extends Controller
             ['quantity' => $request->quantity or 1]    // Data to update or insert
         );
 
-        return response(["message" => "item has been added successfully!"]);
+        return $this->success(200, "item has been added successfully!");
     }
 
     public function show() {}
@@ -40,12 +39,12 @@ class CartController extends Controller
             "quantity" => $request->quantity || $cart->quantity
         ]);
 
-        return response(["message" => "item has been updated successfully!"]);
+        return $this->success(200, "item has been updated successfully!");
     }
 
     public function destroy(Cart $cart)
     {
         $cart->delete();
-        return response(["message" => "item has been deleted successfully!"]);
+        return $this->success(200, "item has been deleted successfully!");
     }
 }

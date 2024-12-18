@@ -19,12 +19,6 @@ class Cart extends Model
     
 
 
-    protected $hidden = [
-        'created_at',
-        'updated_at',
-        "user_id",
-        "product_id"
-    ];
 
     function product() {
         return $this->belongsTo(Product::class);
