@@ -1,13 +1,13 @@
 <?php
 
 namespace Database\Factories;
-use App\Models\Category;
+
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Category>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\InstagramStories>
  */
-class CategoryFactory extends Factory
+class InstagramStoriesFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,8 @@ class CategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            "name" => fake()->name()
+            "image_link" => fake()->imageUrl(),
+            "insta_link" => fake()->imageUrl()
         ];
     }
 }

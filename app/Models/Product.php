@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
-{ 
+{
    protected $guarded=[];
 
     public function testimonials()
@@ -15,10 +15,21 @@ class Product extends Model
     
     // Many to Many relationship for related products
 
-    // public function scopeFilterByCategory($query, $categoryId)
-    // {
-    //     return $query->where('category_id', $categoryId);
-    // }
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function relatedProducts()
+    {
+        return $this->hasMany(Product::class, 'category_id', 'category_id')->where('id', '!=', $this->id);
+    }
+
+
+    public function scopeFilterByCategory($query, $categoryId)
+    {
+        return $query->where('category_id', $categoryId);
+    }
 
     public function scopeFilterByPrice($query, $minPrice, $maxPrice)
     {

@@ -15,7 +15,7 @@ class TestimonialController extends Controller
     }
 
     public function store(TestimonialStoreRequest $request)
-    {
+    {   
         // $user = $request->user();
         $user = User::find(1);
         $testimonial = $user->testimonials()->create($request->validated());
