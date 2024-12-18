@@ -13,6 +13,7 @@ use App\Http\Controllers\API\Auth\LogoutController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\API\Auth\RegisterController;
 use App\Http\Controllers\API\Auth\ResetPasswordController;
+use App\Http\Controllers\OurNewsController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -41,7 +42,7 @@ Route::delete('favorites/{product_id}', [FavoriteController::class, 'destroy'])-
 Route::apiResource("categories", CategoryController::class);
 
 Route::apiResource('/testimonial', TestimonialController::class);
-
+Route::post('/our-news', OurNewsController::class);
 
 
 
