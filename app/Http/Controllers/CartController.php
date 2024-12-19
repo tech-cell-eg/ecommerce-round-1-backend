@@ -23,7 +23,7 @@ class CartController extends Controller
     {
         Cart::updateOrCreate(
             ['product_id' => $request->product_id, 'user_id' => Auth::user()->id],
-            ['quantity' => $request->quantity or 1]    // Data to update or insert
+            ['quantity' => $request->quantity]    // Data to update or insert
         );
 
         return $this->success(200, "item has been added successfully!");
