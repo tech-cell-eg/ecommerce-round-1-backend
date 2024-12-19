@@ -49,4 +49,8 @@ class Product extends Model
     {
         return $this->belongsToMany(User::class, 'favorites')->withTimestamps();
     }
+
+    function reviews() {
+        return $this->hasMany(Review::class);
+    }
 }

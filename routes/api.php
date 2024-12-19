@@ -17,6 +17,7 @@ use App\Http\Controllers\API\Auth\ForgotPasswordController;
 use App\Models\Favorite;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\InstagramStoriesController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\OurNewsController;
 
 Route::get('/user', function (Request $request) {
@@ -47,5 +48,12 @@ Route::apiResource("categories", CategoryController::class);
 
 Route::apiResource('/testimonial', TestimonialController::class);
 Route::post('/our-news', OurNewsController::class);
+
+// Route::group(['middleware'=> 'auth:sanctum'],function(){
+//     Route::apiResource('/testimonial', TestimonialController::class);
+// });
+
+
+Route::apiResource("reviews", ReviewController::class);
 Route::get("instagram-stories", [InstagramStoriesController::class, "index"]);
 Route::apiResource("cart", CartController::class);

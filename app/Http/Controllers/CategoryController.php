@@ -5,29 +5,25 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
+use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    use ApiResponse;
+    
     public function index()
     {
         $categories = Category::all(); // Get all categories
-    
-        return CategoryResource::collection($categories); // Return a collection of resources
+        return $this->success(200, "all categories", $categories);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(CategoryRequest $request)
     {
         Category::create([
             "name" => $request->name
         ]);
-        return response(["message"=> "category has been added successfully!"]);
+        return $this->success(200, "categoery created successfully!");
     }
 
 
@@ -42,26 +38,18 @@ class CategoryController extends Controller
         // hide sub prop
         $category->makeHidden(["sub"]);
 
-        return response($category);
+        return $this->success(200, "category found!", $category);
     }
 
-
-    
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(CategoryRequest $request, Category $category)
     {
-    $category->update($request->validated());
-    return response(["message" => "category has been updated successfully!"]);
+        $category->update($request->validated());
+        return $this->success(200, "categoery updated successfully!");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Category $category)
     {
-    $category->delete();
-    return response(["message"=> "category has been deleted successfully!"]);
+        $category->delete();
+        return $this->success(200, "categoery deleted successfully!");
     }
 }

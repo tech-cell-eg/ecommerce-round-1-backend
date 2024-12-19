@@ -33,6 +33,7 @@ class ProductResource extends JsonResource
                 'sub_categories' => $subCategoryNames,
             ],
             'related_products' => ProductResource::collection($this->whenLoaded('relatedProducts')),
+            'reviews' => $this->reviews
         ];
     }
     }
