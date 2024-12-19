@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OurNewsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -13,6 +14,7 @@ use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\API\Auth\RegisterController;
 use App\Http\Controllers\API\Auth\ResetPasswordController;
 use App\Http\Controllers\API\Auth\ForgotPasswordController;
+use App\Http\Controllers\SettingController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -44,6 +46,10 @@ Route::apiResource("categories", CategoryController::class);
 Route::apiResource('/testimonial', TestimonialController::class);
 
 Route::post('/our-news', OurNewsController::class);
+
+Route::apiResource('/setting', SettingController::class);
+
+Route::apiResource('/contact', ContactController::class);
 
 // Route::group(['middleware'=> 'auth:sanctum'],function(){
 //     Route::apiResource('/testimonial', TestimonialController::class);
