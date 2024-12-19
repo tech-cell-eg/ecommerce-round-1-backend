@@ -15,17 +15,17 @@ use App\Http\Controllers\API\Auth\RegisterController;
 use App\Http\Controllers\API\Auth\ResetPasswordController;
 use App\Http\Controllers\API\Auth\ForgotPasswordController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\API\Auth\SocialLoginController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-
-Route::get('/', function () {
-    return 'hello api';
-});
-
 Route::group(['middleware' => CatchErrorsMiddleware::class], function () {
+    Route::middleware(['api', 'web'])->group(function () {
+        Route::get('/{provider}-login', [SocialLoginController::class, 'providerAuth']);
+        Route::get('/{provider}-callback', [SocialLoginController::class, 'providerCallback']);
+    });
     Route::post('/register', RegisterController::class)->middleware('throttle:5,1');
     Route::post('/login', LoginController::class)->middleware('throttle:10,1');
     Route::post('/logout', LogoutController::class)->middleware('auth:sanctum');
@@ -44,7 +44,6 @@ Route::delete('favorites/{product_id}', [FavoriteController::class, 'destroy'])-
 Route::apiResource("categories", CategoryController::class);
 
 Route::apiResource('/testimonial', TestimonialController::class);
-
 Route::post('/our-news', OurNewsController::class);
 
 Route::apiResource('/setting', SettingController::class);
