@@ -14,6 +14,8 @@ class ProductResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        // Get subcategory names if they exist
+        $subCategoryNames = $this->category->sub()->pluck('name')->toArray();
         return [
             'id'=>$this->id,
             'name'=>$this->name,
@@ -23,9 +25,12 @@ class ProductResource extends JsonResource
             'compare_price'=>$this->compare_price,
             'rating'=>$this->rating,
             'featured'=>$this->featured,
+            'size'=>$this->size,
+            'color'=>$this->color,
             'category'=>[
                 'id'=>$this->category->id,
                 'name'=>$this->category->name,
+                'sub_categories' => $subCategoryNames,
             ],
             'related_products' => ProductResource::collection($this->whenLoaded('relatedProducts')),
         ];
