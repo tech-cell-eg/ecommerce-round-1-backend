@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\API\Auth\ForgotPasswordController;
+// use App\Http\Controllers\API\Auth\ForgotPasswordController;
 use App\Http\Controllers\API\Auth\SocialLoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
