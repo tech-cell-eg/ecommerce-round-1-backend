@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\Auth\ForgotPasswordController;
 use App\Http\Controllers\API\Auth\SocialLoginController;
+use App\Http\Controllers\UserCardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
@@ -13,7 +14,6 @@ use App\Http\Controllers\API\Auth\LogoutController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\API\Auth\RegisterController;
 use App\Http\Controllers\API\Auth\ResetPasswordController;
-use App\Http\Controllers\API\Auth\ForgotPasswordController;
 use App\Models\Favorite;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\InstagramStoriesController;
@@ -34,6 +34,11 @@ Route::group(['middleware' => CatchErrorsMiddleware::class], function () {
     Route::post('/logout', LogoutController::class)->middleware('auth:sanctum');
     Route::post('/forgot-password', ForgotPasswordController::class)->middleware('throttle:5,1');
     Route::post('/reset-password', ResetPasswordController::class)->middleware('throttle:5,1');
+
+    Route::get('/cards', [UserCardController::class, 'index'])->middleware('auth:sanctum');
+    Route::post('/cards/create', [UserCardController::class, 'create'])->middleware('auth:sanctum');
+    Route::delete('/cards/{userCard}', [UserCardController::class, 'destroy'])->middleware('auth:sanctum');
+
 });
 
 Route::apiResource('product', ProductController::class);
