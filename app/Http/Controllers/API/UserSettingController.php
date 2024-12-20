@@ -26,7 +26,7 @@ class UserSettingController extends Controller
         return $this->success(200, 'User Settings', $userSetting);
     }
 
-    public function edit(UserSettingRequest $request)
+    public function update(UserSettingRequest $request)
     {
         $validatedData = $request->validated();
         $user_id = auth()->user()->id;
