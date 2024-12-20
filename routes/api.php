@@ -1,6 +1,5 @@
 <?php
 
-// use App\Http\Controllers\API\Auth\ForgotPasswordController;
 use App\Http\Controllers\API\Auth\SocialLoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -13,7 +12,6 @@ use App\Http\Controllers\API\Auth\LogoutController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\API\Auth\RegisterController;
 use App\Http\Controllers\API\Auth\ResetPasswordController;
-use App\Models\Favorite;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\InstagramStoriesController;
 use App\Http\Controllers\NotificationController;
@@ -32,7 +30,7 @@ Route::group(['middleware' => CatchErrorsMiddleware::class], function () {
     Route::post('/register', RegisterController::class)->middleware('throttle:5,1');
     Route::post('/login', LoginController::class)->middleware('throttle:10,1');
     Route::post('/logout', LogoutController::class)->middleware('auth:sanctum');
-    Route::post('/forgot-password', ForgotPasswordController::class)->middleware('throttle:5,1');
+    Route::post('/forgot-password', App\Http\Controllers\API\Auth\ForgotPasswordController::class)->middleware('throttle:5,1');
     Route::post('/reset-password', ResetPasswordController::class)->middleware('throttle:5,1');
 });
 
@@ -48,11 +46,6 @@ Route::apiResource("categories", CategoryController::class);
 
 Route::apiResource('/testimonial', TestimonialController::class);
 Route::post('/our-news', OurNewsController::class);
-
-// Route::group(['middleware'=> 'auth:sanctum'],function(){
-//     Route::apiResource('/testimonial', TestimonialController::class);
-// });
-
 
 Route::apiResource("reviews", ReviewController::class);
 Route::get("instagram-stories", [InstagramStoriesController::class, "index"]);
