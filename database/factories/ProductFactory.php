@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -10,6 +11,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class ProductFactory extends Factory
 {
+    protected $model = Product::class;
+
     /**
      * Define the model's default state.
      *
@@ -17,9 +20,8 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
-        $name=$this->faker->words(2,true);
         return [
-            'name'=>$name,
+            'name'=>$this->faker->words(2,true),
             'image'=>$this->faker->imageUrl(600,600),
             'description'=>$this->faker->sentence(12),
             'price'=>$this->faker->randomFloat(1,1,499),

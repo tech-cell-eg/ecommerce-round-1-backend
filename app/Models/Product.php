@@ -2,21 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
     use HasFactory;
-   protected $guarded=[];
+
+    protected $guarded = [];
 
     public function testimonials()
     {
         return $this->hasMany(Testimonial::class);
     }
-    
-    // Many to Many relationship for related products
-
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -26,7 +24,6 @@ class Product extends Model
     {
         return $this->hasMany(Product::class, 'category_id', 'category_id')->where('id', '!=', $this->id);
     }
-
 
     public function scopeFilterByCategory($query, $categoryId)
     {
@@ -42,10 +39,12 @@ class Product extends Model
     {
         return $query->orderBy($sortBy, $sortDirection);
     }
-
-
     public function users()
     {
         return $this->belongsToMany(User::class, 'favorites')->withTimestamps();
+    }
+    function reviews()
+    {
+        return $this->hasMany(Review::class);
     }
 }
