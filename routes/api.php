@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\Auth\ForgotPasswordController;
 use App\Http\Controllers\API\Auth\SocialLoginController;
+use App\Http\Controllers\API\UserSettingController;
 use App\Http\Controllers\UserCardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +40,8 @@ Route::group(['middleware' => CatchErrorsMiddleware::class], function () {
     Route::post('/cards/create', [UserCardController::class, 'create'])->middleware('auth:sanctum');
     Route::delete('/cards/{userCard}', [UserCardController::class, 'destroy'])->middleware('auth:sanctum');
 
+    Route::get('/user-settings', [UserSettingController::class, 'index'])->middleware('auth:sanctum');
+    Route::post('/user-settings', [UserSettingController::class, 'edit'])->middleware('auth:sanctum');
 });
 
 Route::apiResource('product', ProductController::class);
