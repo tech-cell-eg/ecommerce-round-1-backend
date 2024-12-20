@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OurNewsController;
+// use App\Http\Controllers\API\Auth\ForgotPasswordController;
+use App\Http\Controllers\API\Auth\SocialLoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
@@ -16,6 +18,12 @@ use App\Http\Controllers\API\Auth\ResetPasswordController;
 use App\Http\Controllers\API\Auth\ForgotPasswordController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\API\Auth\SocialLoginController;
+use App\Models\Favorite;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\InstagramStoriesController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\OurNewsController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -36,8 +44,8 @@ Route::group(['middleware' => CatchErrorsMiddleware::class], function () {
 Route::apiResource('product', ProductController::class);
 Route::get('products/search', [ProductController::class, 'search']);
 
-Route::post('favorites', [FavoriteController::class, 'store'])->middleware(['auth:sanctum']); // Add favorite
 Route::get('favorites', [FavoriteController::class, 'index'])->middleware(['auth:sanctum']);; // List favorites
+Route::post('favorites', [FavoriteController::class, 'store'])->middleware(['auth:sanctum']);;// Add favorite
 Route::delete('favorites/{product_id}', [FavoriteController::class, 'destroy'])->middleware(['auth:sanctum']); // Remove favorite
 
 
@@ -50,9 +58,14 @@ Route::apiResource('/setting', SettingController::class);
 
 Route::apiResource('/contact', ContactController::class);
 
-// Route::group(['middleware'=> 'auth:sanctum'],function(){
-//     Route::apiResource('/testimonial', TestimonialController::class);
-// });
+
+Route::group(['middleware'=> 'auth:sanctum'],function(){
+    Route::apiResource('/testimonial', TestimonialController::class);
+});
 
 
+Route::apiResource("reviews", ReviewController::class);
+Route::get("instagram-stories", [InstagramStoriesController::class, "index"]);
+Route::apiResource("cart", CartController::class);
 
+Route::get("notifications", [NotificationController::class, "index"]);
