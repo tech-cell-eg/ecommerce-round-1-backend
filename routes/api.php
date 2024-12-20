@@ -60,3 +60,5 @@ Route::get("instagram-stories", [InstagramStoriesController::class, "index"]);
 Route::apiResource("cart", CartController::class);
 
 Route::get("notifications", [NotificationController::class, "index"]);
+Route::get("notifications/{id}", [NotificationController::class, "show"]);
+Route::delete("notifications/{id}", [NotificationController::class, "destroy"]);
