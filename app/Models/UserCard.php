@@ -14,4 +14,28 @@ class UserCard extends Model
         "card_cvv"
     ];
 
+    public function setCardNumberAttribute($value)
+    {
+        $this->attributes['card_number'] = encrypt($value);
+    }
+
+    public function setCardCvvAttribute($value)
+    {
+        $this->attributes['card_cvv'] = encrypt($value);
+    }
+
+    public function getCardNumberAttribute($value)
+    {
+        return decrypt($value);
+    }
+
+    public function getCardCvvAttribute($value)
+    {
+        return decrypt($value);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

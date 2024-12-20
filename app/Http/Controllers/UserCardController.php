@@ -12,33 +12,20 @@ class UserCardController extends Controller
 
     public function index()
     {
-        $user_id = auth()->user()->id;
-        $cards = UserCard::where('user_id', $user_id)->latest()->get();
-        foreach ($cards as $card) {
-            $card->card_number = decrypt($card->card_number);
-            $card->card_cvv = decrypt($card->card_cvv);
-        }
-        return $this->success(200, 'Cards retrieved successfully', $cards);
+        $user = auth()->user();
+        return $this->success(200, 'Cards retrieved successfully', $user->cards);
     }
 
-    public function create(UserCardRequest $userCard)
+    public function store(UserCardRequest $userCard)
     {
         $validatedData = $userCard->validated();
-        $user_id = auth()->user()->id;
-        $decryptedCards = UserCard::where('user_id', $user_id)->latest()->get();
-        foreach ($decryptedCards as $card) {
-            $decryptedCardNumber = decrypt($card->card_number);
-            if ($decryptedCardNumber === $validatedData['card_number']) {
+        $user = auth()->user();
+        foreach ($user->cards as $card) {
+            if ($card->card_number === $validatedData['card_number']) {
                 return $this->failed(422, 'Card number already exists.');
             }
         }
-        $card = UserCard::create([
-            'user_id' => $user_id,
-            'card_name' => $validatedData['card_name'],
-            'card_number' => encrypt($validatedData['card_number']),
-            'card_expiry_date' => $validatedData['card_expiry_date'],
-            'card_cvv' => encrypt($validatedData['card_cvv']),
-        ]);
+        $card = $user->cards()->create($validatedData);
         return $this->success(200, 'Card created successfully', $card);
     }
 
