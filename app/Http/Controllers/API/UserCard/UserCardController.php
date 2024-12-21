@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\UserCard;
 
-use App\Http\Requests\UserCardRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\API\UserCard\UserCardRequest;
 use App\Models\UserCard;
 use App\Traits\ApiResponse;
 

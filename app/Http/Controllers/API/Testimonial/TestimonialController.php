@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
-use App\Http\Requests\Testimonial\TestimonialStoreRequest;
-use App\Http\Requests\Testimonial\TestimonialUpdateRequest;
+namespace App\Http\Controllers\API\Testimonial;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\API\Testimonial\TestimonialStoreRequest;
+use App\Http\Requests\API\Testimonial\TestimonialUpdateRequest;
 use App\Models\Testimonial;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+
 class TestimonialController extends Controller
 {
     public function index()

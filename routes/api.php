@@ -1,25 +1,24 @@
 <?php
 
 use App\Http\Controllers\API\Auth\ForgotPasswordController;
-use App\Http\Controllers\API\Auth\SocialLoginController;
-use App\Http\Controllers\API\UserSettingController;
-use App\Http\Controllers\UserCardController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\FavoriteController;
-use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\API\Auth\LoginController;
-use App\Http\Middleware\API\CatchErrorsMiddleware;
 use App\Http\Controllers\API\Auth\LogoutController;
-use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\API\Auth\RegisterController;
 use App\Http\Controllers\API\Auth\ResetPasswordController;
-use App\Models\Favorite;
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\InstagramStoriesController;
-use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\OurNewsController;
+use App\Http\Controllers\API\Auth\SocialLoginController;
+use App\Http\Controllers\API\Cart\CartController;
+use App\Http\Controllers\API\Category\CategoryController;
+use App\Http\Controllers\API\Favorite\FavoriteController;
+use App\Http\Controllers\API\InstagramStory\InstagramStoriesController;
+use App\Http\Controllers\API\OurNews\OurNewsController;
+use App\Http\Controllers\API\Product\ProductController;
+use App\Http\Controllers\API\Review\ReviewController;
+use App\Http\Controllers\API\Testimonial\TestimonialController;
+use App\Http\Controllers\API\UserCard\UserCardController;
+use App\Http\Controllers\API\UserSetting\UserSettingController;
+use App\Http\Middleware\API\CatchErrorsMiddleware;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/user', function (Request $request) {
     return $request->user();

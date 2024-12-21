@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\UserSetting;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\API\UserSettingRequest;
+use App\Http\Requests\API\UserSetting\UserSettingRequest;
 use App\Models\UserSetting;
 use App\Traits\ApiResponse;
 
