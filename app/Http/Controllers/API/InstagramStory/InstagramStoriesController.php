@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\InstagramStory;
 
+use App\Http\Controllers\Controller;
 use App\Models\InstagramStories;
 use App\Traits\ApiResponse;
-use Illuminate\Http\Request;
 
 class InstagramStoriesController extends Controller
 {
