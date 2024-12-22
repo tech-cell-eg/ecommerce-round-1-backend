@@ -23,7 +23,7 @@ class CategoryController extends Controller
         Category::create([
             "name" => $request->name
         ]);
-        return $this->success(200, "categoery created successfully!");
+        return $this->success(200, "category created successfully!");
     }
 
 
@@ -44,12 +44,12 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, Category $category)
     {
         $category->update($request->validated());
-        return $this->success(200, "categoery updated successfully!");
+        return $this->success(200, "category updated successfully!");
     }
 
     public function destroy(Category $category)
     {
         $category->delete();
-        return $this->success(200, "categoery deleted successfully!");
+        return $this->success(200, "category deleted successfully!");
     }
 }

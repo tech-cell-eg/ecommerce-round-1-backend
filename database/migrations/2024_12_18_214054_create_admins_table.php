@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name'); // You can customize fields as needed
             $table->string('email')->unique();
             $table->string('password');
+            $table->timestamp('email_verified_at')->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
     }

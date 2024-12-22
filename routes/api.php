@@ -49,6 +49,6 @@ Route::post('/our-news', OurNewsController::class);
 
 Route::apiResource("reviews", ReviewController::class);
 Route::get("instagram-stories", [InstagramStoriesController::class, "index"]);
-Route::apiResource("cart", CartController::class);
+Route::apiResource("cart", CartController::class)->middleware('auth:sanctum');
 
 Route::get("notifications", [NotificationController::class, "index"]);

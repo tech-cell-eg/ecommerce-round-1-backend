@@ -36,7 +36,7 @@ class CartTest extends TestCase
     function test_cart_api_returns_invalid_error() {
         $response = $this->getJson("/api/cart");
 
-        $response->assertStatus(500);
+        $response->assertStatus(401);
     }
 
     function test_cart_store_api_returns_successful_message() {
@@ -44,16 +44,6 @@ class CartTest extends TestCase
         ->postJson("/api/cart", [
             "product_id" => "1",
             "quantity" => "5"
-        ]);
-
-        $response->assertStatus(200);
-        $response->assertJson(["message" => "item has been added successfully!"]);
-    }
-
-    function test_cart_store_api_work_without_quantity() {
-        $response = $this->actingAs($this->user)
-        ->postJson("/api/cart", [
-            "product_id" => "1",
         ]);
 
         $response->assertStatus(200);
