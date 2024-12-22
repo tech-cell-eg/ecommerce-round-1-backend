@@ -17,8 +17,8 @@ class UserNotification extends Notification
     {
         return [
             "state" => $this->data["state"],
-            "message" => $this->data["msg"],
-            "icon_link" => $this->data["icon"],
+            "message" => $this->data["message"],
+            "icon_link" => $this->data["icon_link"],
             "created_at" => now()
         ];
     }
