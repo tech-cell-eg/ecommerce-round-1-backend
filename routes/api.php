@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\Address\UserAddressController;
 use App\Http\Controllers\API\Auth\SocialLoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,8 @@ Route::group(['middleware' => CatchErrorsMiddleware::class], function () {
     Route::post('/logout', LogoutController::class)->middleware('auth:sanctum');
     Route::post('/forgot-password', App\Http\Controllers\API\Auth\ForgotPasswordController::class)->middleware('throttle:5,1');
     Route::post('/reset-password', ResetPasswordController::class)->middleware('throttle:5,1');
+
+    Route::apiResource('addresses', UserAddressController::class)->middleware('auth:sanctum');
 });
 
 Route::apiResource('product', ProductController::class);
