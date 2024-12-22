@@ -20,8 +20,8 @@ class CartFactory extends Factory
     public function definition(): array
     {
         return [
-            "user_id" => User::inRandomOrder()->first()->id,
-            "product_id" => Product::inRandomOrder()->first()->id,
+            "user_id" => User::factory()->create()->id,
+            "product_id" => Product::factory()->create()->id,
             "quantity" => fake()->randomDigit()
         ];
     }
