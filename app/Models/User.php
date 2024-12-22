@@ -17,7 +17,6 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasRoles;
 
-    /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, HasApiTokens;
 
     /**
@@ -58,10 +57,13 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
         ];
     }
-
     public function addresses(): HasMany
     {
         return $this->hasMany(UserAddress::class);
+    }
+    public function cards()
+    {
+        return $this->hasMany(UserCard::class);
     }
 
     public function testimonials()
