@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\API\Address\UserAddressController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OurNewsController;
-// use App\Http\Controllers\API\Auth\ForgotPasswordController;
 use App\Http\Controllers\API\Auth\SocialLoginController;
 use App\Http\Controllers\UserCardController;
 use Illuminate\Http\Request;
@@ -42,10 +42,10 @@ Route::group(['middleware' => CatchErrorsMiddleware::class], function () {
     Route::post('/forgot-password', App\Http\Controllers\API\Auth\ForgotPasswordController::class)->middleware('throttle:5,1');
     Route::post('/reset-password', ResetPasswordController::class)->middleware('throttle:5,1');
 
+    Route::apiResource('addresses', UserAddressController::class)->middleware('auth:sanctum');
     Route::get('/cards', [UserCardController::class, 'index'])->middleware('auth:sanctum');
     Route::post('/cards/store', [UserCardController::class, 'store'])->middleware('auth:sanctum');
     Route::delete('/cards/{userCard}', [UserCardController::class, 'destroy'])->middleware('auth:sanctum');
-
 });
 
 Route::apiResource('product', ProductController::class);
