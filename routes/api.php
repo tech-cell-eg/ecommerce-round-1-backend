@@ -18,14 +18,12 @@ use App\Http\Controllers\API\Auth\RegisterController;
 use App\Http\Controllers\API\Auth\ResetPasswordController;
 use App\Http\Controllers\API\Auth\ForgotPasswordController;
 use App\Http\Controllers\SettingController;
-use App\Http\Controllers\API\Auth\SocialLoginController;
 use App\Models\Favorite;
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\InstagramStoriesController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\OurNewsController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
