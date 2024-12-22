@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\Auth\SocialLoginController;
+use App\Http\Controllers\UserCardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
@@ -32,6 +33,11 @@ Route::group(['middleware' => CatchErrorsMiddleware::class], function () {
     Route::post('/logout', LogoutController::class)->middleware('auth:sanctum');
     Route::post('/forgot-password', App\Http\Controllers\API\Auth\ForgotPasswordController::class)->middleware('throttle:5,1');
     Route::post('/reset-password', ResetPasswordController::class)->middleware('throttle:5,1');
+
+    Route::get('/cards', [UserCardController::class, 'index'])->middleware('auth:sanctum');
+    Route::post('/cards/store', [UserCardController::class, 'store'])->middleware('auth:sanctum');
+    Route::delete('/cards/{userCard}', [UserCardController::class, 'destroy'])->middleware('auth:sanctum');
+
 });
 
 Route::apiResource('product', ProductController::class);
