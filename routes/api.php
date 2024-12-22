@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\OurNewsController;
+// use App\Http\Controllers\API\Auth\ForgotPasswordController;
 use App\Http\Controllers\API\Auth\SocialLoginController;
 use App\Http\Controllers\UserCardController;
 use Illuminate\Http\Request;
@@ -13,6 +16,11 @@ use App\Http\Controllers\API\Auth\LogoutController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\API\Auth\RegisterController;
 use App\Http\Controllers\API\Auth\ResetPasswordController;
+use App\Http\Controllers\API\Auth\ForgotPasswordController;
+use App\Http\Controllers\SettingController;
+use App\Http\Controllers\API\Auth\SocialLoginController;
+use App\Models\Favorite;
+
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\InstagramStoriesController;
 use App\Http\Controllers\NotificationController;
@@ -52,6 +60,15 @@ Route::apiResource("categories", CategoryController::class);
 
 Route::apiResource('/testimonial', TestimonialController::class);
 Route::post('/our-news', OurNewsController::class);
+
+Route::apiResource('/setting', SettingController::class);
+
+Route::apiResource('/contact', ContactController::class);
+
+
+Route::group(['middleware'=> 'auth:sanctum'],function(){
+    Route::apiResource('/testimonial', TestimonialController::class);
+});
 
 Route::apiResource("reviews", ReviewController::class);
 Route::get("instagram-stories", [InstagramStoriesController::class, "index"]);
