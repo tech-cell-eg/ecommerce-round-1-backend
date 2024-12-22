@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\Cart;
 
-use App\Http\Requests\CartRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\API\Cart\CartRequest;
 use App\Models\Cart;
 use App\Notifications\CartNotification;
 use App\Traits\ApiResponse;

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\OurNews;
 
-use Illuminate\Http\Request;
-use App\Http\Requests\OurNewsRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\API\OurNews\OurNewsRequest;
 use App\Models\OurNews;
-use App\Models\User;
+
 class OurNewsController extends Controller
 {
     public function __invoke(OurNewsRequest $request)

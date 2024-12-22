@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\Review;
 
-use App\Http\Requests\ReviewRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\API\Review\ReviewRequest;
 use App\Models\Review;
 use App\Notifications\ReviewNotification;
 use App\Traits\ApiResponse;
-use Illuminate\Http\Request;
 
 class ReviewController extends Controller
 {
