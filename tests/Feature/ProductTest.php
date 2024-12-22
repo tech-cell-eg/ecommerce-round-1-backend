@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Models\Category;
 use App\Models\Product;
+use Database\Factories\CategoryFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
@@ -11,10 +13,12 @@ use Tests\TestCase;
 
 class ProductTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_Product_index(): void
     {
 
-        $products = Product::factory()->count(3)->create();
+        $products = Product::factory()->create();
 
         $response = $this->getJson('/api/product');
 
@@ -25,53 +29,46 @@ class ProductTest extends TestCase
 
     public function test_Product_create(): void
     {
+        Storage::fake('public');
 
+        // Create a fake image file
+        $imageFile = UploadedFile::fake()->image('image.jpg');
 
-        // $this->assertDatabaseHas('products', $product);
-
-        // // Check the API response to ensure it has the correct structure.
-        // $response->assertJson(['data' => $product]);
-        // Set up a fake filesystem
-    Storage::fake('public');
-
-    // Create a fake image file
-    $imageFile = UploadedFile::fake()->image('image.jpg');
-
-    // Prepare the data including the fake image
-    $data = [
-        'name' => 'New Product',
-        'description' => 'Product description',
-        'price' => 99.99,
-        'image' => $imageFile, 
-        'compare_price' => null,
-        'rating' => 0, 
-        'featured' => 0, 
-        'category_id' => 1,
-    ];
-
-    // Post request to store the product
-    $response = $this->postJson('/api/product', $data);
-
-    // Assert response status and content
-    $response->assertStatus(201)
-        ->assertJsonFragment([
+        // Prepare the data including the fake image
+        $data = [
             'name' => 'New Product',
+            'description' => 'Product description',
+            'price' => 99.99,
+            'image' => $imageFile,
+            'compare_price' => null,
+            'rating' => 0,
+            'featured' => 0,
+            'category_id' => Category::factory()->create()->id,
+        ];
+
+        // Post request to store the product
+        $response = $this->postJson('/api/product', $data);
+
+        // Assert response status and content
+        $response->assertStatus(201)
+            ->assertJsonFragment([
+                'name' => 'New Product',
+            ]);
+
+        // Assert that the product has been created in the database
+        $this->assertDatabaseHas('products', [
+            'name' => 'New Product',
+            'description' => 'Product description',
+            'price' => 99.99,
+            'image' => 'uploads/' . $imageFile->hashName(),
+            'compare_price' => null,
+            'rating' => 0,
+            'featured' => 0,
+            'category_id' => 1,
         ]);
 
-    // Assert that the product has been created in the database
-    $this->assertDatabaseHas('products', [
-        'name' => 'New Product',
-        'description' => 'Product description',
-        'price' => 99.99,
-        'image' => 'uploads/' . $imageFile->hashName(),
-        'compare_price' => null,
-        'rating' => 0, 
-        'featured' => 0, 
-        'category_id' => 1, 
-    ]);
-
-    // Assert that the uploaded file is stored correctly
-    Storage::disk('public')->assertExists('uploads/' . $imageFile->hashName());
+        // Assert that the uploaded file is stored correctly
+        Storage::disk('public')->assertExists('uploads/' . $imageFile->hashName());
 
     }
 
@@ -83,7 +80,7 @@ class ProductTest extends TestCase
 
         // Assert validation error response
         $response->assertStatus(422) // Unprocessable Entity
-            ->assertJsonValidationErrors(['name', 'price']);
+        ->assertJsonValidationErrors(['name', 'price']);
     }
 
     public function test_Product_Show(): void
@@ -111,8 +108,6 @@ class ProductTest extends TestCase
                 ],
             ]);
     }
-
-
 
 
     public function test_Product_Search()

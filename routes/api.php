@@ -72,7 +72,7 @@ Route::group(['middleware'=> 'auth:sanctum'],function(){
 
 Route::apiResource("reviews", ReviewController::class);
 Route::get("instagram-stories", [InstagramStoriesController::class, "index"]);
-Route::apiResource("cart", CartController::class);
+Route::apiResource("cart", CartController::class)->middleware('auth:sanctum');
 
 Route::get("notifications", [NotificationController::class, "index"]);
 Route::get("notifications/{id}", [NotificationController::class, "show"]);

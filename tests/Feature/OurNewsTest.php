@@ -10,8 +10,7 @@ class OurNewsTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function user_can_subscribe_to_our_news_returns_success()
+    public function user_can_subscribe_to_our_news_returns_success(): void
     {
         $user = User::create([
             'first_name' => 'tester',

@@ -13,6 +13,7 @@ use Tests\TestCase;
 
 class FavoritesTest extends TestCase
 {
+    use RefreshDatabase;
     public function test_index_retrieves_favorites()
     {
         // Create a user
@@ -27,7 +28,7 @@ class FavoritesTest extends TestCase
         Favorite::create(['user_id' => $user->id, 'product_id' => $product2->id]);
 
         // Act as the user
-        $this->actingAs($user, 'sanctum');
+        $this->actingAs($user);
 
         // Call the index method
         $response = $this->getJson('api/favorites');

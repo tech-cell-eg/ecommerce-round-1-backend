@@ -22,6 +22,7 @@ class CartController extends Controller
 
     public function store(CartRequest $request)
     {
+
         $cart = Cart::updateOrCreate(
             ['product_id' => $request->product_id, 'user_id' => Auth::user()->id],
             ['quantity' => $request->quantity]    // Data to update or insert
