@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\Testimonial;
 use App\Models\User;
 use App\Models\Testimonial;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\TestimonialResource;
 use App\Http\Requests\API\Testimonial\TestimonialStoreRequest;
 use App\Http\Requests\API\Testimonial\TestimonialUpdateRequest;
 
@@ -11,7 +12,8 @@ class TestimonialController extends Controller
 {
     public function index()
     {
-        return response()->json(Testimonial::with('user')->get());
+        $testimonials = Testimonial::with('user')->get(); 
+        return response()->json(['data' => TestimonialResource::collection($testimonials)]);
     }
 
     public function store(TestimonialStoreRequest $request)
