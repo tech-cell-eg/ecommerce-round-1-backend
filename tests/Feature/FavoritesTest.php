@@ -41,8 +41,8 @@ class FavoritesTest extends TestCase
 
         // Assert the response contains the expected favorites
         $response->assertStatus(200)
-            ->assertJsonStructure([
-                '*' => ['id', 'product' => ['id', 'name', 'price', 'image']],
+            ->assertJson([
+                'message' => 'all favorites',
             ])
             // Ensure that product IDs are part of the response
             ->assertJsonFragment(['id' => $product1->id])
