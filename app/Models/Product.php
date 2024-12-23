@@ -56,4 +56,8 @@ class Product extends Model
     {
         return $this->belongsToMany(Order::class)->withPivot('price', 'quantity', 'size')->withTimestamps();
     }
+    public function wishlistedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'wishes_list','product_id', 'user_id');
+    }
 }

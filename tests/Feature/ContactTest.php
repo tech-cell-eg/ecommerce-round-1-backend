@@ -49,14 +49,16 @@ class ContactTest extends TestCase
             'text' => "Some issues"
         ];
 
-        $this->actingAs($user)->postJson('/api/contact', $contact);
+            
+        $response = $this->actingAs($user)->postJson('/api/contact', $contact);
+        $contactId = $response->json('id');
+        
         $updatedContact = [
             'text' => 'I have a new problem :)'
         ];
 
-        $response = $this->actingAs($user)->putJson('/api/contact/1', $updatedContact);
-
-        $response->assertStatus(200);
+        $response = $this->actingAs($user)->putJson("/api/contact/{$contactId}", $updatedContact);
+            $response->assertStatus(200);
     }
 
     public function show_contact()
@@ -76,10 +78,13 @@ class ContactTest extends TestCase
             'text' => "Some issues"
         ];
 
-        $this->actingAs($user)->postJson('/api/contact', $contact);
+            
+        $response = $this->actingAs($user)->postJson('/api/contact', $contact);
 
-        $response = $this->actingAs($user)->getJson('/api/contact/1');
+        $contactId = $response->json('data.id');
 
+        $response = $this->actingAs($user)->getJson("/api/contact/{$contactId}");
+    
         $response->assertStatus(200);
     }
 
@@ -100,10 +105,13 @@ class ContactTest extends TestCase
             'text' => "Some issues"
         ];
 
-        $this->actingAs($user)->postJson('/api/contact', $contact);
+            
+        $response = $this->actingAs($user)->postJson('/api/contact', $contact);
 
-        $response = $this->actingAs($user)->deleteJson('/api/contact/1');
+        $contactId = $response->json('id');
 
+        $response = $this->actingAs($user)->deleteJson("/api/contact/{$contactId}");
+    
         $response->assertStatus(200);
     }
 

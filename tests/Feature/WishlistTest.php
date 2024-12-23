@@ -1,18 +1,19 @@
 <?php
 
-use App\Models\Testimonial;
+namespace Tests\Feature;
+
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 use App\Models\Product;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-// use Faker\Factory as Faker;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
-class TestimonialTest extends TestCase
+class WishlistTest extends TestCase
 {
     use RefreshDatabase;
-
-    public function user_can_store_new_testimonial()
+    /** @test */
+    public function user_can_add_wishlist_product()
     {
         $user = User::create([
             'first_name' => 'tester',
@@ -33,23 +34,13 @@ class TestimonialTest extends TestCase
             
         ]);
 
-        $testimonial = [
-            'product_id' => $product->id,
-            // 'user_id' => $user->id,
-            'text' => 'testimonial',
-        ];
+        $response = $this->actingAs($user)->postJson('/api/wish-list', ['product_id' => $product->id]);
 
-        $response = $this->actingAs($user)->postJson('/api/testimonial', $testimonial);
         $response->assertStatus(201);
     }
 
-    public function user_can_show_all_testimonials()
-    {
-        $response = $this->getJson('/api/testimonial');
-        $response->assertStatus(200);
-    }
-
-    public function user_can_update_testimonial()
+    /** @test */
+    public function user_can_show_all_wishlist_products()
     {
         $user = User::create([
             'first_name' => 'tester',
@@ -70,25 +61,17 @@ class TestimonialTest extends TestCase
             
         ]);
 
-        $testimonial = [
-            'product_id' => $product->id,
-            'text' => 'testimonial',
-        ];
+        $response = $this->actingAs($user)->postJson('/api/wish-list', ['product_id' => $product->id]);
 
-        $response = $this->actingAs($user)->postJson('/api/testimonial', $testimonial);
+        $wishlistId = $response->json('id');
 
-        $testimonialId = $response->json('data.id');
+        $response = $this->actingAs($user)->getJson("/api/wish-list/{$wishlistId}");
 
-        $updatedDate = [
-            'product_id' => $product->id,
-            'text' => 'updated testimonial text'
-        ];
-
-        $response = $this->actingAs($user)->putJson("/api/testimonial/{$testimonialId}", $updatedDate);
         $response->assertStatus(200);
     }
 
-    public function user_can_delete_testimonial()
+    /** @test */
+    public function user_can_remove_wishlist_product()
     {
         $user = User::create([
             'first_name' => 'tester',
@@ -109,19 +92,16 @@ class TestimonialTest extends TestCase
             
         ]);
 
-        $testimonial = [
-            'product_id' => $product->id,
-            'text' => 'testimonial',
-        ];
+        $response = $this->actingAs($user)->postJson('/api/wish-list', ['product_id' => $product->id]);
 
-        $response = $this->actingAs($user)->postJson('/api/testimonial', $testimonial);
+        $wishlistId = $response->json('id');
 
-        $testimonialId = $response->json('data.id');
+        $response = $this->actingAs($user)->deleteJson("/api/wish-list/{$product->id}");
 
-        $response = $this->actingAs($user)->deleteJson("/api/testimonial/{$testimonialId}");
         $response->assertStatus(200);
     }
 
+    
+
+    
 }
-
-
