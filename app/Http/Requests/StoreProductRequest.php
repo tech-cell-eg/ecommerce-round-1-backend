@@ -28,9 +28,10 @@ class StoreProductRequest extends FormRequest
             'compare_price' => 'nullable|numeric|min:0',
             'rating' => 'nullable|integer|min:0|max:5',
             'featured' => 'nullable|boolean',
-            'image' => 'nullable|string',
-            // 'image' => 'required|image|mimes:jpeg,png,jpg,gif',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
             'category_id' => 'required|exists:categories,id',
+            'size' => 'nullable|string|in:S,M,L,XL', 
+            'color' => 'nullable|string|size:7',
         ];
     }
 }

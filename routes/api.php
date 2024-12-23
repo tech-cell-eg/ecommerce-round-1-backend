@@ -13,7 +13,6 @@ use App\Http\Controllers\API\Auth\LogoutController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\API\Auth\RegisterController;
 use App\Http\Controllers\API\Auth\ResetPasswordController;
-use App\Http\Controllers\API\Auth\ForgotPasswordController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\InstagramStoriesController;
 use App\Http\Controllers\OurNewsController;
