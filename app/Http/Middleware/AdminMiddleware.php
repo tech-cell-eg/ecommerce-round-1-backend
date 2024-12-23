@@ -15,6 +15,12 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            return $next($request);
+        }
+
+        return response()->json([
+            'message' => 'Unauthorized access, you must be an admin.'
+        ], 403);
     }
 }

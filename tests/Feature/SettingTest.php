@@ -30,7 +30,7 @@ class SettingTest extends TestCase
             'value' => 'value1'
         ]);
         
-        $response = $this->getJson('/api/setting/{$setting->key}');
+        $response = $this->getJson("/api/setting/{$setting->key}");
 
         $response->assertStatus(200);
     }
