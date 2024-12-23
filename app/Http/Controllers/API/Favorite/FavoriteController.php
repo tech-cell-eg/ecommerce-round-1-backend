@@ -31,7 +31,7 @@ class FavoriteController extends Controller
         optional($user)->favorites()->syncWithoutDetaching([$request->product_id]);
         $product_name = Product::find($request->product_id)->name;
         // $favorite->notify(new FavoriteNotification($product_name . " has been added to favorites"));
-        return response()->json(['message' => 'Product added to favorites'], 201);
+        return response()->json(['message' => 'Product added to favorites'], 200);
     }
 
 

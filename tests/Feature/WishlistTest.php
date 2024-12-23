@@ -12,7 +12,6 @@ use Tests\TestCase;
 class WishlistTest extends TestCase
 {
     use RefreshDatabase;
-    /** @test */
     public function user_can_add_wishlist_product()
     {
         $user = User::create([
@@ -39,7 +38,6 @@ class WishlistTest extends TestCase
         $response->assertStatus(201);
     }
 
-    /** @test */
     public function user_can_show_all_wishlist_products()
     {
         $user = User::create([
@@ -70,7 +68,6 @@ class WishlistTest extends TestCase
         $response->assertStatus(200);
     }
 
-    /** @test */
     public function user_can_remove_wishlist_product()
     {
         $user = User::create([

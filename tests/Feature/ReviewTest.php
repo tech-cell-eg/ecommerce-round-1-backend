@@ -22,8 +22,9 @@ class ReviewTest extends TestCase
         TestCase::setUp();
         Model::unsetEventDispatcher();
     }
-    function createReview() {
-        User::factory()->create();
+
+    function createReview()
+    {
         Category::factory()->create();
         Product::factory()->create();
         return Review::factory()->create();
@@ -38,6 +39,7 @@ class ReviewTest extends TestCase
 
     public function test_api_reviews_returns_valid_data(): void
     {
+        $user = User::factory()->create();
         $review = $this->createReview();
 
         $response = $this->getJson("/api/reviews");
@@ -47,26 +49,29 @@ class ReviewTest extends TestCase
 
     public function test_api_reviews_store_successful(): void
     {
+        $user = User::factory()->create();
         $review = $this->createReview();
 
-        $response = $this->postJson("/api/reviews", $review->toArray());
+        $response = $this->actingAs($user)->postJson("/api/reviews", $review->toArray());
 
         $response->assertStatus(200);
         $response->assertJson(["message" => "review created successfully!"]);
     }
 
-    public function test_api_reviews_store_add_to_database(): void 
+    public function test_api_reviews_store_add_to_database(): void
     {
+        $user = User::factory()->create();
         $review = $this->createReview();
 
-        $this->postJson("/api/reviews", $review->toArray());
+        $this->actingAs($user)->postJson("/api/reviews", $review->toArray());
 
         $this->assertDatabaseHas("reviews", $review->toArray());
     }
 
     public function test_api_reviews_store_returns_invalid_error(): void
     {
-        $response = $this->postJson("/api/reviews", []);
+        $user = User::factory()->create();
+        $response = $this->actingAs($user)->postJson("/api/reviews", []);
 
         $response->assertStatus(422);
         $response->assertJsonCount(5, ["errors"]);
@@ -74,10 +79,12 @@ class ReviewTest extends TestCase
 
     public function test_api_reviews_update_successful(): void
     {
+        $user = User::factory()->create();
+
         $review = $this->createReview();
         $review->msg = "test 123";
 
-        $response = $this->putJson("/api/reviews/".$review->id, $review->toArray());
+        $response = $this->actingAs($user)->putJson("/api/reviews/" . $review->id, $review->toArray());
 
         $response->assertStatus(200);
         $response->assertJson(["message" => "review updated successfully!"]);
@@ -85,9 +92,11 @@ class ReviewTest extends TestCase
 
     public function test_api_reviews_update_returns_invalid_error(): void
     {
+        $user = User::factory()->create();
+
         $review = $this->createReview();
 
-        $response = $this->putJson("/api/reviews/". $review->id, []);
+        $response = $this->actingAs($user)->putJson("/api/reviews/" . $review->id, []);
 
         $response->assertStatus(422);
         $response->assertJsonCount(5, ["errors"]);
@@ -95,8 +104,9 @@ class ReviewTest extends TestCase
 
     public function test_api_delete_successful(): void
     {
+        $user = User::factory()->create();
         $review = $this->createReview();
-        $response = $this->deleteJson("/api/reviews/" . $review->id);
+        $response = $this->actingAs($user)->deleteJson("/api/reviews/" . $review->id);
 
         $response->assertStatus(200);
         $response->assertJson(["message" => "review deleted successfully!"]);
@@ -104,8 +114,9 @@ class ReviewTest extends TestCase
 
     public function test_api_delete_remove_from_database(): void
     {
+        $user = User::factory()->create();
         $review = $this->createReview();
-        $response = $this->deleteJson("/api/reviews/" . $review->id);
+        $response = $this->actingAs($user)->deleteJson("/api/reviews/" . $review->id);
 
         $response->assertStatus(200);
         $this->assertDatabaseMissing("reviews", $review->toArray());
@@ -113,9 +124,10 @@ class ReviewTest extends TestCase
 
     public function test_api_delete_returns_invalid_error(): void
     {
-        $response = $this->deleteJson("/api/reviews/" . 1);
+        $user = User::factory()->create();
+        $response = $this->actingAs($user)->deleteJson("/api/reviews/" . 1);
 
         $response->assertStatus(404);
     }
-    
+
 }

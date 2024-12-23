@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Category;
 use App\Models\SubCategory;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -15,8 +16,9 @@ class CategoryTest extends TestCase
 
     function test_api_returns_categories_list(): void
     {
+        $user = User::factory()->create();
         $category = Category::factory()->create();
-        $response = $this->getJson('/api/categories');
+        $response = $this->actingAs($user)->getJson('/api/categories');
         $response->assertStatus(200);
         $response->assertJson([
             "data" => [[
@@ -28,9 +30,9 @@ class CategoryTest extends TestCase
 
     function test_api_category_show_return_valid_data()
     {
+        $user = User::factory()->create();
         $category = Category::factory()->create();
-
-        $response = $this->getJson('/api/categories/' . $category->id);
+        $response = $this->actingAs($user)->getJson('/api/categories/' . $category->id);
         $response->assertStatus(200);
         $response->assertJson([
             "status" => 200,
@@ -40,11 +42,12 @@ class CategoryTest extends TestCase
 
     function test_api_category_show_contain_sub_categories()
     {
+        $user = User::factory()->create();
         $category = Category::factory()->create();
         SubCategory::create(["name" => "test", "category_id" => $category->id]);
         $category["sub-category"] = $category->sub->pluck("name")->toArray();
 
-        $response = $this->getJson("/api/categories/" . $category->id);
+        $response = $this->actingAs($user)->getJson("/api/categories/" . $category->id);
 
         $response->assertJson([
             "status" => 200,
@@ -59,7 +62,8 @@ class CategoryTest extends TestCase
 
     function test_api_category_store_successful()
     {
-        $response = $this->postJson("/api/categories", [
+        $user = User::factory()->create();
+        $response = $this->actingAs($user)->postJson("/api/categories", [
             "name" => "test"
         ]);
 
@@ -71,7 +75,8 @@ class CategoryTest extends TestCase
 
     function test_api_category_store_return_invalied_error()
     {
-        $response = $this->postJson("/api/categories", [
+        $user = User::factory()->create();
+        $response = $this->actingAs($user)->postJson("/api/categories", [
             "name" => ""
         ]);
 
@@ -83,9 +88,10 @@ class CategoryTest extends TestCase
 
     function test_api_category_update_successful()
     {
+        $user = User::factory()->create();
         $category = Category::factory()->create();
 
-        $response = $this->putJson("/api/categories/" . $category->id, [
+        $response = $this->actingAs($user)->putJson("/api/categories/" . $category->id, [
             "name" => "something else"
         ]);
 
@@ -97,9 +103,10 @@ class CategoryTest extends TestCase
 
     function test_api_category_update_return_invalied_error()
     {
+        $user = User::factory()->create();
         $category = Category::factory()->create();
 
-        $response = $this->putJson("/api/categories/" . $category->id, [
+        $response = $this->actingAs($user)->putJson("/api/categories/" . $category->id, [
             "name" => ""
         ]);
 
@@ -111,9 +118,10 @@ class CategoryTest extends TestCase
 
     function test_api_category_delete_successful()
     {
+        $user = User::factory()->create();
         $category = Category::factory()->create();
 
-        $response = $this->deleteJson("/api/categories/" . $category->id);
+        $response = $this->actingAs($user)->deleteJson("/api/categories/" . $category->id);
 
         $response->assertStatus(200);
         $response->assertJson([
@@ -123,7 +131,8 @@ class CategoryTest extends TestCase
 
     function test_api_category_delete_return_invalied_error()
     {
-        $response = $this->deleteJson("/api/categories/" . "5");
+        $user = User::factory()->create();
+        $response = $this->actingAs($user)->deleteJson("/api/categories/" . "5");
 
         $response->assertStatus(404);
         $response->assertJson([

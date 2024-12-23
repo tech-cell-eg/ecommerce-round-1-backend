@@ -17,7 +17,7 @@ class ProductController extends Controller implements HasMiddleware
     public static function middleware()
     {
         return [
-            new Middleware('auth', only: ['store']),
+            new Middleware('auth:sanctum', only: ['store']),
         ];
     }
 
