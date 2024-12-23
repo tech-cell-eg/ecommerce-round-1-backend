@@ -59,12 +59,12 @@ Route::post('favorites', [FavoriteController::class, 'store'])->middleware(['aut
 Route::delete('favorites/{product_id}', [FavoriteController::class, 'destroy'])->middleware(['auth:sanctum']); // Remove favorite
 
 
-Route::apiResource("categories", CategoryController::class);
+Route::apiResource("categories", CategoryController::class)->middleware(['auth:sanctum']);;
 
-Route::apiResource('/testimonial', TestimonialController::class);
-Route::post('/our-news', OurNewsController::class);
+Route::apiResource('/testimonial', TestimonialController::class)->middleware(['auth:sanctum']);;
+Route::post('/our-news', OurNewsController::class)->middleware(['auth:sanctum']);;
 
-Route::apiResource('/setting', SettingController::class);
+Route::apiResource('/setting', SettingController::class)->middleware(['auth:sanctum']);;
 
 Route::apiResource('/contact', ContactController::class);
 
@@ -77,6 +77,8 @@ Route::apiResource("reviews", ReviewController::class);
 Route::get("instagram-stories", [InstagramStoriesController::class, "index"]);
 Route::apiResource("cart", CartController::class)->middleware('auth:sanctum');
 
-Route::get("notifications", [NotificationController::class, "index"]);
-Route::get("notifications/{id}", [NotificationController::class, "show"]);
-Route::delete("notifications/{id}", [NotificationController::class, "destroy"]);
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::get("notifications", [NotificationController::class, "index"]);
+    Route::get("notifications/{id}", [NotificationController::class, "show"]);
+    Route::delete("notifications/{id}", [NotificationController::class, "destroy"]);
+});

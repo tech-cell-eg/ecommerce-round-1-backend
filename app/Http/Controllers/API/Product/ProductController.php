@@ -8,9 +8,19 @@ use App\Http\Requests\API\Product\StoreProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class ProductController extends Controller
+class ProductController extends Controller implements HasMiddleware
 {
+    
+    public static function middleware()
+    {
+        return [
+            new Middleware('auth', only: ['store']),
+        ];
+    }
+
     public function index(Request $request)
     {
         $query = Product::query();
@@ -64,6 +74,8 @@ class ProductController extends Controller
 
         return response()->json(ProductResource::collection($products));
     }
+
+
 
 
 }

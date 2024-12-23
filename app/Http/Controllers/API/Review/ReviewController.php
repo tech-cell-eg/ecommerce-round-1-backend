@@ -7,10 +7,19 @@ use App\Http\Requests\API\Review\ReviewRequest;
 use App\Models\Review;
 use App\Notifications\ReviewNotification;
 use App\Traits\ApiResponse;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class ReviewController extends Controller
+class ReviewController extends Controller implements HasMiddleware
 {
     use ApiResponse;
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth', except: ['index', "show"]),
+        ];
+    }
 
     function index() {
         $reviews = Review::all();
