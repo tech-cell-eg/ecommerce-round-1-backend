@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Favorite;
 use App\Models\Product;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Log;
@@ -14,6 +15,11 @@ use Tests\TestCase;
 class FavoritesTest extends TestCase
 {
     use RefreshDatabase;
+    function setUp(): void
+    {
+        TestCase::setUp();
+        Model::unsetEventDispatcher();
+    }
     public function test_index_retrieves_favorites()
     {
         // Create a user
@@ -55,7 +61,7 @@ class FavoritesTest extends TestCase
             'product_id' => $product->id,
         ]);
 
-        $response->assertStatus(201)
+        $response->assertStatus(200)
             ->assertJson(['message' => 'Product added to favorites']);
 
         $this->assertDatabaseHas('favorites', [

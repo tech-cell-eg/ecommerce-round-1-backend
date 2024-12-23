@@ -35,7 +35,7 @@ class ResetPasswordController extends Controller
             return $this->success(200, 'Password reset successfully with default token.');
         }
         $reset = PasswordResetToken::where('token', $request->token)->first();
-        if (!$reset || $reset->created_at < now()->subMinutes(30) || $request->token = 1234) {
+        if (!$reset || $reset->created_at < now()->subMinutes(30)) {
             return $this->failed(422, 'Invalid OTP, try again.');
         }
         $user = User::where('email', $reset->email)->first();

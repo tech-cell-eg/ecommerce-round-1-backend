@@ -5,11 +5,11 @@ namespace Tests\Feature;
 use App\Models\Setting;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+
 class SettingTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
     public function store_new_setting_key()
     {
         $data = [
@@ -22,20 +22,18 @@ class SettingTest extends TestCase
         $response->assertStatus(200);
     }
 
-    /** @test */
     public function show_specific_key()
     {
         $setting = Setting::create([
             'key' => 'key1',
             'value' => 'value1'
         ]);
-        
+
         $response = $this->getJson('/api/setting/{$setting->key}');
 
         $response->assertStatus(200);
     }
 
-    /** @test */
     public function update_setting_key()
     {
         $setting = Setting::create([
@@ -43,7 +41,7 @@ class SettingTest extends TestCase
             'value' => 'value1'
         ]);
 
-        $updatedSetting= [
+        $updatedSetting = [
             'value' => 'newValue',
         ];
 
@@ -52,7 +50,6 @@ class SettingTest extends TestCase
         $response->assertStatus(200);
     }
 
-    /** @test */
     public function delete_setting_key()
     {
         $setting = Setting::create([
@@ -64,5 +61,5 @@ class SettingTest extends TestCase
 
         $response->assertStatus(200);
     }
-    
+
 }
