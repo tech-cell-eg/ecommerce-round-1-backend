@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Review;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -16,6 +17,11 @@ class ReviewTest extends TestCase
 {
     use RefreshDatabase;
 
+    function setUp(): void
+    {
+        TestCase::setUp();
+        Model::unsetEventDispatcher();
+    }
     function createReview() {
         User::factory()->create();
         Category::factory()->create();
