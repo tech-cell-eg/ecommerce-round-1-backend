@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\API\Testimonial;
+
 use App\Models\User;
 use App\Models\Testimonial;
 use App\Http\Controllers\Controller;
@@ -12,33 +13,40 @@ class TestimonialController extends Controller
 {
     public function index()
     {
-        $testimonials = Testimonial::with('user')->get(); 
+        $testimonials = Testimonial::with('user')->get();
         return response()->json(['data' => TestimonialResource::collection($testimonials)]);
     }
 
     public function store(TestimonialStoreRequest $request)
-    {   
-        // $user = $request->user();
+    {
+        // Find the user (replace with dynamic user if needed)
         $user = User::find(1);
+
+        // Create the testimonial using validated data
         $testimonial = $user->testimonials()->create($request->validated());
 
+        // Handle image upload
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('testimonials/images', 'public');
-            $imagePath = asset('storage/' . $path);
-            $testimonial->image = $imagePath;
+            $testimonial->image = url('storage/' . $path); // Full URL
         }
-        if ($request->hasFile('video')) {
-            $path = $request->file('video')->store('testimonials/videos');
-            $videoPath = asset('storage/' . $path);
-            $testimonial->video = $videoPath;
-        }
-        
 
+        // Handle video upload
+        if ($request->hasFile('video')) {
+            $path = $request->file('video')->store('testimonials/videos', 'public');
+            $testimonial->video = url('storage/' . $path); // Full URL
+        }
+
+        // Save the updated testimonial
+        $testimonial->save();
+
+        // Return the response
         return response()->json([
             'message' => 'Testimonial created successfully.',
             'data'    => $testimonial,
         ], 201);
     }
+
 
     public function show(Testimonial $testimonial)
     {
@@ -58,7 +66,7 @@ class TestimonialController extends Controller
             $videoPath = asset('storage/' . $path);
             $testimonial->video = $videoPath;
         }
-        
+
         $testimonial->update($request->validated());
         $testimonial->save();
         return response()->json($testimonial, 200);
@@ -66,7 +74,7 @@ class TestimonialController extends Controller
 
     public function destroy(Testimonial $testimonial)
     {
-        if(!$testimonial->exists())
+        if (!$testimonial->exists())
             return response()->json(['message' => "Not Found"], 404);
 
         $testimonial->delete();
@@ -81,5 +89,4 @@ class TestimonialController extends Controller
             'User data' => $user
         ], 200);
     }
-
 }
