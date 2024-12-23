@@ -18,8 +18,8 @@ class TestimonialResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'image' => Storage::url($this->image),
-            'video' => Storage::url($this->video),
+            'image' => $this->image,
+            'video' => $this->video,
             'created_at' => Carbon::parse($this->created_at)->format('Y-m-d H:i:s'),
             'user' => $this->user,
             'text' => $this->text,
