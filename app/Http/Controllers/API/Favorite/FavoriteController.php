@@ -33,7 +33,6 @@ class FavoriteController extends Controller
         $user = Auth::user();
         $favorite = optional($user)->favorites()->syncWithoutDetaching([$request->product_id]);
         $product_name = Product::find($request->product_id)->name;
-        $favorite->notify(new FavoriteNotification($product_name . " has been added to favorites"));
         return response()->json(['message' => 'Product added to favorites'], 201);
     }
 
@@ -44,14 +43,9 @@ class FavoriteController extends Controller
 
         $user_id = Auth::id();
         // Detach the product from the user's favorites
-        $favorite = Favorite::where('user_id', $user_id)->where('product_id', $product_id);
         $deleted = Favorite::where('user_id', $user_id)
             ->where('product_id', $product_id)
             ->delete();
-
-        $product_name = Product::find($product_id)->name;
-        $favorite->notify(new FavoriteNotification($product_name . " has been removed from favorites"));
-
         if ($deleted) {
             return response()->json(['success' => 'Favorite product detached successfully.']);
         } else {

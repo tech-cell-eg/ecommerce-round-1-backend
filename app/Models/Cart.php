@@ -4,13 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 
 class Cart extends Model
 {
     /** @use HasFactory<\Database\Factories\CartFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory;
 
     protected $fillable = [
         "quantity",

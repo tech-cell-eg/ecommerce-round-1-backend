@@ -22,20 +22,17 @@ class ReviewController extends Controller
     }
 
     function store(ReviewRequest $request) {
-        $review = Review::create($request->validated());
-        $review->notify(new ReviewNotification("review has been created"));
+        Review::create($request->validated());
         return $this->success(200, "review created successfully!");
     }
 
     function update(ReviewRequest $request, Review $review) {
         $review->update($request->validated());
-        $review->notify(new ReviewNotification("review has been updated"));
         return $this->success(200, "review updated successfully!");
     }
 
     function destroy(Review $review) {
         $review->delete();
-        $review->notify(new ReviewNotification("review has been deleted"));
         return $this->success(200, "review deleted successfully!");
     }
 }
