@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Product extends Model
 {
@@ -15,6 +16,7 @@ class Product extends Model
     {
         return $this->hasMany(Testimonial::class);
     }
+
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -39,12 +41,19 @@ class Product extends Model
     {
         return $query->orderBy($sortBy, $sortDirection);
     }
+
     public function users()
     {
         return $this->belongsToMany(User::class, 'favorites')->withTimestamps();
     }
+
     function reviews()
     {
         return $this->hasMany(Review::class);
+    }
+
+    public function orders(): BelongsToMany
+    {
+        return $this->belongsToMany(Order::class)->withPivot('price', 'quantity', 'size')->withTimestamps();
     }
 }

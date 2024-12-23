@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\Address\UserAddressController;
+use App\Http\Controllers\API\Order\OrderController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\API\Auth\ForgotPasswordController;
 use App\Http\Controllers\API\Auth\LoginController;
@@ -46,6 +47,8 @@ Route::group(['middleware' => CatchErrorsMiddleware::class], function () {
     Route::post('/cards/store', [UserCardController::class, 'store'])->middleware('auth:sanctum');
     Route::delete('/cards/{userCard}', [UserCardController::class, 'destroy'])->middleware('auth:sanctum');
 
+    Route::apiResource('orders', OrderController::class)->middleware('auth:sanctum');
+
 
     Route::get('/user-settings', [UserSettingController::class, 'index'])->middleware('auth:sanctum');
     Route::post('/user-settings', [UserSettingController::class, 'update'])->middleware('auth:sanctum');
@@ -69,7 +72,7 @@ Route::apiResource('/setting', SettingController::class);
 Route::apiResource('/contact', ContactController::class);
 
 
-Route::group(['middleware'=> 'auth:sanctum'],function(){
+Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResource('/testimonial', TestimonialController::class);
 });
 
