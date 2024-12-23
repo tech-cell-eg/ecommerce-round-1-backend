@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\User;
 use Database\Factories\CategoryFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -17,7 +18,6 @@ class ProductTest extends TestCase
 
     public function test_Product_index(): void
     {
-
         $products = Product::factory()->create();
 
         $response = $this->getJson('/api/product');
@@ -29,6 +29,7 @@ class ProductTest extends TestCase
 
     public function test_Product_create(): void
     {
+        $user = User::factory()->create();
         Storage::fake('public');
 
         // Create a fake image file
@@ -47,7 +48,7 @@ class ProductTest extends TestCase
         ];
 
         // Post request to store the product
-        $response = $this->postJson('/api/product', $data);
+        $response = $this->actingAs($user)->postJson('/api/product', $data);
 
         // Assert response status and content
         $response->assertStatus(201)
@@ -75,8 +76,9 @@ class ProductTest extends TestCase
 
     public function test_Product_create_validation_fail()
     {
+        $user = User::factory()->create();
         // Send a request with missing required fields
-        $response = $this->postJson('/api/product', []);
+        $response = $this->actingAs($user)->postJson('/api/product', []);
 
         // Assert validation error response
         $response->assertStatus(422) // Unprocessable Entity
