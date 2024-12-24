@@ -29,7 +29,8 @@ class BlogStoreRequest extends FormRequest
             'tags' => 'nullable',
             'status' => 'required|string',
             'category' => 'required|string|exists:categories,name',
-            'is_featured' => 'required|boolean'
+            'is_featured' => 'required|boolean',
+            'author_id'=>'required|string|exists:users,id'
         ];
     }
 }
