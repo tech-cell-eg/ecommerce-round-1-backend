@@ -8,12 +8,15 @@ use App\Models\Favorite;
 use App\Models\Product;
 use App\Models\User;
 use App\Notifications\FavoriteNotification;
+use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 
 class FavoriteController extends Controller
 {
+    use ApiResponse;
+
     /**
      * Display a listing of the resource.
      */
@@ -22,7 +25,7 @@ class FavoriteController extends Controller
         $user_id = Auth::id();
         // Fetching all favorite products for the specified user
         $favorites = Favorite::where('user_id', $user_id)->with('product')->get();
-        return response()->json($favorites);
+        return $this->success(200, "all favorites", $favorites);
     }
 
     public function store(FavoriteRequest $request)
@@ -31,9 +34,9 @@ class FavoriteController extends Controller
         optional($user)->favorites()->syncWithoutDetaching([$request->product_id]);
         $product_name = Product::find($request->product_id)->name;
         // $favorite->notify(new FavoriteNotification($product_name . " has been added to favorites"));
-        return response()->json(['message' => 'Product added to favorites'], 200);
-    }
+        return $this->success(200, "Product added to favorites");
 
+    }
 
 
     public function destroy($product_id)
@@ -45,9 +48,10 @@ class FavoriteController extends Controller
             ->where('product_id', $product_id)
             ->delete();
         if ($deleted) {
-            return response()->json(['success' => 'Favorite product detached successfully.']);
+            return $this->success(200, "Favorite product detached successfully.");
+
         } else {
-            return response()->json(['error' => 'Product was not found in favorites.'], 404);
+            return $this->failed(404, "Product was not found in favorites.");
         }
     }
 }

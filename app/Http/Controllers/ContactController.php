@@ -1,15 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Requests\Contact\ContactUpdateRequest;
 use App\Http\Requests\Contact\ContactStoreRequest;
 use App\Models\Contact;
+use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 
 class ContactController extends Controller implements HasMiddleware
 {
+    use ApiResponse;
 
     public static function middleware(): array
     {
@@ -17,12 +20,13 @@ class ContactController extends Controller implements HasMiddleware
             new Middleware('auth', except: ['create']),
         ];
     }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return response()->json(Contact::all());
+        return $this->success(200, 'Contacts returned successfully.', Contact::all());
     }
 
     /**
@@ -39,7 +43,8 @@ class ContactController extends Controller implements HasMiddleware
     public function store(ContactStoreRequest $request)
     {
         $contact = Contact::create($request->validated());
-        return response()->json($contact);
+        return $this->success(200, 'Contact created successfully.', $contact);
+
     }
 
     /**
@@ -48,7 +53,8 @@ class ContactController extends Controller implements HasMiddleware
     public function show($id)
     {
         $contact = Contact::find($id);
-        return response()->json($contact);
+        return $this->success(200, 'Contact returned successfully.', $contact);
+
     }
 
     /**
@@ -65,7 +71,7 @@ class ContactController extends Controller implements HasMiddleware
     public function update(ContactUpdateRequest $request, Contact $contact)
     {
         $contact->update($request->validated());
-        return response()->json($contact);
+        return $this->success(200, 'Contact updated successfully.', $contact);
     }
 
     /**
@@ -74,6 +80,6 @@ class ContactController extends Controller implements HasMiddleware
     public function destroy(Contact $contact)
     {
         $contact->delete();
-        return response()->json(['message' => 'This message is deleted successfully.']);
+        return $this->success(200, 'This message is deleted successfully.');
     }
 }
