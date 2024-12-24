@@ -29,7 +29,7 @@ class UpdateUserAddress extends FormRequest
             'pin_code' => ['nullable','integer','digits:5'],
             'city' => ['nullable','string'],
             'state' => ['nullable','string'],
-            'default_address' => ['required','bool'],
+            'default_address' => ['nullable','bool'],
         ];
     }
 }
