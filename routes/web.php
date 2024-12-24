@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\CategoryController;
+use App\Http\Controllers\Dashboard\OrderController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\SubCategoryController;
 use App\Http\Controllers\ProfileController;
@@ -53,6 +54,10 @@ Route::middleware('auth:admin')->group(function () {
     Route::patch('/admin/subcategory/{category}', [SubCategoryController::class, 'update'])->name('subCategory.update');
     Route::delete('/admin/subcategory/{category}', [SubCategoryController::class, 'destroy'])->name('subCategory.destroy');
 });
+
+
+Route::resource('testimonials', OrderController::class)->middleware('auth:admin');
+Route::resource('orders', OrderController::class)->middleware('auth:admin');
 
 
 require __DIR__.'/auth.php';

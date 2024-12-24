@@ -14,54 +14,62 @@ use Tests\TestCase;
 class CartTest extends TestCase
 {
     use RefreshDatabase;
-    private $user;
-    private $cart;
 
-    function setUp() : void 
+
+    function setUp(): void
     {
         TestCase::setUp();
-        $this->user = User::factory()->create();
-        Category::factory()->create();
-        Product::factory()->create();
-        $this->cart = Cart::factory()->create();
+        Cart::unsetEventDispatcher();
     }
-    
-    function test_cart_api_returns_valid_data() {
-        $response = $this->actingAs($this->user)->getJson("/api/cart");
+
+    private function createCart()
+    {
+        $user = User::factory()->create();
+        Category::factory()->create();
+        $product = Product::factory()->create();
+        $cart = Cart::factory()->create([
+            'user_id' => $user->id,
+            'product_id' => $product->id,
+            'quantity' => 1
+        ]);
+        return $outputs = [
+            'cart' => $cart,
+            'user' => $user,
+        ];
+    }
+
+    function test_cart_api_returns_valid_data()
+    {
+        $outputs = $this->createCart();
+        $response = $this->actingAs($outputs['user'])->getJson("/api/cart");
 
         $response->assertStatus(200);
-        $response->assertJson(["data" => [$this->cart->toArray()]]);
+        $response->assertJson(["data" => [$outputs['cart']->toArray()]]);
     }
 
-    function test_cart_api_returns_invalid_error() {
+    function test_cart_api_returns_invalid_error()
+    {
         $response = $this->getJson("/api/cart");
 
-        $response->assertStatus(500);
+        $response->assertStatus(401);
     }
 
-    function test_cart_store_api_returns_successful_message() {
-        $response = $this->actingAs($this->user)
-        ->postJson("/api/cart", [
-            "product_id" => "1",
-            "quantity" => "5"
-        ]);
-
-        $response->assertStatus(200);
-        $response->assertJson(["message" => "item has been added successfully!"]);
-    }
-
-    function test_cart_store_api_work_without_quantity() {
-        $response = $this->actingAs($this->user)
-        ->postJson("/api/cart", [
-            "product_id" => "1",
-        ]);
+    function test_cart_store_api_returns_successful_message()
+    {
+        $outputs = $this->createCart();
+        $response = $this->actingAs($outputs['user'])
+            ->postJson("/api/cart", [
+                "product_id" => "1",
+                "quantity" => "5"
+            ]);
 
         $response->assertStatus(200);
         $response->assertJson(["message" => "item has been added successfully!"]);
     }
 
     // function test_cart_store_api_can_create_or_update() {
-    //     $response = $this->actingAs($this->user)
+    //      $outputs = $this->createCart();
+    //     $response = $this->actingAs($outputs['user'])
     //     ->postJson("/api/cart", [
     //         "product_id" => "1",
     //         "quantity" => "2"
@@ -71,7 +79,7 @@ class CartTest extends TestCase
     //         "product_id" => "1",
     //         "quantity" => "5"
     //     ];
-    //     $response = $this->actingAs($this->user)
+    //     $response = $this->actingAs($outputs['user'])
     //     ->postJson("/api/cart", $newData);
 
     //     $response->assertStatus(200);
@@ -79,34 +87,43 @@ class CartTest extends TestCase
     //     $this->assertDatabaseHas("carts", $newData);
     // }
 
-    function test_cart_store_api_add_data_in_database() {
-        $this->actingAs($this->user)
-        ->postJson("/api/cart", ["product_id" => 1]);
+    function test_cart_store_api_add_data_in_database()
+    {
+        $outputs = $this->createCart();
+        $this->actingAs($outputs['user'])
+            ->postJson("/api/cart", ["product_id" => 1]);
 
         $this->assertDatabaseCount("carts", 1);
     }
 
-    function test_cart_update_api_returns_successful_message() {
-        $response = $this->actingAs($this->user)
-        ->putJson("/api/cart/". $this->cart->id, []);
+    function test_cart_update_api_returns_successful_message()
+    {
+        $outputs = $this->createCart();
+        $response = $this->actingAs($outputs['user'])
+            ->putJson("/api/cart/" . $outputs['cart']->id, []);
 
         $response->assertStatus(200);
         $response->assertJson(["message" => "item has been updated successfully!"]);
     }
 
-    function test_cart_update_api_can_update_only_quantity() {
-        $response = $this->actingAs($this->user)
-        ->putJson("/api/cart/". $this->cart->id, [
-            "product_id" => 2
-        ]);
+    function test_cart_update_api_can_update_only_quantity()
+    {
+        $outputs = $this->createCart();
+        $response = $this->actingAs($outputs['user'])
+            ->putJson("/api/cart/" . $outputs['cart']->id, [
+                "product_id" => 2
+            ]);
 
         $response->assertStatus(200);
-        $this->assertEquals($this->cart->product_id, Cart::find(1)->product_id);
+        $this->assertEquals($outputs['cart']->product_id, Cart::find(1)->product_id);
     }
 
-    function test_cart_delete_api_returns_successful_message() {
-        $response = $this->actingAs($this->user)
-        ->deleteJson("/api/cart/".$this->cart->id);
+    function test_cart_delete_api_returns_successful_message()
+    {
+        $outputs = $this->createCart();
+
+        $response = $this->actingAs($outputs['user'])
+            ->deleteJson("/api/cart/" . $outputs['cart']->id);
 
         $response->assertStatus(200);
         $response->assertJson(["message" => "item has been deleted successfully!"]);

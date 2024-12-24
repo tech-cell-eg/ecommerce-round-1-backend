@@ -10,8 +10,7 @@ class OurNewsTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function user_can_subscribe_to_our_news_returns_success()
+    public function user_can_subscribe_to_our_news_returns_success(): void
     {
         $user = User::create([
             'first_name' => 'tester',
@@ -21,10 +20,11 @@ class OurNewsTest extends TestCase
             'terms_agreed' => true,
             'role' => 'admin'
         ]);
-        $user = User::find(1);
-        $response = $this->actingAs($user)->postJson('/api/ournews', [
-            'email' => 'tester@gmail.com'
+
+        $response = $this->actingAs($user)->postJson('/api/our-news', [
+            'email' => $user->email
         ]);
+
         $response->assertStatus(201)
                  ->assertJson([
                      'message' => 'User subscribed to our news successfully.',

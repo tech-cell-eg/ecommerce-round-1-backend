@@ -3,11 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Testing\Fluent\Concerns\Has;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -15,7 +16,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasRoles;
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+
     use HasFactory, Notifiable, HasApiTokens;
 
     /**
@@ -57,15 +58,49 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
+    public function addresses(): HasMany
+    {
+        return $this->hasMany(UserAddress::class);
+    }
+
+    public function cards()
+    {
+        return $this->hasMany(UserCard::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
     public function testimonials()
     {
         return $this->hasMany(Testimonial::class);
     }
-
 
     public function favorites()
     {
         return $this->belongsToMany(Product::class, 'favorites')->withTimestamps();
     }
 
+    public function wishlistProducts()
+    {
+        return $this->belongsToMany(Product::class, 'wishes_list', 'user_id', 'product_id');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function bookmarkedBlogs()
+    {
+        return $this->belongsToMany(Blog::class, 'bookmarks', 'user_id', 'blog_id')
+                    ->withTimestamps();
+    }
+
+    public function follows()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'author_id');
+    }
 }
