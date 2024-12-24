@@ -39,12 +39,13 @@
                                         @foreach ($orders as $order)
                                         <tr>
                                             <td>{{ $order->id }}</td>
-                                            <td>{{ $order->user->name }}</td>
+                                            <td>{{ $order->user->first_name }}</td>
                                             <td>{{ $order->status }}</td>
                                             <td>{{ $order->grand_total }}</td>
                                             <td>
                                             <td>
                                                 <a href="{{ route('orders.edit', $order) }}" class="btn btn-primary btn-sm">Edit</a>
+                                                <a href="{{ route('orders.show', $order) }}" class="btn btn-success btn-sm">Show</a>
 
                                                 <form action="{{ route('orders.destroy', $order) }}" method="POST" style="display:inline;">
                                                     @csrf

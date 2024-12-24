@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
@@ -12,6 +13,7 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::with(['user', 'products', 'address', 'card'])->get();
+        dd($orders);
         return view('admin.Orders.index', compact('orders'));
     }
 
@@ -29,13 +31,9 @@ class OrderController extends Controller
     }
 
     // Update an order
-    public function update(Request $request, Order $order)
+    public function update(UpdateOrderRequest $request, Order $order)
     {
-        $validated = $request->validate([
-            'status' => 'required|string|max:255',
-            'delivery_date' => 'nullable|date',
-            'review' => 'nullable|string',
-        ]);
+        $validated = $request->validate();
 
         $order->update($validated);
         return redirect()->route('orders.index')->with('success', 'Order updated successfully.');

@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\Dashboard\CategoryController;
+use App\Http\Controllers\Dashboard\CouponController;
 use App\Http\Controllers\Dashboard\OrderController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\SubCategoryController;
+use App\Http\Controllers\Dashboard\TestimonialController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -56,8 +58,9 @@ Route::middleware('auth:admin')->group(function () {
 });
 
 
-Route::resource('testimonials', OrderController::class)->middleware('auth:admin');
+Route::resource('testimonials', TestimonialController::class)->middleware('auth:admin');
 Route::resource('orders', OrderController::class)->middleware('auth:admin');
+Route::resource('coupons', CouponController::class)->middleware('auth:admin');
 
 
 require __DIR__.'/auth.php';

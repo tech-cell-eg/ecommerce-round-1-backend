@@ -270,8 +270,46 @@
                         </ul>
                     </div>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"  href="{{route('testimonials.index')}}">
+                        <span class="menu-title">Testimonials</span>
+                        <i class="icon-book-open menu-icon"></i>
+                    </a>
+                    <div class="collapse" id="forms">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="{{route('testimonials.index')}}">All Testimonials</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="{{route('testimonials.create')}}">Add Testimonial</a></li>
+                            </ul>
+                    </div>
+                </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link"  href="{{route('orders.index')}}">
+                        <span class="menu-title">Orders</span>
+                        <i class="icon-book-open menu-icon"></i>
+                    </a>
+                    <div class="collapse" id="forms">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="{{route('orders.index')}}">All Orders</a></li>
+                        </ul>
+                    </div>
+                </li>
             
                 
+                <li class="nav-item">
+                    <a class="nav-link"  href="{{route('coupons.index')}}">
+                        <span class="menu-title">Coupons</span>
+                        <i class="icon-book-open menu-icon"></i>
+                    </a>
+                    <div class="collapse" id="forms">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="{{route('coupons.index')}}">All Coupons</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="{{route('coupons.create')}}">Add Coupon</a></li>
+                        </ul>
+                    </div>
+                </li>
             
         </nav>
         

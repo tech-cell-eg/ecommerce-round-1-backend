@@ -58,14 +58,12 @@
                                             <td> {{$product->size}} </td>
                                             <td> {{$product->category->name}} </td>
                                             <td>
-                                                <!-- <td><button class="badge badge-primary">Edit</button></td>
-                                            <td><button class="badge badge-danger">Delete</button></td> -->
-                                            <th><a href="{{route('products.edit',[$product->id])}}" class="badge badge-primary">Update</a></th>
+                                            <th><a href="{{route('products.edit',[$product->id])}}" class="btn btn-primary btn-sm">Update</a></th>
                                             <th>
                                                 <form action="{{route('products.destroy',[$product->id])}}" method="post">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="badge badge-danger">Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm"  onclick="return confirm('Are you sure you want to delete this Product?');">Delete</button>
                                                 </form>
                                             </th>
                                             </td>

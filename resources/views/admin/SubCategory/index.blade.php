@@ -50,7 +50,7 @@
                                                 <form action="{{route('subCategory.destroy',[$subcategory->id])}}" method="post">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="badge badge-danger">Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm"  onclick="return confirm('Are you sure you want to delete this Sub Category?');">Delete</button>
                                                 </form>
                                                 </td>
 
