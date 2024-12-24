@@ -36,12 +36,12 @@ class Order extends Model
 
     public function card(): BelongsTo
     {
-        return $this->belongsTo(UserCard::class);
+        return $this->belongsTo(UserCard::class, 'user_card_id');
     }
 
     public function address(): BelongsTo
     {
-        return $this->belongsTo(UserAddress::class);
+        return $this->belongsTo(UserAddress::class, 'user_address_id');
     }
 
 
