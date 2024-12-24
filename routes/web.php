@@ -5,6 +5,7 @@ use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\CouponController;
 use App\Http\Controllers\Dashboard\OrderController;
 use App\Http\Controllers\Dashboard\ProductController;
+use App\Http\Controllers\Dashboard\SettingController;
 use App\Http\Controllers\Dashboard\SubCategoryController;
 use App\Http\Controllers\Dashboard\TestimonialController;
 use App\Http\Controllers\ProfileController;
@@ -65,4 +66,8 @@ Route::resource('orders', OrderController::class)->middleware('auth:admin');
 Route::resource('coupons', CouponController::class)->middleware('auth:admin');
 Route::resource('blogs', BlogController::class)->middleware('auth:admin');
 
+Route::middleware('auth:admin')->group(function () {
+    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
+});
 require __DIR__.'/auth.php';
