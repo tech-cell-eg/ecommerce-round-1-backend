@@ -28,7 +28,7 @@ use App\Http\Controllers\API\Address\UserAddressController;
 use App\Http\Controllers\API\Testimonial\TestimonialController;
 use App\Http\Controllers\API\UserSetting\UserSettingController;
 use App\Http\Controllers\API\InstagramStory\InstagramStoriesController;
-
+use App\Http\Controllers\CouponController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -120,3 +120,5 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get("notifications/{id}", [NotificationController::class, "show"]);
     Route::delete("notifications/{id}", [NotificationController::class, "destroy"]);
 });
+
+Route::post('/apply-coupon', [CouponController::class, 'applyCoupon']);

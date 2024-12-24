@@ -22,6 +22,8 @@ class Order extends Model
         'review'
     ];
 
+    
+
     public function user()
     {
         return $this->belongsTo(User::class);
