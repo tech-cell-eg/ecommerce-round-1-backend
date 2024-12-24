@@ -21,15 +21,17 @@ class BlogUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $blogId = $this->route('blog'); // Get the blog's ID from the route
+
         return [
-            'title' => 'required|string',
-            'slug' => 'sometimes|required|unique:blogs,slug',
-            'content' => 'sometimes|required|string',
-            'featured_image' => 'nullable|image',
-            'tags' => 'nullable',
-            'status' => 'sometimes|required|string',
-            'category' => 'sometimes|required|string|exists:categories,name',
-            'is_featured' => 'sometimes|required|boolean'
+            'title' => 'required|string|max:255',
+            'slug' => 'required|string|max:255',
+            'content' => 'required|string',
+            'author_id' => 'required|exists:users,id',
+            'category' => 'required|string|max:255',
+            'tags' => 'nullable|string',
+            'featured_image' => 'nullable|image|max:2048',
+            'status' => 'required|in:draft,published,archived',
         ];
     }
 }
