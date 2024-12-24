@@ -8,13 +8,17 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\TestimonialResource;
 use App\Http\Requests\API\Testimonial\TestimonialStoreRequest;
 use App\Http\Requests\API\Testimonial\TestimonialUpdateRequest;
+use App\Traits\ApiResponse;
 
 class TestimonialController extends Controller
 {
+    use ApiResponse;
+
     public function index()
     {
         $testimonials = Testimonial::with('user')->get();
-        return response()->json(['data' => TestimonialResource::collection($testimonials)]);
+        return $this->success(200, "Testimonials retrived successfully!", TestimonialResource::collection($testimonials));
+
     }
 
     public function store(TestimonialStoreRequest $request)
@@ -41,16 +45,15 @@ class TestimonialController extends Controller
         $testimonial->save();
 
         // Return the response
-        return response()->json([
-            'message' => 'Testimonial created successfully.',
-            'data'    => $testimonial,
-        ], 201);
+        return $this->success(200, "Testimonial created successfully!", $testimonial);
+
     }
 
 
     public function show(Testimonial $testimonial)
     {
-        return response()->json($testimonial::with('user')->get());
+        return $this->success(200, "Testimonial returned successfully!", $testimonial::with('user'));
+
     }
 
     public function update(TestimonialUpdateRequest $request, Testimonial $testimonial)
@@ -69,24 +72,24 @@ class TestimonialController extends Controller
 
         $testimonial->update($request->validated());
         $testimonial->save();
-        return response()->json($testimonial, 200);
+        return $this->success(200, "Testimonial updated successfully!", $testimonial);
+
     }
 
     public function destroy(Testimonial $testimonial)
     {
         if (!$testimonial->exists())
-            return response()->json(['message' => "Not Found"], 404);
+            return $this->failed(404, "Testimonial Not Found!");
 
         $testimonial->delete();
-        return response()->json(['message' => 'Testimonial deleted successfully.']);
+        return $this->success(200, "Testimonial deleted successfully.");
     }
 
     public function GetUserByTestimonial(Testimonial $testimonial)
     {
         // return response()->json($testimonial);
         $user = User::where('id', $testimonial->user_id)->get();
-        return response()->json([
-            'User data' => $user
-        ], 200);
+        return $this->success(200, "User data returned successfully.", $user);
+
     }
 }

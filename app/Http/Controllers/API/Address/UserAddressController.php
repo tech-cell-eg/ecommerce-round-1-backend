@@ -53,7 +53,7 @@ class UserAddressController extends Controller
         $user = auth()->user();
         $address = $user->addresses()->findOrFail($id);
         $validatedData = $request->validated();
-        if ($validatedData['default_address']) {
+        if (isset($validatedData['default_address'])) {
             $user->addresses()->update(['default_address' => false]);
         }
         $address->update($validatedData);

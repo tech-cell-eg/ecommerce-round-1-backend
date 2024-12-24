@@ -7,6 +7,7 @@ use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\SubCategoryController;
 use App\Http\Controllers\Dashboard\TestimonialController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,6 +20,19 @@ Route::get('/', function () {
 // ->middleware('auth:admin')
 // ->name('dashboard');
 
+
+Route::get('/admin/products', function () {
+    return 'Products';
+})
+    ->middleware('auth:admin')
+    ->name('admin.product');
+
+
+Route::get('/admin/category', function () {
+    return 'category';
+})
+    ->middleware('auth:admin')
+    ->name('admin.category');
 
 
 Route::middleware('auth')->group(function () {
@@ -63,4 +77,4 @@ Route::resource('orders', OrderController::class)->middleware('auth:admin');
 Route::resource('coupons', CouponController::class)->middleware('auth:admin');
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

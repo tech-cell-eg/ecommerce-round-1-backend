@@ -19,7 +19,7 @@ class OrderController extends Controller
     {
         $user = auth()->user();
         $orders = Order::where('user_id', $user->id)->get();
-        return $this->success(200, 'Orders retrieved successfully', $orders->load('products'));
+        return $this->success(200, 'Orders retrieved successfully', $orders->load('products','card','address'));
     }
 
     /**
@@ -52,7 +52,7 @@ class OrderController extends Controller
             'grand_total' => $grandTotal,
             'delivery_charge' => $deliveryCharge,
         ]);
-        return $this->success(200, 'Order created successfully.', $order->load('products'));
+        return $this->success(200, 'Order created successfully.', $order->load('products','card','address'));
     }
 
     /**
@@ -63,7 +63,7 @@ class OrderController extends Controller
     {
         $user = auth()->user();
         $order = $user->orders()->findOrFail($id);
-        return $this->success(200, 'Order retrieved successfully', $order->load('products'));
+        return $this->success(200, 'Order retrieved successfully', $order->load('products','card','address'));
     }
 
     /**
