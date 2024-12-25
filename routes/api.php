@@ -23,6 +23,7 @@ use App\Http\Controllers\API\Auth\SocialLoginController;
 use App\Http\Controllers\API\Category\CategoryController;
 use App\Http\Controllers\API\Favorite\FavoriteController;
 use App\Http\Controllers\API\UserCard\UserCardController;
+use App\Http\Controllers\API\Auth\ForgotPasswordController;
 use App\Http\Controllers\API\Auth\ResetPasswordController;
 use App\Http\Controllers\API\Address\UserAddressController;
 use App\Http\Controllers\API\Testimonial\TestimonialController;
@@ -42,40 +43,28 @@ Route::group(['middleware' => CatchErrorsMiddleware::class], function () {
     Route::post('/register', RegisterController::class)->middleware('throttle:5,1');
     Route::post('/login', LoginController::class)->middleware('throttle:10,1');
     Route::post('/logout', LogoutController::class)->middleware('auth:sanctum');
-    Route::post('/forgot-password', App\Http\Controllers\API\Auth\ForgotPasswordController::class)->middleware('throttle:5,1');
     Route::post('/reset-password', ResetPasswordController::class)->middleware('throttle:5,1');
-
+    Route::post('/forgot-password', ForgotPasswordController::class)->middleware('throttle:5,1');
     Route::apiResource('addresses', UserAddressController::class)->middleware('auth:sanctum');
     Route::get('/cards', [UserCardController::class, 'index'])->middleware('auth:sanctum');
     Route::post('/cards/store', [UserCardController::class, 'store'])->middleware('auth:sanctum');
     Route::delete('/cards/{userCard}', [UserCardController::class, 'destroy'])->middleware('auth:sanctum');
-
     Route::apiResource('orders', OrderController::class)->middleware('auth:sanctum');
-
-
     Route::get('/user-settings', [UserSettingController::class, 'index'])->middleware('auth:sanctum');
     Route::post('/user-settings', [UserSettingController::class, 'update'])->middleware('auth:sanctum');
 });
 
 Route::apiResource('product', ProductController::class);
 Route::get('products/search', [ProductController::class, 'search']);
-
-Route::get('favorites', [FavoriteController::class, 'index'])->middleware(['auth:sanctum']);; // List favorites
-Route::post('favorites', [FavoriteController::class, 'store'])->middleware(['auth:sanctum']);;// Add favorite
-Route::delete('favorites/{product_id}', [FavoriteController::class, 'destroy'])->middleware(['auth:sanctum']); // Remove favorite
-
-
-Route::apiResource("categories", CategoryController::class)->middleware(['auth:sanctum']);;
-
-
+Route::get('favorites', [FavoriteController::class, 'index'])->middleware(['auth:sanctum']);
+Route::post('favorites', [FavoriteController::class, 'store'])->middleware(['auth:sanctum']);
+Route::delete('favorites/{product_id}', [FavoriteController::class, 'destroy'])->middleware(['auth:sanctum']);
+Route::apiResource("categories", CategoryController::class)->middleware(['auth:sanctum']);
 Route::apiResource('/testimonial', TestimonialController::class);
 Route::get('testimonial/{testimonial}/user', [TestimonialController::class, 'GetUserByTestimonial']);
 Route::post('/our-news', OurNewsController::class);
-
-Route::apiResource('/setting', SettingController::class)->middleware(['auth:sanctum']);;
-
+Route::apiResource('/setting', SettingController::class)->middleware(['auth:sanctum']);
 Route::apiResource('/contact', ContactController::class);
-
 Route::apiResource('/wish-list', WishListController::class);
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
@@ -102,10 +91,6 @@ Route::get('/blog/search', [GuestBlogController::class, 'search']);
 Route::get('/blog/recents', [GuestBlogController::class, 'show_recent_blogs']);
 Route::apiResource('/blog', GuestBlogController::class);
 
-
-// Route::group(['middleware'=> 'auth:sanctum'],function(){
-//     Route::apiResource('/testimonial', TestimonialController::class);
-// });
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResource('/testimonial', TestimonialController::class);
