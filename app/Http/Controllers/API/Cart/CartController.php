@@ -31,7 +31,9 @@ class CartController extends Controller
         return $this->success(200, "item has been added successfully!");
     }
 
-    public function show() {}
+    public function show()
+    {
+    }
 
     public function update(Request $request, Cart $cart)
     {
@@ -48,5 +50,11 @@ class CartController extends Controller
     {
         $cart->delete();
         return $this->success(200, "item has been deleted successfully!");
+    }
+
+    public function clearAllCart()
+    {
+        Cart::where("user_id", auth()->user()->id)->delete();
+        return $this->success(200, "all cart cleared successfully!");
     }
 }

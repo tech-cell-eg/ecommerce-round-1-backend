@@ -69,7 +69,7 @@ Route::apiResource("categories", CategoryController::class)->middleware(['auth:s
 
 
 Route::apiResource('/testimonial', TestimonialController::class);
-Route::get('testimonial/{testimonial}/user',[TestimonialController::class, 'GetUserByTestimonial']);
+Route::get('testimonial/{testimonial}/user', [TestimonialController::class, 'GetUserByTestimonial']);
 Route::post('/our-news', OurNewsController::class);
 
 Route::apiResource('/setting', SettingController::class)->middleware(['auth:sanctum']);;
@@ -78,24 +78,24 @@ Route::apiResource('/contact', ContactController::class);
 
 Route::apiResource('/wish-list', WishListController::class);
 
-Route::group(['middleware' => 'auth:sanctum'], function(){
+Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/blog/{blog}/comment', [UserBlogController::class, 'BlogComment'])->name('Blog.comment.create');
-    Route::put('blog/{blog}/comment',  [UserBlogController::class, 'EditComment'])->name('Blog.comment.edit');
+    Route::put('blog/{blog}/comment', [UserBlogController::class, 'EditComment'])->name('Blog.comment.edit');
     Route::delete('/blog/{blog}/comment', [UserBlogController::class, 'DeleteComment'])->name('Blog.comment.delete');
     Route::get('/blog/{blog}/like', [UserBlogController::class, 'BlogLike'])->name('Blog.like');
     Route::post('blog/{blog}/bookmark', [UserBlogController::class, 'BookmarkBlog'])->name('Blog.bookmark');
     Route::post('/author/{authorId}/follow', [UserBlogController::class, 'FollowAuthor'])->name('Blog.followers');
 });
 
-Route::group(['middleware' => ['auth:sanctum', AdminMiddleware::class]], function(){
-    Route::get('blog/comments',[AdminBlogController::class, 'ModerateComments']);
-    Route::get('/blog/featured-blogs',[AdminBlogController::class, 'ShowFeaturedBlogs']);
-    Route::get('blog/draft', [AdminBlogController::class,'ShowDraftBlogs']);
-    Route::get('/blog/analytics',[AdminBlogController::class, 'ShowBlogsAnalytics']);
+Route::group(['middleware' => ['auth:sanctum', AdminMiddleware::class]], function () {
+    Route::get('blog/comments', [AdminBlogController::class, 'ModerateComments']);
+    Route::get('/blog/featured-blogs', [AdminBlogController::class, 'ShowFeaturedBlogs']);
+    Route::get('blog/draft', [AdminBlogController::class, 'ShowDraftBlogs']);
+    Route::get('/blog/analytics', [AdminBlogController::class, 'ShowBlogsAnalytics']);
     Route::put('/blog/{blog}', [AdminBlogController::class, 'update']);
     Route::delete('blog/{blog}', [AdminBlogController::class, 'delete']);
-    Route::post('/blog',[AdminBlogController::class, 'store']);
-    Route::get('/blog',[AdminBlogController::class, 'index']);
+    Route::post('/blog', [AdminBlogController::class, 'store']);
+    Route::get('/blog', [AdminBlogController::class, 'index']);
 });
 
 Route::get('/blog/search', [GuestBlogController::class, 'search']);
@@ -113,6 +113,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
 Route::apiResource("reviews", ReviewController::class);
 Route::get("instagram-stories", [InstagramStoriesController::class, "index"]);
+Route::delete('/cart/clear', [CartController::class, 'clearAllCart'])->middleware('auth:sanctum')->name('cart.clear');
 Route::apiResource("cart", CartController::class)->middleware('auth:sanctum');
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
