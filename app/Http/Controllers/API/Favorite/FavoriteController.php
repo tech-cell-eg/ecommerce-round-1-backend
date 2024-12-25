@@ -18,7 +18,15 @@ class FavoriteController extends Controller
     use ApiResponse;
 
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/favorites",
+     *     tags={"favorite"},
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     * )
      */
     public function index()
     {
@@ -28,6 +36,17 @@ class FavoriteController extends Controller
         return $this->success(200, "all favorites", $favorites);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/favorites?product_id=2",
+     *     tags={"favorite"},
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     * )
+     */
     public function store(FavoriteRequest $request)
     {
         $user = Auth::user();
@@ -39,6 +58,17 @@ class FavoriteController extends Controller
     }
 
 
+    /**
+     * @OA\Delete(
+     *     path="/favorites/1",
+     *     tags={"favorite"},
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     * )
+     */
     public function destroy($product_id)
     {
 

@@ -14,6 +14,17 @@ class TestimonialController extends Controller
 {
     use ApiResponse;
 
+    /**
+     * @OA\Get(
+     *     path="/testimonial",
+     *     tags={"testimonial"},
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     * )
+     */
     public function index()
     {
         $testimonials = Testimonial::with('user')->get();
@@ -21,6 +32,17 @@ class TestimonialController extends Controller
 
     }
 
+    /**
+     * @OA\Post(
+     *     path="/testimonial",
+     *     tags={"testimonial"},
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     * )
+     */
     public function store(TestimonialStoreRequest $request)
     {
         // Find the user (replace with dynamic user if needed)
@@ -50,12 +72,34 @@ class TestimonialController extends Controller
     }
 
 
+    /**
+     * @OA\Get(
+     *     path="/testimonial/1",
+     *     tags={"testimonial"},
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     * )
+     */
     public function show(Testimonial $testimonial)
     {
         return $this->success(200, "Testimonial returned successfully!", $testimonial::with('user'));
 
     }
 
+    /**
+     * @OA\Put(
+     *     path="/testimonial/1",
+     *     tags={"testimonial"},
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     * )
+     */
     public function update(TestimonialUpdateRequest $request, Testimonial $testimonial)
     {
 
@@ -76,6 +120,17 @@ class TestimonialController extends Controller
 
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/testimonial/1",
+     *     tags={"testimonial"},
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     * )
+     */
     public function destroy(Testimonial $testimonial)
     {
         if (!$testimonial->exists())

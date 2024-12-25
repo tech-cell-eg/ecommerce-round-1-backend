@@ -23,6 +23,19 @@ class ProductController extends Controller implements HasMiddleware
         ];
     }
 
+    /**
+     * @OA\Get(
+     *     path="/product",
+     *     tags={"product"},
+     *     summary="Get all products",
+     *     @OA\Response(
+     *      response="200", 
+     *      description="ok",
+     *      @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      )
+     * )
+     */
+    
     public function index(Request $request)
     {
         $query = Product::query();
@@ -37,15 +50,86 @@ class ProductController extends Controller implements HasMiddleware
     }
 
 
+    /**
+     * @OA\Get(
+     *     path="/product/1",
+     *     tags={"product"},
+     *     summary="Get product by id",
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     * )
+     */
     public function show(Product $product)
     {
         $product->load('relatedProducts', 'category.sub');
         return $this->success(200, 'Product returned successfully.', new ProductResource($product));
-
-
     }
 
-
+    /**
+     * @OA\Post(
+     *     path="/product",
+     *     tags={"product"},
+     *     summary="Create product",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             type="object",
+     *             required={"name", "price", "category_id"},
+     *             @OA\Property(
+     *                 property="name",
+     *                 type="string",
+     *                 description="Name of the product"
+     *             ),
+     *             @OA\Property(
+     *                 property="price",
+     *                 type="number",
+     *                 format="float",
+     *                 description="Price of the product"
+     *             ),
+     *             @OA\Property(
+     *                 property="description",
+     *                 type="string",
+     *                 nullable=true,
+     *                 description="Description of the product"
+     *             ),
+     *             @OA\Property(
+     *                 property="compare_price",
+     *                 type="number",
+     *                 format="float",
+     *                 nullable=true,
+     *                 description="Comparison price of the product"
+     *             ),
+     *             @OA\Property(
+     *                 property="image",
+     *                 type="string",
+     *                 format="binary",
+     *                 nullable=true,
+     *                 description="Image of the product"
+     *             ),
+     *             @OA\Property(
+     *                 property="rating",
+     *                 type="number",
+     *                 format="float",
+     *                 nullable=true,
+     *                 description="Rating of the product"
+     *             ),
+     *             @OA\Property(
+     *                 property="category_id",
+     *                 type="integer",
+     *                 description="ID of the category to which the product belongs"
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     * )
+     */
     // This function just for testing images
     public function store(StoreProductRequest $request)
     {
@@ -62,6 +146,18 @@ class ProductController extends Controller implements HasMiddleware
     }
 
 
+    /**
+     * @OA\Get(
+     *     path="/products/search/query=n",
+     *     tags={"product"},
+     *     summary="Search in products list",
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     * )
+     */
     public function search(Request $request)
     {
         $request->validate([

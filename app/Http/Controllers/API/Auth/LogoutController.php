@@ -11,6 +11,18 @@ class LogoutController extends Controller
 {
     use ApiResponse;
 
+    /**
+     * @OA\Post(
+     *     path="/logout",
+     *     tags={"Auth"},
+     *     summary="User logout",
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     * )
+     */
     public function __invoke(Request $request)
     {
         if (!$request->user()) {

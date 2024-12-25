@@ -11,12 +11,34 @@ class UserCardController extends Controller
 {
     use ApiResponse;
 
+    /**
+     * @OA\Get(
+     *     path="/cards",
+     *     tags={"card"},
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     * )
+     */
     public function index()
     {
         $user = auth()->user();
         return $this->success(200, 'Cards retrieved successfully', $user->cards);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/cards/store",
+     *     tags={"card"},
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     * )
+     */
     public function store(UserCardRequest $userCard)
     {
         $validatedData = $userCard->validated();
@@ -30,6 +52,17 @@ class UserCardController extends Controller
         return $this->success(200, 'Card created successfully', $card);
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/cards/1",
+     *     tags={"card"},
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     * )
+     */
     public function destroy(UserCard $userCard)
     {
         $user_id = auth()->user()->id;

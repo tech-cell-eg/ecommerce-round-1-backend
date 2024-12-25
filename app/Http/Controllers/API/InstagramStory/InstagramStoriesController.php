@@ -10,6 +10,17 @@ class InstagramStoriesController extends Controller
 {
     use ApiResponse;
 
+    /**
+     * @OA\Get(
+     *     path="/instagram-stories",
+     *     tags={"instagram-stories"},
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     * )
+     */
     function index() {
         $stories = InstagramStories::all();
         return $this->success(200, "all instagram stories :)", $stories);

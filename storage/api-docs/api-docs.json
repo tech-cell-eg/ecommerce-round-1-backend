@@ -1,0 +1,1278 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "round-1",
+        "description": "round-1 doc",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8000/api"
+        }
+    ],
+    "paths": {
+        "/addresses": {
+            "get": {
+                "tags": [
+                    "address"
+                ],
+                "summary": "Get all addresses",
+                "operationId": "b7db012b4279b890ce1a1387ebb51d82",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "address"
+                ],
+                "summary": "Add user address",
+                "description": "Endpoint to add user's address",
+                "operationId": "c28e9cc72034828a7dac1852517de3ae",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "mobile_number",
+                                    "address",
+                                    "area",
+                                    "pin_code",
+                                    "city",
+                                    "state",
+                                    "default_address"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "Name of the recipient",
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "mobile_number": {
+                                        "description": "Mobile number of the recipient",
+                                        "type": "string",
+                                        "example": "9876543210"
+                                    },
+                                    "address": {
+                                        "description": "Street address of the recipient",
+                                        "type": "string",
+                                        "example": "123 Elm Street"
+                                    },
+                                    "area": {
+                                        "description": "Area or locality of the address",
+                                        "type": "string",
+                                        "example": "Downtown"
+                                    },
+                                    "pin_code": {
+                                        "description": "Postal code of the address",
+                                        "type": "string",
+                                        "example": "560001"
+                                    },
+                                    "city": {
+                                        "description": "City of the address",
+                                        "type": "string",
+                                        "example": "Bangalore"
+                                    },
+                                    "state": {
+                                        "description": "State of the address",
+                                        "type": "string",
+                                        "example": "Karnataka"
+                                    },
+                                    "default_address": {
+                                        "description": "Indicates if this is the default address",
+                                        "type": "boolean",
+                                        "example": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/addresses/1": {
+            "get": {
+                "tags": [
+                    "address"
+                ],
+                "summary": "Get address by id",
+                "operationId": "d5881e30680aebc38e61cfe93f09f16d",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "address"
+                ],
+                "summary": "Delete address by id",
+                "operationId": "95a62b1a5fb8da173bd380ff9c89b02a",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/forgot-password": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "operationId": "bbd1cbb8e7b82af6a1a3a133c6659963",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "description": "Email address of the user",
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user@example.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "User login",
+                "description": "Endpoint to authenticate a user",
+                "operationId": "94ed0b62803cbc04e194c63b603a809e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "description": "Email address of the user",
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user@example.com"
+                                    },
+                                    "password": {
+                                        "description": "Password of the user",
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "User logout",
+                "operationId": "b9c74e0db6f088d06abfcbe76ca06d8b",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "User registration",
+                "description": "Endpoint to register a new user",
+                "operationId": "81136468fc0ee67c0012e6e5008e7fb9",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "first_name",
+                                    "last_name",
+                                    "email",
+                                    "password",
+                                    "terms_agree"
+                                ],
+                                "properties": {
+                                    "first_name": {
+                                        "description": "First name of the user",
+                                        "type": "string",
+                                        "example": "John"
+                                    },
+                                    "last_name": {
+                                        "description": "Last name of the user",
+                                        "type": "string",
+                                        "example": "Doe"
+                                    },
+                                    "email": {
+                                        "description": "Email address of the user",
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "john.doe@example.com"
+                                    },
+                                    "password": {
+                                        "description": "Password for the user account",
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "SecurePassword123"
+                                    },
+                                    "terms_agree": {
+                                        "description": "Indicates whether the user agrees to the terms and conditions",
+                                        "type": "boolean",
+                                        "example": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/reset-password": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Reset user password",
+                "description": "Endpoint to reset a user's password using a token",
+                "operationId": "3c211eeebb3c9783448502acd7f8b9f9",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "token",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "token": {
+                                        "description": "Reset token sent to the user's email",
+                                        "type": "string",
+                                        "example": "123456abcdef"
+                                    },
+                                    "password": {
+                                        "description": "New password for the user",
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "SecurePassword123"
+                                    },
+                                    "password_confirmation": {
+                                        "description": "Confirmation of the new password",
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "SecurePassword123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/twitter-login": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "operationId": "027130eb60a0cc06a388e24fb18e5fb9",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/cart": {
+            "get": {
+                "tags": [
+                    "cart"
+                ],
+                "summary": "Get all product in cart",
+                "operationId": "bbef8b5089a00951a6d6db4d0bd3eb04",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "cart"
+                ],
+                "summary": "Add product to cart",
+                "description": "Endpoint to add a product to the user's shopping cart",
+                "operationId": "51b01ac75de0821bffc7337062740176",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "product_id",
+                                    "quantity"
+                                ],
+                                "properties": {
+                                    "product_id": {
+                                        "description": "ID of the product to add to the cart",
+                                        "type": "integer",
+                                        "example": 101
+                                    },
+                                    "quantity": {
+                                        "description": "Quantity of the product to add",
+                                        "type": "integer",
+                                        "example": 2
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/cart/1": {
+            "put": {
+                "tags": [
+                    "cart"
+                ],
+                "summary": "Update product in cart by id",
+                "description": "Endpoint to update a product to the user's shopping cart",
+                "operationId": "9878138648253e3c1c0527e96be2ea3e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "quantity"
+                                ],
+                                "properties": {
+                                    "quantity": {
+                                        "description": "Quantity of the product to add",
+                                        "type": "integer",
+                                        "example": 2
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "cart"
+                ],
+                "summary": "Delete product from cart by id",
+                "operationId": "27202099cedc2f6f47f41875d39ca6d6",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/cart/clear": {
+            "delete": {
+                "tags": [
+                    "cart"
+                ],
+                "summary": "Delete all product from cart",
+                "operationId": "e72ed9f530b1df36fb294486a9215e43",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/categories": {
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Get all categories",
+                "operationId": "f58fad0c66d6051559f2ad7d192ae13d",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Category"
+                ],
+                "operationId": "a301f10c102c4f4f677c1485fbd41de8",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/categories/1": {
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Get category by id",
+                "operationId": "bd2356fb4ccd4accf3e9bef7ace76cf8",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Category"
+                ],
+                "operationId": "43aa4db811a228deea8642091f979e47",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Category"
+                ],
+                "operationId": "e98d8d539306c26fe925840c7f4fd81e",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/favorites": {
+            "get": {
+                "tags": [
+                    "favorite"
+                ],
+                "operationId": "1132d3edf1dd80ec472eee7c61f7d9b4",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/favorites?product_id=2": {
+            "post": {
+                "tags": [
+                    "favorite"
+                ],
+                "operationId": "4471fa5795b95cf2df9cd93a247f5b5d",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/favorites/1": {
+            "delete": {
+                "tags": [
+                    "favorite"
+                ],
+                "operationId": "6941dbfb35434fdb96716398c44537e6",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/instagram-stories": {
+            "get": {
+                "tags": [
+                    "instagram-stories"
+                ],
+                "operationId": "67f92a2d4e8c0667fffb59ad64032674",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/orders": {
+            "get": {
+                "tags": [
+                    "order"
+                ],
+                "operationId": "3ba33c0d0b8edae417b36cf4d40c95c9",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "operationId": "f05ecc230d53252d93ba83f7770833d9",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/orders/1": {
+            "get": {
+                "tags": [
+                    "order"
+                ],
+                "operationId": "d6466e5bf3005c2134420d14ee6d44a8",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "order"
+                ],
+                "operationId": "395c92c025cddd69e576462215d9d3f4",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/product": {
+            "get": {
+                "tags": [
+                    "product"
+                ],
+                "summary": "Get all products",
+                "operationId": "a4a0ed2faa84c753a6dc477b50a5c1f7",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "product"
+                ],
+                "summary": "Create product",
+                "operationId": "39cb4618d368538570a312b491bd1a50",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "price",
+                                    "category_id"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "Name of the product",
+                                        "type": "string"
+                                    },
+                                    "price": {
+                                        "description": "Price of the product",
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "description": {
+                                        "description": "Description of the product",
+                                        "type": "string",
+                                        "nullable": true
+                                    },
+                                    "compare_price": {
+                                        "description": "Comparison price of the product",
+                                        "type": "number",
+                                        "format": "float",
+                                        "nullable": true
+                                    },
+                                    "image": {
+                                        "description": "Image of the product",
+                                        "type": "string",
+                                        "format": "binary",
+                                        "nullable": true
+                                    },
+                                    "rating": {
+                                        "description": "Rating of the product",
+                                        "type": "number",
+                                        "format": "float",
+                                        "nullable": true
+                                    },
+                                    "category_id": {
+                                        "description": "ID of the category to which the product belongs",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/product/1": {
+            "get": {
+                "tags": [
+                    "product"
+                ],
+                "summary": "Get product by id",
+                "operationId": "a8a3d6a16b76758d6b0134d5ac81f031",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/products/search/query=n": {
+            "get": {
+                "tags": [
+                    "product"
+                ],
+                "summary": "Search in products list",
+                "operationId": "32507938a4dc6a6d1e6bd4a66e72b7b9",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/reviews": {
+            "get": {
+                "tags": [
+                    "review"
+                ],
+                "operationId": "88d08e40740ce3900658368acb23e2d8",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "review"
+                ],
+                "operationId": "12926c45b6d6194debc5ec88a8c38d30",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/reviews/1": {
+            "get": {
+                "tags": [
+                    "review"
+                ],
+                "operationId": "bfe96f246b711aa76f6e24b4b8008572",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "review"
+                ],
+                "operationId": "8823fede6f973e4df9d8544adb874477",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "review"
+                ],
+                "operationId": "81d224194504e32b6e4a48eb3bd475fd",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/testimonial": {
+            "get": {
+                "tags": [
+                    "testimonial"
+                ],
+                "operationId": "5df40b6818d8707213a2bcd12693116f",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "testimonial"
+                ],
+                "operationId": "2441feb066aef91d61e8ef95f16277c3",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/testimonial/1": {
+            "get": {
+                "tags": [
+                    "testimonial"
+                ],
+                "operationId": "f40e085e61bce8d668f2998427213354",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "testimonial"
+                ],
+                "operationId": "080dc2e663fda747f31313e91c47832f",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "testimonial"
+                ],
+                "operationId": "8da953bb87104694d5d25d9edf7a8ed3",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/cards": {
+            "get": {
+                "tags": [
+                    "card"
+                ],
+                "operationId": "13dbd05bb9d56516aef9d29e59b54434",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/cards/store": {
+            "post": {
+                "tags": [
+                    "card"
+                ],
+                "operationId": "116f4a6197c3d7db4acabcd0b742debc",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/cards/1": {
+            "delete": {
+                "tags": [
+                    "card"
+                ],
+                "operationId": "bb79b53fd535f48409e5182185576dc5",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ApiResponse": {
+                "required": [
+                    "status",
+                    "message"
+                ],
+                "properties": {
+                    "status": {
+                        "description": "Status of the API response",
+                        "type": "string"
+                    },
+                    "message": {
+                        "description": "Message describing the result",
+                        "type": "string"
+                    },
+                    "data": {
+                        "description": "Optional data payload",
+                        "type": "object",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "name": "Authorization",
+                "in": "header",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "address",
+            "description": "address"
+        },
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "cart",
+            "description": "cart"
+        },
+        {
+            "name": "Category",
+            "description": "Category"
+        },
+        {
+            "name": "favorite",
+            "description": "favorite"
+        },
+        {
+            "name": "instagram-stories",
+            "description": "instagram-stories"
+        },
+        {
+            "name": "order",
+            "description": "order"
+        },
+        {
+            "name": "product",
+            "description": "product"
+        },
+        {
+            "name": "review",
+            "description": "review"
+        },
+        {
+            "name": "testimonial",
+            "description": "testimonial"
+        },
+        {
+            "name": "card",
+            "description": "card"
+        }
+    ]
+}

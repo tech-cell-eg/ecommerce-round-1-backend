@@ -13,6 +13,18 @@ class CartController extends Controller
 {
     use ApiResponse;
 
+    /**
+     * @OA\Get(
+     *     path="/cart",
+     *     tags={"cart"},
+     *     summary="Get all product in cart",
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     * )
+     */
     public function index()
     {
         $carts = Cart::where("user_id", Auth::user()->id)->get();
@@ -20,6 +32,38 @@ class CartController extends Controller
         return $this->success(200, "all items in cart", $carts);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/cart",
+     *     tags={"cart"},
+     *     summary="Add product to cart",
+     *     description="Endpoint to add a product to the user's shopping cart",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             type="object",
+     *             required={"product_id", "quantity"},
+     *             @OA\Property(
+     *                 property="product_id",
+     *                 type="integer",
+     *                 description="ID of the product to add to the cart",
+     *                 example=101
+     *             ),
+     *             @OA\Property(
+     *                 property="quantity",
+     *                 type="integer",
+     *                 description="Quantity of the product to add",
+     *                 example=2
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     * )
+     */
     public function store(CartRequest $request)
     {
 
@@ -35,6 +79,32 @@ class CartController extends Controller
     {
     }
 
+    /**
+     * @OA\Put(
+     *     path="/cart/1",
+     *     tags={"cart"},
+     *     summary="Update product in cart by id",
+     *     description="Endpoint to update a product to the user's shopping cart",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             type="object",
+     *             required={"quantity"},
+     *             @OA\Property(
+     *                 property="quantity",
+     *                 type="integer",
+     *                 description="Quantity of the product to add",
+     *                 example=2
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     * )
+     */
     public function update(Request $request, Cart $cart)
     {
         $cart->update([
@@ -46,12 +116,36 @@ class CartController extends Controller
         return $this->success(200, "item has been updated successfully!");
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/cart/1",
+     *     tags={"cart"},
+     *     summary="Delete product from cart by id",
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     * )
+     */
     public function destroy(Cart $cart)
     {
         $cart->delete();
         return $this->success(200, "item has been deleted successfully!");
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/cart/clear",
+     *     tags={"cart"},
+     *     summary="Delete all product from cart",
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     * )
+     */
     public function clearAllCart()
     {
         Cart::where("user_id", auth()->user()->id)->delete();

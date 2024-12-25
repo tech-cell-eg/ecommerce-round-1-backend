@@ -13,7 +13,15 @@ class OrderController extends Controller
     use ApiResponse;
 
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/orders",
+     *     tags={"order"},
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     * )
      */
     public function index()
     {
@@ -23,7 +31,15 @@ class OrderController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *     path="/orders",
+     *     tags={"order"},
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     * )
      */
     public function store(StoreOrder $request)
     {
@@ -56,10 +72,17 @@ class OrderController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     *     path="/orders/1",
+     *     tags={"order"},
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     * )
      */
-    public
-    function show(string $id)
+    public function show(string $id)
     {
         $user = auth()->user();
         $order = $user->orders()->findOrFail($id);
@@ -67,10 +90,17 @@ class OrderController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     *     path="/orders/1",
+     *     tags={"order"},
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     * )
      */
-    public
-    function destroy(string $id)
+    public function destroy(string $id)
     {
         $user = auth()->user();
         $order = $user->orders()->findOrFail($id);
