@@ -47,7 +47,7 @@ Route::group(['middleware' => CatchErrorsMiddleware::class], function () {
     Route::post('/forgot-password', ForgotPasswordController::class)->middleware('throttle:5,1');
     Route::apiResource('addresses', UserAddressController::class)->middleware('auth:sanctum');
     Route::get('/cards', [UserCardController::class, 'index'])->middleware('auth:sanctum');
-    Route::post('/cards/store', [UserCardController::class, 'store'])->middleware('auth:sanctum');
+    Route::post('/cards', [UserCardController::class, 'store'])->middleware('auth:sanctum');
     Route::delete('/cards/{userCard}', [UserCardController::class, 'destroy'])->middleware('auth:sanctum');
     Route::apiResource('orders', OrderController::class)->middleware('auth:sanctum');
     Route::get('/user-settings', [UserSettingController::class, 'index'])->middleware('auth:sanctum');

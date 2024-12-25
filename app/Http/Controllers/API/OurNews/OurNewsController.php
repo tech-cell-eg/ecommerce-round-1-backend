@@ -12,7 +12,7 @@ class OurNewsController extends Controller
     use ApiResponse;
     public function __invoke(OurNewsRequest $request)
     {
-        $subscription = OurNews::create($request->validated());
+        $subscription = OurNews::firstOrCreate($request->validated());
         return $this->success(200, 'User subscribed to our news successfully.', $subscription);
 
     }
