@@ -21,6 +21,8 @@ class FavoriteController extends Controller
      * @OA\Get(
      *     path="/favorites",
      *     tags={"favorite"},
+     *     summary="Get all favorites product",
+     *     description="Endpoint to get all favorites product",
      *     @OA\Response(
      *          response="200", 
      *          description="ok",
@@ -40,6 +42,8 @@ class FavoriteController extends Controller
      * @OA\Post(
      *     path="/favorites?product_id=2",
      *     tags={"favorite"},
+     *     summary="Add product to favorites by id",
+     *     description="Endpoint to Add product to favorites by id",
      *     @OA\Response(
      *          response="200", 
      *          description="ok",
@@ -62,6 +66,8 @@ class FavoriteController extends Controller
      * @OA\Delete(
      *     path="/favorites/1",
      *     tags={"favorite"},
+     *     summary="remove product from favorites",
+     *     description="Endpoint to remove product from favorites",
      *     @OA\Response(
      *          response="200", 
      *          description="ok",

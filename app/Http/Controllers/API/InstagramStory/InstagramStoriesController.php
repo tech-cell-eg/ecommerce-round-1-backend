@@ -14,6 +14,8 @@ class InstagramStoriesController extends Controller
      * @OA\Get(
      *     path="/instagram-stories",
      *     tags={"instagram-stories"},
+     *     summary="Get all instagram stories",
+     *     description="Endpoint to Get all instagram stories",
      *     @OA\Response(
      *          response="200", 
      *          description="ok",

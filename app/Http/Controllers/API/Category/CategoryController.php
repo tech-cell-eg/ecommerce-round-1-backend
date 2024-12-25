@@ -33,6 +33,21 @@ class CategoryController extends Controller
      * @OA\Post(
      *     path="/categories",
      *     tags={"Category"},
+     *     summary="Create a new category",
+     *     description="Endpoint to create a new category",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             type="object",
+     *             required={"name"},
+     *             @OA\Property(
+     *                 property="name",
+     *                 type="string",
+     *                 description="Name of the category",
+     *                 example="Electronics"
+     *             )
+     *         )
+     *     ),
      *     @OA\Response(
      *          response="200", 
      *          description="ok",
@@ -79,6 +94,21 @@ class CategoryController extends Controller
      * @OA\Put(
      *     path="/categories/1",
      *     tags={"Category"},
+     *     summary="Update a category by id",
+     *     description="Endpoint to update a category",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             type="object",
+     *             required={"name"},
+     *             @OA\Property(
+     *                 property="name",
+     *                 type="string",
+     *                 description="Name of the category",
+     *                 example="clothes"
+     *             )
+     *         )
+     *     ),
      *     @OA\Response(
      *          response="200", 
      *          description="ok",
@@ -96,6 +126,8 @@ class CategoryController extends Controller
      * @OA\Delete(
      *     path="/categories/1",
      *     tags={"Category"},
+     *     summary="Delete a category by id",
+     *     description="Endpoint to delete a category",
      *     @OA\Response(
      *          response="200", 
      *          description="ok",

@@ -583,7 +583,29 @@
                 "tags": [
                     "Category"
                 ],
+                "summary": "Create a new category",
+                "description": "Endpoint to create a new category",
                 "operationId": "a301f10c102c4f4f677c1485fbd41de8",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "Name of the category",
+                                        "type": "string",
+                                        "example": "Electronics"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "ok",
@@ -622,7 +644,29 @@
                 "tags": [
                     "Category"
                 ],
+                "summary": "Update a category by id",
+                "description": "Endpoint to update a category",
                 "operationId": "43aa4db811a228deea8642091f979e47",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "Name of the category",
+                                        "type": "string",
+                                        "example": "clothes"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "ok",
@@ -640,6 +684,8 @@
                 "tags": [
                     "Category"
                 ],
+                "summary": "Delete a category by id",
+                "description": "Endpoint to delete a category",
                 "operationId": "e98d8d539306c26fe925840c7f4fd81e",
                 "responses": {
                     "200": {
@@ -660,6 +706,8 @@
                 "tags": [
                     "favorite"
                 ],
+                "summary": "Get all favorites product",
+                "description": "Endpoint to get all favorites product",
                 "operationId": "1132d3edf1dd80ec472eee7c61f7d9b4",
                 "responses": {
                     "200": {
@@ -680,6 +728,8 @@
                 "tags": [
                     "favorite"
                 ],
+                "summary": "Add product to favorites by id",
+                "description": "Endpoint to Add product to favorites by id",
                 "operationId": "4471fa5795b95cf2df9cd93a247f5b5d",
                 "responses": {
                     "200": {
@@ -700,6 +750,8 @@
                 "tags": [
                     "favorite"
                 ],
+                "summary": "remove product from favorites",
+                "description": "Endpoint to remove product from favorites",
                 "operationId": "6941dbfb35434fdb96716398c44537e6",
                 "responses": {
                     "200": {
@@ -720,6 +772,8 @@
                 "tags": [
                     "instagram-stories"
                 ],
+                "summary": "Get all instagram stories",
+                "description": "Endpoint to Get all instagram stories",
                 "operationId": "67f92a2d4e8c0667fffb59ad64032674",
                 "responses": {
                     "200": {
@@ -740,6 +794,8 @@
                 "tags": [
                     "order"
                 ],
+                "summary": "Get all orders",
+                "description": "Endpoint to Get all orders",
                 "operationId": "3ba33c0d0b8edae417b36cf4d40c95c9",
                 "responses": {
                     "200": {
@@ -758,7 +814,62 @@
                 "tags": [
                     "order"
                 ],
+                "summary": "Create an order",
+                "description": "Endpoint to create a new order with user address, payment card, and product details",
                 "operationId": "f05ecc230d53252d93ba83f7770833d9",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "user_address_id",
+                                    "user_card_id",
+                                    "products",
+                                    "quantities",
+                                    "sizes"
+                                ],
+                                "properties": {
+                                    "user_address_id": {
+                                        "description": "ID of the user's address",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "user_card_id": {
+                                        "description": "ID of the user's payment card",
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "products": {
+                                        "description": "Array of product IDs",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer",
+                                            "example": 101
+                                        }
+                                    },
+                                    "quantities": {
+                                        "description": "Array of quantities for the products",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer",
+                                            "example": 2
+                                        }
+                                    },
+                                    "sizes": {
+                                        "description": "Array of sizes for the products",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "example": "M"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "ok",
@@ -778,6 +889,8 @@
                 "tags": [
                     "order"
                 ],
+                "summary": "Get order by id",
+                "description": "Endpoint to Get order by id",
                 "operationId": "d6466e5bf3005c2134420d14ee6d44a8",
                 "responses": {
                     "200": {
@@ -796,6 +909,8 @@
                 "tags": [
                     "order"
                 ],
+                "summary": "Delete order",
+                "description": "Endpoint to Delete order",
                 "operationId": "395c92c025cddd69e576462215d9d3f4",
                 "responses": {
                     "200": {
@@ -951,6 +1066,8 @@
                 "tags": [
                     "review"
                 ],
+                "summary": "Get all reviews",
+                "description": "Endpoint to Get all reviews",
                 "operationId": "88d08e40740ce3900658368acb23e2d8",
                 "responses": {
                     "200": {
@@ -969,7 +1086,53 @@
                 "tags": [
                     "review"
                 ],
+                "summary": "Create a review for a product",
+                "description": "Endpoint to create a review with product, user details, and review information",
                 "operationId": "12926c45b6d6194debc5ec88a8c38d30",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "msg",
+                                    "stars",
+                                    "product_id",
+                                    "user_id",
+                                    "user_role"
+                                ],
+                                "properties": {
+                                    "msg": {
+                                        "description": "Review message text",
+                                        "type": "string",
+                                        "example": "This product is excellent!"
+                                    },
+                                    "stars": {
+                                        "description": "Rating stars from 1 to 5",
+                                        "type": "integer",
+                                        "example": 5
+                                    },
+                                    "product_id": {
+                                        "description": "ID of the product being reviewed",
+                                        "type": "integer",
+                                        "example": 101
+                                    },
+                                    "user_id": {
+                                        "description": "ID of the user creating the review",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "user_role": {
+                                        "description": "Role ID of the user (e.g., 1 for customer, 2 for admin)",
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "ok",
@@ -989,6 +1152,8 @@
                 "tags": [
                     "review"
                 ],
+                "summary": "Get review by id",
+                "description": "Endpoint to Get review by id",
                 "operationId": "bfe96f246b711aa76f6e24b4b8008572",
                 "responses": {
                     "200": {
@@ -1007,7 +1172,53 @@
                 "tags": [
                     "review"
                 ],
+                "summary": "Update an existing review",
+                "description": "Endpoint to update an existing review with product, user details, and review information",
                 "operationId": "8823fede6f973e4df9d8544adb874477",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "msg",
+                                    "stars",
+                                    "product_id",
+                                    "user_id",
+                                    "user_role"
+                                ],
+                                "properties": {
+                                    "msg": {
+                                        "description": "Updated review message text",
+                                        "type": "string",
+                                        "example": "This product is awesome now!"
+                                    },
+                                    "stars": {
+                                        "description": "Updated rating stars from 1 to 5",
+                                        "type": "integer",
+                                        "example": 4
+                                    },
+                                    "product_id": {
+                                        "description": "ID of the product being reviewed",
+                                        "type": "integer",
+                                        "example": 101
+                                    },
+                                    "user_id": {
+                                        "description": "ID of the user updating the review",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "user_role": {
+                                        "description": "Role ID of the user (e.g., 1 for customer, 2 for admin)",
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "ok",
@@ -1025,6 +1236,8 @@
                 "tags": [
                     "review"
                 ],
+                "summary": "Delete a review by id",
+                "description": "Endpoint to delete a review by id",
                 "operationId": "81d224194504e32b6e4a48eb3bd475fd",
                 "responses": {
                     "200": {

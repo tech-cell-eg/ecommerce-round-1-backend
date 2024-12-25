@@ -16,6 +16,8 @@ class OrderController extends Controller
      * @OA\Get(
      *     path="/orders",
      *     tags={"order"},
+     *     summary="Get all orders",
+     *     description="Endpoint to Get all orders",
      *     @OA\Response(
      *          response="200", 
      *          description="ok",
@@ -34,6 +36,45 @@ class OrderController extends Controller
      * @OA\Post(
      *     path="/orders",
      *     tags={"order"},
+     *     summary="Create an order",
+     *     description="Endpoint to create a new order with user address, payment card, and product details",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             type="object",
+     *             required={"user_address_id", "user_card_id", "products", "quantities", "sizes"},
+     *             @OA\Property(
+     *                 property="user_address_id",
+     *                 type="integer",
+     *                 description="ID of the user's address",
+     *                 example=1
+     *             ),
+     *             @OA\Property(
+     *                 property="user_card_id",
+     *                 type="integer",
+     *                 description="ID of the user's payment card",
+     *                 example=2
+     *             ),
+     *             @OA\Property(
+     *                 property="products",
+     *                 type="array",
+     *                 description="Array of product IDs",
+     *                 @OA\Items(type="integer", example=101)
+     *             ),
+     *             @OA\Property(
+     *                 property="quantities",
+     *                 type="array",
+     *                 description="Array of quantities for the products",
+     *                 @OA\Items(type="integer", example=2)
+     *             ),
+     *             @OA\Property(
+     *                 property="sizes",
+     *                 type="array",
+     *                 description="Array of sizes for the products",
+     *                 @OA\Items(type="string", example="M")
+     *             )
+     *         )
+     *     ),
      *     @OA\Response(
      *          response="200", 
      *          description="ok",
@@ -75,6 +116,8 @@ class OrderController extends Controller
      * @OA\Get(
      *     path="/orders/1",
      *     tags={"order"},
+     *     summary="Get order by id",
+     *     description="Endpoint to Get order by id",
      *     @OA\Response(
      *          response="200", 
      *          description="ok",
@@ -93,6 +136,8 @@ class OrderController extends Controller
      * @OA\Delete(
      *     path="/orders/1",
      *     tags={"order"},
+     *     summary="Delete order",
+     *     description="Endpoint to Delete order",
      *     @OA\Response(
      *          response="200", 
      *          description="ok",
