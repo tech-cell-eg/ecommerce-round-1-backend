@@ -45,4 +45,9 @@ class Blog extends Model
     {
         $this->decrement('comment_count');
     }
+
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'author_id');
+    }
 }
