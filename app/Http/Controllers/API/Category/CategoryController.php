@@ -16,6 +16,7 @@ class CategoryController extends Controller
      *     path="/categories",
      *     tags={"Category"},
      *     summary="Get all categories",
+     *     security={{"bearerAuth": {}}},
      *     @OA\Response(
      *          response="200", 
      *          description="ok",
@@ -33,6 +34,7 @@ class CategoryController extends Controller
      * @OA\Post(
      *     path="/categories",
      *     tags={"Category"},
+     *     security={{"bearerAuth": {}}},
      *     summary="Create a new category",
      *     description="Endpoint to create a new category",
      *     @OA\RequestBody(
@@ -68,6 +70,7 @@ class CategoryController extends Controller
      * @OA\Get(
      *     path="/categories/{id}",
      *     tags={"Category"},
+     *     security={{"bearerAuth": {}}},
      *     summary="Get category by id",
      *     @OA\Parameter(
      *         name="id",
@@ -102,6 +105,7 @@ class CategoryController extends Controller
      * @OA\Put(
      *     path="/categories/{id}",
      *     tags={"Category"},
+     *     security={{"bearerAuth": {}}},
      *     summary="Update a category by id",
      *     description="Endpoint to update a category",
      *     @OA\Parameter(
@@ -142,6 +146,7 @@ class CategoryController extends Controller
      * @OA\Delete(
      *     path="/categories/{id}",
      *     tags={"Category"},
+     *     security={{"bearerAuth": {}}},
      *     summary="Delete a category by id",
      *     description="Endpoint to delete a category",
      *     @OA\Parameter(

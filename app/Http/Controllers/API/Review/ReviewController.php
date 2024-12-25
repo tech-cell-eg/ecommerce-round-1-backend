@@ -68,6 +68,7 @@ class ReviewController extends Controller implements HasMiddleware
      * @OA\Post(
      *     path="/reviews",
      *     tags={"review"},
+     *     security={{"bearerAuth": {}}},
      *     summary="Create a review for a product",
      *     description="Endpoint to create a review with product, user details, and review information",
      *     @OA\RequestBody(
@@ -123,6 +124,7 @@ class ReviewController extends Controller implements HasMiddleware
      * @OA\Put(
      *     path="/reviews/{id}",
      *     tags={"review"},
+     *     security={{"bearerAuth": {}}},
      *     summary="Update an existing review",
      *     description="Endpoint to update an existing review with product, user details, and review information",
      *     @OA\Parameter(
@@ -186,6 +188,7 @@ class ReviewController extends Controller implements HasMiddleware
      * @OA\Delete(
      *     path="/reviews/{id}",
      *     tags={"review"},
+     *     security={{"bearerAuth": {}}},
      *     summary="Delete a review by id",
      *     description="Endpoint to delete a review by id",
      *     @OA\Parameter(

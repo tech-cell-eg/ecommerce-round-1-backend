@@ -80,6 +80,7 @@ class ProductController extends Controller implements HasMiddleware
      * @OA\Post(
      *     path="/product",
      *     tags={"product"},
+     *     security={{"bearerAuth": {}}},
      *     summary="Create product",
      *     @OA\RequestBody(
      *         required=true,

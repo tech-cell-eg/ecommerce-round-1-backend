@@ -15,6 +15,7 @@ class LogoutController extends Controller
      * @OA\Post(
      *     path="/logout",
      *     tags={"Auth"},
+     *     security={{"bearerAuth": {}}},
      *     summary="User logout",
      *     @OA\Response(
      *          response="200", 

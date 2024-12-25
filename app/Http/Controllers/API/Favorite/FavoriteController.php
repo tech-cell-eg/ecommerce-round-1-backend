@@ -21,6 +21,7 @@ class FavoriteController extends Controller
      * @OA\Get(
      *     path="/favorites",
      *     tags={"favorite"},
+     *     security={{"bearerAuth": {}}},
      *     summary="Get all favorites product",
      *     description="Endpoint to get all favorites product",
      *     @OA\Response(
@@ -42,6 +43,7 @@ class FavoriteController extends Controller
      * @OA\Post(
      *     path="/favorites?product_id=2",
      *     tags={"favorite"},
+     *     security={{"bearerAuth": {}}},
      *     summary="Add product to favorites by id",
      *     description="Endpoint to Add product to favorites by id",
      *     @OA\Response(
@@ -66,6 +68,7 @@ class FavoriteController extends Controller
      * @OA\Delete(
      *     path="/favorites/{id}",
      *     tags={"favorite"},
+     *     security={{"bearerAuth": {}}},
      *     summary="remove product from favorites",
      *     description="Endpoint to remove product from favorites",
      *     @OA\Parameter(

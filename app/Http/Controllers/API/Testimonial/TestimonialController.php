@@ -18,6 +18,7 @@ class TestimonialController extends Controller
      * @OA\Get(
      *     path="/testimonial",
      *     tags={"testimonial"},
+     *     security={{"bearerAuth": {}}},
      *     summary="Get all testimonials",
      *     description="Endpoint to Get all testimonials",
      *     @OA\Response(
@@ -38,6 +39,7 @@ class TestimonialController extends Controller
      * @OA\Post(
      *     path="/testimonial",
      *     tags={"testimonial"},
+     *     security={{"bearerAuth": {}}},
      *     summary="Create a testimonial for a product",
      *     description="Endpoint to create a testimonial with product, text, image, and video",
      *     @OA\RequestBody(
@@ -114,6 +116,7 @@ class TestimonialController extends Controller
      * @OA\Get(
      *     path="/testimonial/{id}",
      *     tags={"testimonial"},
+     *     security={{"bearerAuth": {}}},
      *     summary="Get a testimonial by id",
      *     description="Endpoint to Get a testimonial by id",
      *     @OA\Parameter(
@@ -141,6 +144,7 @@ class TestimonialController extends Controller
      * @OA\Put(
      *     path="/testimonial/{id}",
      *     tags={"testimonial"},
+     *     security={{"bearerAuth": {}}},
      *     summary="Update a testimonial for a product",
      *     description="Endpoint to update a testimonial with product, text, image, and video",
      *     @OA\Parameter(
@@ -216,6 +220,7 @@ class TestimonialController extends Controller
      * @OA\Delete(
      *     path="/testimonial/{id}",
      *     tags={"testimonial"},
+     *     security={{"bearerAuth": {}}},
      *     summary="Delete testimonial by id",
      *     description="Endpoint to Delete testimonial by id",
      *     @OA\Parameter(

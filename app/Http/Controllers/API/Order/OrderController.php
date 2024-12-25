@@ -16,6 +16,7 @@ class OrderController extends Controller
      * @OA\Get(
      *     path="/orders",
      *     tags={"order"},
+     *     security={{"bearerAuth": {}}},
      *     summary="Get all orders",
      *     description="Endpoint to Get all orders",
      *     @OA\Response(
@@ -36,6 +37,7 @@ class OrderController extends Controller
      * @OA\Post(
      *     path="/orders",
      *     tags={"order"},
+     *     security={{"bearerAuth": {}}},
      *     summary="Create an order",
      *     description="Endpoint to create a new order with user address, payment card, and product details",
      *     @OA\RequestBody(
@@ -116,6 +118,7 @@ class OrderController extends Controller
      * @OA\Get(
      *     path="/orders/{id}",
      *     tags={"order"},
+     *     security={{"bearerAuth": {}}},
      *     summary="Get order by id",
      *     description="Endpoint to Get order by id",
      *     @OA\Parameter(
@@ -144,6 +147,7 @@ class OrderController extends Controller
      * @OA\Delete(
      *     path="/orders/{id}",
      *     tags={"order"},
+     *     security={{"bearerAuth": {}}},
      *     summary="Delete order",
      *     description="Endpoint to Delete order",
      *     @OA\Parameter(

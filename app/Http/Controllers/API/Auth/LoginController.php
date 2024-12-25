@@ -28,14 +28,14 @@ class LoginController extends Controller
      *                 type="string",
      *                 format="email",
      *                 description="Email address of the user",
-     *                 example="user@example.com"
+     *                 example="john.doe@example.com"
      *             ),
      *             @OA\Property(
      *                 property="password",
      *                 type="string",
      *                 format="password",
      *                 description="Password of the user",
-     *                 example="password123"
+     *                 example="SecurePassword123"
      *             )
      *         )
      *     ),

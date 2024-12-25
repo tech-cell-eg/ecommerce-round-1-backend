@@ -15,6 +15,7 @@ class UserCardController extends Controller
      * @OA\Get(
      *     path="/cards",
      *     tags={"card"},
+     *     security={{"bearerAuth": {}}},
      *     summary="Get all user cards",
      *     description="Endpoint to Get all user cards",
      *     @OA\Response(
@@ -34,6 +35,7 @@ class UserCardController extends Controller
      * @OA\Post(
      *     path="/cards/store",
      *     tags={"card"},
+     *     security={{"bearerAuth": {}}},
      *     summary="Submit credit card information",
      *     description="Endpoint to submit credit card information",
      *     @OA\RequestBody(
@@ -94,6 +96,7 @@ class UserCardController extends Controller
      * @OA\Delete(
      *     path="/cards/{id}",
      *     tags={"card"},
+     *     security={{"bearerAuth": {}}},
      *     summary="Delete a user card by id",
      *     description="Endpoint to delete a user card by id",
      *     @OA\Parameter(

@@ -15,6 +15,7 @@ class UserAddressController extends Controller
      * @OA\Get(
      *     path="/addresses",
      *     tags={"address"},
+     *     security={{"bearerAuth": {}}},
      *     summary="Get all addresses",
      *     @OA\Response(
      *          response="200", 
@@ -33,6 +34,7 @@ class UserAddressController extends Controller
      * @OA\Post(
      *     path="/addresses",
      *     tags={"address"},
+     *     security={{"bearerAuth": {}}},
      *     summary="Add user address",
      *     description="Endpoint to add user's address",
      *     @OA\RequestBody(
@@ -112,6 +114,7 @@ class UserAddressController extends Controller
      * @OA\Get(
      *     path="/addresses/{id}",
      *     tags={"address"},
+     *     security={{"bearerAuth": {}}},
      *     summary="Get address by id",
      *     @OA\Parameter(
      *         name="id",
@@ -153,6 +156,7 @@ class UserAddressController extends Controller
      * @OA\Delete(
      *     path="/addresses/{id}",
      *     tags={"address"},
+     *     security={{"bearerAuth": {}}},
      *     summary="Delete address by id",
      *     @OA\Parameter(
      *         name="id",

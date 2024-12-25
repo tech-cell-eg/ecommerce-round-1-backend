@@ -17,6 +17,7 @@ class CartController extends Controller
      * @OA\Get(
      *     path="/cart",
      *     tags={"cart"},
+     *     security={{"bearerAuth": {}}},
      *     summary="Get all product in cart",
      *     @OA\Response(
      *          response="200", 
@@ -36,6 +37,7 @@ class CartController extends Controller
      * @OA\Post(
      *     path="/cart",
      *     tags={"cart"},
+     *     security={{"bearerAuth": {}}},
      *     summary="Add product to cart",
      *     description="Endpoint to add a product to the user's shopping cart",
      *     @OA\RequestBody(
@@ -83,6 +85,7 @@ class CartController extends Controller
      * @OA\Put(
      *     path="/cart/{id}",
      *     tags={"cart"},
+     *     security={{"bearerAuth": {}}},
      *     summary="Update product in cart by id",
      *     description="Endpoint to update a product to the user's shopping cart",
      *     @OA\Parameter(
@@ -128,6 +131,7 @@ class CartController extends Controller
      * @OA\Delete(
      *     path="/cart/{id}",
      *     tags={"cart"},
+     *     security={{"bearerAuth": {}}},
      *     summary="Delete product from cart by id",
      *     @OA\Parameter(
      *         name="id",
@@ -154,6 +158,7 @@ class CartController extends Controller
      * @OA\Delete(
      *     path="/cart/clear",
      *     tags={"cart"},
+     *     security={{"bearerAuth": {}}},
      *     summary="Delete all product from cart",
      *     @OA\Response(
      *          response="200", 
