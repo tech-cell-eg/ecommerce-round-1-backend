@@ -23,12 +23,12 @@ class CartController extends Controller
     public function store(CartRequest $request)
     {
 
-        Cart::updateOrCreate(
+        $cart = Cart::updateOrCreate(
             ['product_id' => $request->product_id, 'user_id' => Auth::user()->id],
             ['quantity' => $request->quantity]    // Data to update or insert
         );
 
-        return $this->success(200, "item has been added successfully!");
+        return $this->success(200, "item has been added successfully!", $cart);
     }
 
     public function show()
@@ -43,7 +43,7 @@ class CartController extends Controller
             "quantity" => $request->quantity || $cart->quantity
         ]);
 
-        return $this->success(200, "item has been updated successfully!");
+        return $this->success(200, "item has been updated successfully!", $cart);
     }
 
     public function destroy(Cart $cart)
