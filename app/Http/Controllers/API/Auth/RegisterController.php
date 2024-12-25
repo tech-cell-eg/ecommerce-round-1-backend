@@ -23,7 +23,7 @@ class RegisterController extends Controller
      *         required=true,
      *         @OA\JsonContent(
      *             type="object",
-     *             required={"first_name", "last_name", "email", "password", "terms_agree"},
+     *             required={"first_name", "last_name", "email", "password", "terms_agreed"},
      *             @OA\Property(
      *                 property="first_name",
      *                 type="string",
@@ -51,7 +51,7 @@ class RegisterController extends Controller
      *                 example="SecurePassword123"
      *             ),
      *             @OA\Property(
-     *                 property="terms_agree",
+     *                 property="terms_agreed",
      *                 type="boolean",
      *                 description="Indicates whether the user agrees to the terms and conditions",
      *                 example=true

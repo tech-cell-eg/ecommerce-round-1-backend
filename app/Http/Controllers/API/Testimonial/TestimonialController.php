@@ -112,10 +112,18 @@ class TestimonialController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/testimonial/1",
+     *     path="/testimonial/{id}",
      *     tags={"testimonial"},
      *     summary="Get a testimonial by id",
      *     description="Endpoint to Get a testimonial by id",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
      *     @OA\Response(
      *          response="200", 
      *          description="ok",
@@ -131,10 +139,18 @@ class TestimonialController extends Controller
 
     /**
      * @OA\Put(
-     *     path="/testimonial/1",
+     *     path="/testimonial/{id}",
      *     tags={"testimonial"},
      *     summary="Update a testimonial for a product",
      *     description="Endpoint to update a testimonial with product, text, image, and video",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\MediaType(
@@ -198,10 +214,18 @@ class TestimonialController extends Controller
 
     /**
      * @OA\Delete(
-     *     path="/testimonial/1",
+     *     path="/testimonial/{id}",
      *     tags={"testimonial"},
      *     summary="Delete testimonial by id",
      *     description="Endpoint to Delete testimonial by id",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
      *     @OA\Response(
      *          response="200", 
      *          description="ok",

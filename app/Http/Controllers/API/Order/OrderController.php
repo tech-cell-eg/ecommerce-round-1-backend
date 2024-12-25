@@ -114,10 +114,18 @@ class OrderController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/orders/1",
+     *     path="/orders/{id}",
      *     tags={"order"},
      *     summary="Get order by id",
      *     description="Endpoint to Get order by id",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
      *     @OA\Response(
      *          response="200", 
      *          description="ok",
@@ -134,10 +142,18 @@ class OrderController extends Controller
 
     /**
      * @OA\Delete(
-     *     path="/orders/1",
+     *     path="/orders/{id}",
      *     tags={"order"},
      *     summary="Delete order",
      *     description="Endpoint to Delete order",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
      *     @OA\Response(
      *          response="200", 
      *          description="ok",

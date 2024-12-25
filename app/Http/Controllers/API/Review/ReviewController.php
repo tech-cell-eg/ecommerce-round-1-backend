@@ -41,10 +41,18 @@ class ReviewController extends Controller implements HasMiddleware
 
     /**
      * @OA\Get(
-     *     path="/reviews/1",
+     *     path="/reviews/{id}",
      *     tags={"review"},
      *     summary="Get review by id",
      *     description="Endpoint to Get review by id",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
      *     @OA\Response(
      *          response="200", 
      *          description="ok",
@@ -113,10 +121,18 @@ class ReviewController extends Controller implements HasMiddleware
 
     /**
      * @OA\Put(
-     *     path="/reviews/1",
+     *     path="/reviews/{id}",
      *     tags={"review"},
      *     summary="Update an existing review",
      *     description="Endpoint to update an existing review with product, user details, and review information",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
@@ -168,10 +184,18 @@ class ReviewController extends Controller implements HasMiddleware
 
     /**
      * @OA\Delete(
-     *     path="/reviews/1",
+     *     path="/reviews/{id}",
      *     tags={"review"},
      *     summary="Delete a review by id",
      *     description="Endpoint to delete a review by id",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
      *     @OA\Response(
      *          response="200", 
      *          description="ok",

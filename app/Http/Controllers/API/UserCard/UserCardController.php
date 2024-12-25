@@ -92,10 +92,18 @@ class UserCardController extends Controller
 
     /**
      * @OA\Delete(
-     *     path="/cards/1",
+     *     path="/cards/{id}",
      *     tags={"card"},
      *     summary="Delete a user card by id",
      *     description="Endpoint to delete a user card by id",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
      *     @OA\Response(
      *          response="200", 
      *          description="ok",

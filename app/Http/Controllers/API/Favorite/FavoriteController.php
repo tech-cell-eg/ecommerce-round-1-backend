@@ -64,10 +64,18 @@ class FavoriteController extends Controller
 
     /**
      * @OA\Delete(
-     *     path="/favorites/1",
+     *     path="/favorites/{id}",
      *     tags={"favorite"},
      *     summary="remove product from favorites",
      *     description="Endpoint to remove product from favorites",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
      *     @OA\Response(
      *          response="200", 
      *          description="ok",

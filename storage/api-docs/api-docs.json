@@ -114,13 +114,23 @@
                 }
             }
         },
-        "/addresses/1": {
+        "/addresses/{id}": {
             "get": {
                 "tags": [
                     "address"
                 ],
                 "summary": "Get address by id",
-                "operationId": "d5881e30680aebc38e61cfe93f09f16d",
+                "operationId": "b7b1f7ebeb448049cefecf13e1bdf25d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "ok",
@@ -139,7 +149,17 @@
                     "address"
                 ],
                 "summary": "Delete address by id",
-                "operationId": "95a62b1a5fb8da173bd380ff9c89b02a",
+                "operationId": "2983aab0efde3c192099c9dab6968fbe",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "ok",
@@ -284,7 +304,7 @@
                                     "last_name",
                                     "email",
                                     "password",
-                                    "terms_agree"
+                                    "terms_agreed"
                                 ],
                                 "properties": {
                                     "first_name": {
@@ -309,7 +329,7 @@
                                         "format": "password",
                                         "example": "SecurePassword123"
                                     },
-                                    "terms_agree": {
+                                    "terms_agreed": {
                                         "description": "Indicates whether the user agrees to the terms and conditions",
                                         "type": "boolean",
                                         "example": true
@@ -477,14 +497,24 @@
                 }
             }
         },
-        "/cart/1": {
+        "/cart/{id}": {
             "put": {
                 "tags": [
                     "cart"
                 ],
                 "summary": "Update product in cart by id",
                 "description": "Endpoint to update a product to the user's shopping cart",
-                "operationId": "9878138648253e3c1c0527e96be2ea3e",
+                "operationId": "f5dde2c9b3577e97ba291f04b1f79442",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -523,7 +553,17 @@
                     "cart"
                 ],
                 "summary": "Delete product from cart by id",
-                "operationId": "27202099cedc2f6f47f41875d39ca6d6",
+                "operationId": "7c13da9cd130c77ca877f041f3d2565a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "ok",
@@ -620,13 +660,23 @@
                 }
             }
         },
-        "/categories/1": {
+        "/categories/{id}": {
             "get": {
                 "tags": [
                     "Category"
                 ],
                 "summary": "Get category by id",
-                "operationId": "bd2356fb4ccd4accf3e9bef7ace76cf8",
+                "operationId": "e5de0bc7800096f327bdb5d112418a20",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "ok",
@@ -646,7 +696,17 @@
                 ],
                 "summary": "Update a category by id",
                 "description": "Endpoint to update a category",
-                "operationId": "43aa4db811a228deea8642091f979e47",
+                "operationId": "6131ee233e34a9ca77f8e6b466f5fd8a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -686,7 +746,17 @@
                 ],
                 "summary": "Delete a category by id",
                 "description": "Endpoint to delete a category",
-                "operationId": "e98d8d539306c26fe925840c7f4fd81e",
+                "operationId": "03c60e4a9601ba36082d3c62057fa1ea",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "ok",
@@ -745,14 +815,24 @@
                 }
             }
         },
-        "/favorites/1": {
+        "/favorites/{id}": {
             "delete": {
                 "tags": [
                     "favorite"
                 ],
                 "summary": "remove product from favorites",
                 "description": "Endpoint to remove product from favorites",
-                "operationId": "6941dbfb35434fdb96716398c44537e6",
+                "operationId": "e01bdca6fd8af75dd94a9be7bf2ed281",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "ok",
@@ -884,14 +964,24 @@
                 }
             }
         },
-        "/orders/1": {
+        "/orders/{id}": {
             "get": {
                 "tags": [
                     "order"
                 ],
                 "summary": "Get order by id",
                 "description": "Endpoint to Get order by id",
-                "operationId": "d6466e5bf3005c2134420d14ee6d44a8",
+                "operationId": "4cc7e88fb606f38855aa7aa1678ec331",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "ok",
@@ -911,7 +1001,17 @@
                 ],
                 "summary": "Delete order",
                 "description": "Endpoint to Delete order",
-                "operationId": "395c92c025cddd69e576462215d9d3f4",
+                "operationId": "07c43839e1549886d39414c61fff8b97",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "ok",
@@ -1023,13 +1123,23 @@
                 }
             }
         },
-        "/product/1": {
+        "/product/{id}": {
             "get": {
                 "tags": [
                     "product"
                 ],
                 "summary": "Get product by id",
-                "operationId": "a8a3d6a16b76758d6b0134d5ac81f031",
+                "operationId": "44e529b08ff2304df14b695e5a460a60",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "ok",
@@ -1151,14 +1261,24 @@
                 }
             }
         },
-        "/reviews/1": {
+        "/reviews/{id}": {
             "get": {
                 "tags": [
                     "review"
                 ],
                 "summary": "Get review by id",
                 "description": "Endpoint to Get review by id",
-                "operationId": "bfe96f246b711aa76f6e24b4b8008572",
+                "operationId": "3206b3e3a3fef8a9fcf323b7a8dc1d3f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "ok",
@@ -1178,7 +1298,17 @@
                 ],
                 "summary": "Update an existing review",
                 "description": "Endpoint to update an existing review with product, user details, and review information",
-                "operationId": "8823fede6f973e4df9d8544adb874477",
+                "operationId": "2213365f93ce2ad61cd6d6b2a3071bcb",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -1242,7 +1372,17 @@
                 ],
                 "summary": "Delete a review by id",
                 "description": "Endpoint to delete a review by id",
-                "operationId": "81d224194504e32b6e4a48eb3bd475fd",
+                "operationId": "77bacf8f793cdad131c60649879f4dd3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "ok",
@@ -1335,14 +1475,24 @@
                 }
             }
         },
-        "/testimonial/1": {
+        "/testimonial/{id}": {
             "get": {
                 "tags": [
                     "testimonial"
                 ],
                 "summary": "Get a testimonial by id",
                 "description": "Endpoint to Get a testimonial by id",
-                "operationId": "f40e085e61bce8d668f2998427213354",
+                "operationId": "2534411137189ebfb36744abc5191a95",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "ok",
@@ -1362,7 +1512,17 @@
                 ],
                 "summary": "Update a testimonial for a product",
                 "description": "Endpoint to update a testimonial with product, text, image, and video",
-                "operationId": "080dc2e663fda747f31313e91c47832f",
+                "operationId": "bb7158cf9c4fe35db59d017dc637ac8b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -1418,7 +1578,17 @@
                 ],
                 "summary": "Delete testimonial by id",
                 "description": "Endpoint to Delete testimonial by id",
-                "operationId": "8da953bb87104694d5d25d9edf7a8ed3",
+                "operationId": "850c769b6c7bfe810c4158ed4982d797",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "ok",
@@ -1515,14 +1685,24 @@
                 }
             }
         },
-        "/cards/1": {
+        "/cards/{id}": {
             "delete": {
                 "tags": [
                     "card"
                 ],
                 "summary": "Delete a user card by id",
                 "description": "Endpoint to delete a user card by id",
-                "operationId": "bb79b53fd535f48409e5182185576dc5",
+                "operationId": "9ecdb7a8f3f757d62977d82e7400ad5b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "ok",

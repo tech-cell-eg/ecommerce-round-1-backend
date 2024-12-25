@@ -81,10 +81,18 @@ class CartController extends Controller
 
     /**
      * @OA\Put(
-     *     path="/cart/1",
+     *     path="/cart/{id}",
      *     tags={"cart"},
      *     summary="Update product in cart by id",
      *     description="Endpoint to update a product to the user's shopping cart",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
@@ -118,9 +126,17 @@ class CartController extends Controller
 
     /**
      * @OA\Delete(
-     *     path="/cart/1",
+     *     path="/cart/{id}",
      *     tags={"cart"},
      *     summary="Delete product from cart by id",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
      *     @OA\Response(
      *          response="200", 
      *          description="ok",

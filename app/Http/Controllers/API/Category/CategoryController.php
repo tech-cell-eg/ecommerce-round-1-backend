@@ -66,9 +66,17 @@ class CategoryController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/categories/1",
+     *     path="/categories/{id}",
      *     tags={"Category"},
      *     summary="Get category by id",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
      *     @OA\Response(
      *          response="200", 
      *          description="ok",
@@ -92,10 +100,18 @@ class CategoryController extends Controller
 
     /**
      * @OA\Put(
-     *     path="/categories/1",
+     *     path="/categories/{id}",
      *     tags={"Category"},
      *     summary="Update a category by id",
      *     description="Endpoint to update a category",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
@@ -124,10 +140,18 @@ class CategoryController extends Controller
 
     /**
      * @OA\Delete(
-     *     path="/categories/1",
+     *     path="/categories/{id}",
      *     tags={"Category"},
      *     summary="Delete a category by id",
      *     description="Endpoint to delete a category",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
      *     @OA\Response(
      *          response="200", 
      *          description="ok",

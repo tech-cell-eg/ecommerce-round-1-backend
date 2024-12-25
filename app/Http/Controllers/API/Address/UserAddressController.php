@@ -110,9 +110,17 @@ class UserAddressController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/addresses/1",
+     *     path="/addresses/{id}",
      *     tags={"address"},
      *     summary="Get address by id",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
      *     @OA\Response(
      *          response="200", 
      *          description="ok",
@@ -143,9 +151,17 @@ class UserAddressController extends Controller
 
     /**
      * @OA\Delete(
-     *     path="/addresses/1",
+     *     path="/addresses/{id}",
      *     tags={"address"},
      *     summary="Delete address by id",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
      *     @OA\Response(
      *          response="200", 
      *          description="ok",

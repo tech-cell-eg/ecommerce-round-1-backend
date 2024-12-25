@@ -52,9 +52,17 @@ class ProductController extends Controller implements HasMiddleware
 
     /**
      * @OA\Get(
-     *     path="/product/1",
+     *     path="/product/{id}",
      *     tags={"product"},
      *     summary="Get product by id",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
      *     @OA\Response(
      *          response="200", 
      *          description="ok",
