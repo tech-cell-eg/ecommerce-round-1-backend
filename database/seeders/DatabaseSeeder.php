@@ -42,5 +42,9 @@ class DatabaseSeeder extends Seeder
 
         Category::factory()->count(3)->create();
         Product::factory(5)->create();
+
+        $this->call([
+            RolePermissionSeeder::class,
+        ]);
     }
 }

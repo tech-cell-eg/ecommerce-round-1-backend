@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\AdminController;
 use App\Http\Controllers\Dashboard\BlogController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\CouponController;
@@ -54,6 +55,8 @@ Route::middleware('auth:admin')->group(function () {
 });
 
 
+
+
 Route::middleware('auth:admin')->group(function () {
     Route::get('/admin/category', [CategoryController::class, 'index'])->name('category.index');
     Route::get('/admin/category/create', [CategoryController::class, 'create'])->name('category.create');
@@ -87,6 +90,12 @@ Route::middleware('auth:admin')->group(function () {
 
 
 Route::resource('users', UsersController::class)->middleware('auth:admin');
+
+
+Route::resource('admins', AdminController::class)->middleware('auth:admin');
+
+
+
 
 require __DIR__.'/auth.php';
 

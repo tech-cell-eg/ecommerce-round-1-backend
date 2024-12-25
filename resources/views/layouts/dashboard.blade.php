@@ -89,7 +89,7 @@
                         </a>
                     </div>
                 </li>
-               
+
             </ul>
             <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
                 <span class="icon-menu"></span>
@@ -219,7 +219,7 @@
                         </div>
                         <div class="text-wrapper">
                             <p class="profile-name">{{Auth::user()->name}}</p>
-                            <p class="designation">Administrator</p>
+                            <p class="designation">{{ strtoupper( Auth::user()->getRoleNames()->first() )}}</p>
                         </div>
                         <div class="icon-container">
                             <i class="icon-bubbles"></i>
@@ -236,28 +236,55 @@
                         <i class="icon-screen-desktop menu-icon"></i>
                     </a>
                 </li>
-                
-                
 
 
+
+                @if(Auth::user()->hasRole('editor'))
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('products.index')}}">
+                    <a class="nav-link" href="{{ route('products.index') }}">
                         <span class="menu-title">Product</span>
                         <i class="icon-globe menu-icon"></i>
                     </a>
                     <div class="collapse" id="icons">
                         <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"> <a class="nav-link" href="{{route('products.index')}}">All Products</a></li>
-                            <li class="nav-item"> <a class="nav-link" href="{{route('products.create')}}">Add Product</a></li>
+                            @can('view products')
+                            <li class="nav-item"><a class="nav-link" href="{{ route('products.index') }}">All Products</a></li>
+                            @endcan
 
+                            @can('create products')
+                            <li class="nav-item"><a class="nav-link" href="{{ route('products.create') }}">Add Product</a></li>
+                            @endcan
+
+                            @can('edit products')
+                            <li class="nav-item"><a class="nav-link" href="{{ route('products.edit', ['product' => 1]) }}">Edit Product</a></li>
+                            @endcan
+
+                            @can('delete products')
+                            <li class="nav-item"><a class="nav-link" href="#" onclick="confirmDelete()">Delete Product</a></li>
+                            @endcan
+                        </ul>
+                    </div>
+                </li>
+                @endif
+
+               
+                @if(Auth::user()->hasRole('admin'))
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('products.index') }}">
+                        <span class="menu-title">Product</span>
+                        <i class="icon-globe menu-icon"></i>
+                    </a>
+                    <div class="collapse" id="icons">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"><a class="nav-link" href="{{ route('products.index') }}">All Products</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('products.create') }}">Add Product</a></li>
                         </ul>
                     </div>
                 </li>
 
 
-
                 <li class="nav-item">
-                    <a class="nav-link"  href="{{route('category.index')}}">
+                    <a class="nav-link" href="{{route('category.index')}}">
                         <span class="menu-title">Category</span>
                         <i class="icon-book-open menu-icon"></i>
                     </a>
@@ -272,7 +299,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link"  href="{{route('testimonials.index')}}">
+                    <a class="nav-link" href="{{route('testimonials.index')}}">
                         <span class="menu-title">Testimonials</span>
                         <i class="icon-book-open menu-icon"></i>
                     </a>
@@ -280,13 +307,13 @@
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item"> <a class="nav-link" href="{{route('testimonials.index')}}">All Testimonials</a></li>
                             <li class="nav-item"> <a class="nav-link" href="{{route('testimonials.create')}}">Add Testimonial</a></li>
-                            </ul>
+                        </ul>
                     </div>
                 </li>
 
 
                 <li class="nav-item">
-                    <a class="nav-link"  href="{{route('orders.index')}}">
+                    <a class="nav-link" href="{{route('orders.index')}}">
                         <span class="menu-title">Orders</span>
                         <i class="icon-book-open menu-icon"></i>
                     </a>
@@ -296,10 +323,10 @@
                         </ul>
                     </div>
                 </li>
-            
-                
+
+
                 <li class="nav-item">
-                    <a class="nav-link"  href="{{route('coupons.index')}}">
+                    <a class="nav-link" href="{{route('coupons.index')}}">
                         <span class="menu-title">Coupons</span>
                         <i class="icon-book-open menu-icon"></i>
                     </a>
@@ -315,7 +342,7 @@
 
 
                 <li class="nav-item">
-                    <a class="nav-link"  href="{{route('blogs.index')}}">
+                    <a class="nav-link" href="{{route('blogs.index')}}">
                         <span class="menu-title">Blogs</span>
                         <i class="icon-book-open menu-icon"></i>
                     </a>
@@ -329,7 +356,7 @@
 
 
                 <li class="nav-item">
-                    <a class="nav-link"  href="{{route('settings.index')}}">
+                    <a class="nav-link" href="{{route('settings.index')}}">
                         <span class="menu-title">Settings</span>
                         <i class="icon-book-open menu-icon"></i>
                     </a>
@@ -342,7 +369,7 @@
 
 
                 <li class="nav-item">
-                    <a class="nav-link"  href="{{route('users.index')}}">
+                    <a class="nav-link" href="{{route('users.index')}}">
                         <span class="menu-title">Users</span>
                         <i class="icon-book-open menu-icon"></i>
                     </a>
@@ -353,13 +380,26 @@
                         </ul>
                     </div>
                 </li>
-            
+
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('admins.index')}}">
+                        <span class="menu-title">Admins</span>
+                        <i class="icon-book-open menu-icon"></i>
+                    </a>
+                    <div class="collapse" id="forms">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="{{route('admins.index')}}">Add Admin</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="{{route('admins.create')}}">Add Admin</a></li>
+                        </ul>
+                    </div>
+                </li>
+                @endif
         </nav>
-        
+
         <!-- partial -->
         <div class="main-panel">
             <div class="content-wrapper">
-            
 
 
 
@@ -375,8 +415,9 @@
 
 
 
-            @yield('content')
-            
+
+                @yield('content')
+
 
 
 
