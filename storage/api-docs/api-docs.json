@@ -955,49 +955,53 @@
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
                                 "required": [
                                     "name",
                                     "price",
-                                    "category_id"
+                                    "description",
+                                    "category_id",
+                                    "image"
                                 ],
                                 "properties": {
                                     "name": {
-                                        "description": "Name of the product",
-                                        "type": "string"
+                                        "description": "The name of the product",
+                                        "type": "string",
+                                        "example": "Sample Product"
                                     },
                                     "price": {
-                                        "description": "Price of the product",
+                                        "description": "The price of the product",
                                         "type": "number",
-                                        "format": "float"
+                                        "format": "float",
+                                        "example": 99.99
                                     },
                                     "description": {
-                                        "description": "Description of the product",
+                                        "description": "The description of the product",
                                         "type": "string",
-                                        "nullable": true
+                                        "example": "This is a sample product description."
                                     },
                                     "compare_price": {
-                                        "description": "Comparison price of the product",
+                                        "description": "The compare price (e.g., original price)",
                                         "type": "number",
                                         "format": "float",
-                                        "nullable": true
+                                        "example": 129.99
                                     },
                                     "image": {
-                                        "description": "Image of the product",
+                                        "description": "Product image file",
                                         "type": "string",
-                                        "format": "binary",
-                                        "nullable": true
+                                        "format": "binary"
                                     },
                                     "rating": {
-                                        "description": "Rating of the product",
+                                        "description": "Product rating",
                                         "type": "number",
                                         "format": "float",
-                                        "nullable": true
+                                        "example": 4.5
                                     },
                                     "category_id": {
-                                        "description": "ID of the category to which the product belongs",
-                                        "type": "integer"
+                                        "description": "The ID of the product category",
+                                        "type": "integer",
+                                        "example": 1
                                     }
                                 },
                                 "type": "object"
@@ -1258,6 +1262,8 @@
                 "tags": [
                     "testimonial"
                 ],
+                "summary": "Get all testimonials",
+                "description": "Endpoint to Get all testimonials",
                 "operationId": "5df40b6818d8707213a2bcd12693116f",
                 "responses": {
                     "200": {
@@ -1276,7 +1282,45 @@
                 "tags": [
                     "testimonial"
                 ],
+                "summary": "Create a testimonial for a product",
+                "description": "Endpoint to create a testimonial with product, text, image, and video",
                 "operationId": "2441feb066aef91d61e8ef95f16277c3",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "product_id",
+                                    "text"
+                                ],
+                                "properties": {
+                                    "product_id": {
+                                        "description": "ID of the product for the testimonial",
+                                        "type": "integer",
+                                        "example": 101
+                                    },
+                                    "text": {
+                                        "description": "Testimonial text",
+                                        "type": "string",
+                                        "example": "This product changed my life!"
+                                    },
+                                    "image": {
+                                        "description": "Testimonial image file (optional)",
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "video": {
+                                        "description": "Testimonial video file (optional)",
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "ok",
@@ -1296,6 +1340,8 @@
                 "tags": [
                     "testimonial"
                 ],
+                "summary": "Get a testimonial by id",
+                "description": "Endpoint to Get a testimonial by id",
                 "operationId": "f40e085e61bce8d668f2998427213354",
                 "responses": {
                     "200": {
@@ -1314,7 +1360,45 @@
                 "tags": [
                     "testimonial"
                 ],
+                "summary": "Update a testimonial for a product",
+                "description": "Endpoint to update a testimonial with product, text, image, and video",
                 "operationId": "080dc2e663fda747f31313e91c47832f",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "product_id",
+                                    "text"
+                                ],
+                                "properties": {
+                                    "product_id": {
+                                        "description": "ID of the product for the testimonial",
+                                        "type": "integer",
+                                        "example": 101
+                                    },
+                                    "text": {
+                                        "description": "Updated testimonial text",
+                                        "type": "string",
+                                        "example": "This product is even better now!"
+                                    },
+                                    "image": {
+                                        "description": "Updated testimonial image file (optional)",
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "video": {
+                                        "description": "Updated testimonial video file (optional)",
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "ok",
@@ -1332,6 +1416,8 @@
                 "tags": [
                     "testimonial"
                 ],
+                "summary": "Delete testimonial by id",
+                "description": "Endpoint to Delete testimonial by id",
                 "operationId": "8da953bb87104694d5d25d9edf7a8ed3",
                 "responses": {
                     "200": {
@@ -1352,6 +1438,8 @@
                 "tags": [
                     "card"
                 ],
+                "summary": "Get all user cards",
+                "description": "Endpoint to Get all user cards",
                 "operationId": "13dbd05bb9d56516aef9d29e59b54434",
                 "responses": {
                     "200": {
@@ -1372,7 +1460,47 @@
                 "tags": [
                     "card"
                 ],
+                "summary": "Submit credit card information",
+                "description": "Endpoint to submit credit card information",
                 "operationId": "116f4a6197c3d7db4acabcd0b742debc",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "card_name",
+                                    "card_number",
+                                    "card_expiry_date",
+                                    "card_cvv"
+                                ],
+                                "properties": {
+                                    "card_name": {
+                                        "description": "Name on the credit card",
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "card_number": {
+                                        "description": "Credit card number",
+                                        "type": "string",
+                                        "example": "1234567812345678"
+                                    },
+                                    "card_expiry_date": {
+                                        "description": "Expiry date of the credit card (MM/YY)",
+                                        "type": "string",
+                                        "example": "12/25"
+                                    },
+                                    "card_cvv": {
+                                        "description": "CVV of the credit card",
+                                        "type": "string",
+                                        "example": "123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "ok",
@@ -1392,6 +1520,8 @@
                 "tags": [
                     "card"
                 ],
+                "summary": "Delete a user card by id",
+                "description": "Endpoint to delete a user card by id",
                 "operationId": "bb79b53fd535f48409e5182185576dc5",
                 "responses": {
                     "200": {

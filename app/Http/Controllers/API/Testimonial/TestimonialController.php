@@ -18,6 +18,8 @@ class TestimonialController extends Controller
      * @OA\Get(
      *     path="/testimonial",
      *     tags={"testimonial"},
+     *     summary="Get all testimonials",
+     *     description="Endpoint to Get all testimonials",
      *     @OA\Response(
      *          response="200", 
      *          description="ok",
@@ -36,6 +38,42 @@ class TestimonialController extends Controller
      * @OA\Post(
      *     path="/testimonial",
      *     tags={"testimonial"},
+     *     summary="Create a testimonial for a product",
+     *     description="Endpoint to create a testimonial with product, text, image, and video",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"product_id", "text"},
+     *                 @OA\Property(
+     *                     property="product_id",
+     *                     type="integer",
+     *                     description="ID of the product for the testimonial",
+     *                     example=101
+     *                 ),
+     *                 @OA\Property(
+     *                     property="text",
+     *                     type="string",
+     *                     description="Testimonial text",
+     *                     example="This product changed my life!"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="image",
+     *                     type="string",
+     *                     format="binary",
+     *                     description="Testimonial image file (optional)"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="video",
+     *                     type="string",
+     *                     format="binary",
+     *                     description="Testimonial video file (optional)"
+     *                 )
+     *             )
+     *         )
+     *     ),
      *     @OA\Response(
      *          response="200", 
      *          description="ok",
@@ -76,6 +114,8 @@ class TestimonialController extends Controller
      * @OA\Get(
      *     path="/testimonial/1",
      *     tags={"testimonial"},
+     *     summary="Get a testimonial by id",
+     *     description="Endpoint to Get a testimonial by id",
      *     @OA\Response(
      *          response="200", 
      *          description="ok",
@@ -93,6 +133,42 @@ class TestimonialController extends Controller
      * @OA\Put(
      *     path="/testimonial/1",
      *     tags={"testimonial"},
+     *     summary="Update a testimonial for a product",
+     *     description="Endpoint to update a testimonial with product, text, image, and video",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"product_id", "text"},
+     *                 @OA\Property(
+     *                     property="product_id",
+     *                     type="integer",
+     *                     description="ID of the product for the testimonial",
+     *                     example=101
+     *                 ),
+     *                 @OA\Property(
+     *                     property="text",
+     *                     type="string",
+     *                     description="Updated testimonial text",
+     *                     example="This product is even better now!"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="image",
+     *                     type="string",
+     *                     format="binary",
+     *                     description="Updated testimonial image file (optional)"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="video",
+     *                     type="string",
+     *                     format="binary",
+     *                     description="Updated testimonial video file (optional)"
+     *                 )
+     *             )
+     *         )
+     *     ),
      *     @OA\Response(
      *          response="200", 
      *          description="ok",
@@ -124,6 +200,8 @@ class TestimonialController extends Controller
      * @OA\Delete(
      *     path="/testimonial/1",
      *     tags={"testimonial"},
+     *     summary="Delete testimonial by id",
+     *     description="Endpoint to Delete testimonial by id",
      *     @OA\Response(
      *          response="200", 
      *          description="ok",

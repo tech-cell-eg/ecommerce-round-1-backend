@@ -75,51 +75,56 @@ class ProductController extends Controller implements HasMiddleware
      *     summary="Create product",
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(
-     *             type="object",
-     *             required={"name", "price", "category_id"},
-     *             @OA\Property(
-     *                 property="name",
-     *                 type="string",
-     *                 description="Name of the product"
-     *             ),
-     *             @OA\Property(
-     *                 property="price",
-     *                 type="number",
-     *                 format="float",
-     *                 description="Price of the product"
-     *             ),
-     *             @OA\Property(
-     *                 property="description",
-     *                 type="string",
-     *                 nullable=true,
-     *                 description="Description of the product"
-     *             ),
-     *             @OA\Property(
-     *                 property="compare_price",
-     *                 type="number",
-     *                 format="float",
-     *                 nullable=true,
-     *                 description="Comparison price of the product"
-     *             ),
-     *             @OA\Property(
-     *                 property="image",
-     *                 type="string",
-     *                 format="binary",
-     *                 nullable=true,
-     *                 description="Image of the product"
-     *             ),
-     *             @OA\Property(
-     *                 property="rating",
-     *                 type="number",
-     *                 format="float",
-     *                 nullable=true,
-     *                 description="Rating of the product"
-     *             ),
-     *             @OA\Property(
-     *                 property="category_id",
-     *                 type="integer",
-     *                 description="ID of the category to which the product belongs"
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"name", "price", "description", "category_id", "image"},
+     *                 @OA\Property(
+     *                     property="name",
+     *                     type="string",
+     *                     description="The name of the product",
+     *                     example="Sample Product"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="price",
+     *                     type="number",
+     *                     format="float",
+     *                     description="The price of the product",
+     *                     example=99.99
+     *                 ),
+     *                 @OA\Property(
+     *                     property="description",
+     *                     type="string",
+     *                     description="The description of the product",
+     *                     example="This is a sample product description."
+     *                 ),
+     *                 @OA\Property(
+     *                     property="compare_price",
+     *                     type="number",
+     *                     format="float",
+     *                     description="The compare price (e.g., original price)",
+     *                     example=129.99
+     *                 ),
+     *                 @OA\Property(
+     *                     property="image",
+     *                     type="string",
+     *                     format="binary",
+     *                     description="Product image file"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="rating",
+     *                     type="number",
+     *                     format="float",
+     *                     description="Product rating",
+     *                     example=4.5
+     *                 ),
+     *                 @OA\Property(
+     *                     property="category_id",
+     *                     type="integer",
+     *                     description="The ID of the product category",
+     *                     example=1
+     *                 )
      *             )
      *         )
      *     ),
