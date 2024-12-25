@@ -46,7 +46,7 @@
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
                                 "required": [
                                     "name",
@@ -159,6 +159,94 @@
                     }
                 ]
             },
+            "put": {
+                "tags": [
+                    "address"
+                ],
+                "summary": "update user address",
+                "description": "Endpoint to update user's address",
+                "operationId": "71593a455611053fc150faf4ff98f6ab",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [],
+                                "properties": {
+                                    "name": {
+                                        "description": "Name of the recipient",
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "mobile_number": {
+                                        "description": "Mobile number of the recipient",
+                                        "type": "string",
+                                        "example": "9876543210"
+                                    },
+                                    "address": {
+                                        "description": "Street address of the recipient",
+                                        "type": "string",
+                                        "example": "123 Elm Street"
+                                    },
+                                    "area": {
+                                        "description": "Area or locality of the address",
+                                        "type": "string",
+                                        "example": "Downtown"
+                                    },
+                                    "pin_code": {
+                                        "description": "Postal code of the address",
+                                        "type": "string",
+                                        "example": "560001"
+                                    },
+                                    "city": {
+                                        "description": "City of the address",
+                                        "type": "string",
+                                        "example": "Bangalore"
+                                    },
+                                    "state": {
+                                        "description": "State of the address",
+                                        "type": "string",
+                                        "example": "Karnataka"
+                                    },
+                                    "default_address": {
+                                        "description": "Indicates if this is the default address",
+                                        "type": "boolean",
+                                        "example": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
             "delete": {
                 "tags": [
                     "address"
@@ -203,7 +291,7 @@
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
                                 "required": [
                                     "email"
@@ -246,7 +334,7 @@
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
                                 "required": [
                                     "email",
@@ -322,7 +410,7 @@
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
                                 "required": [
                                     "first_name",
@@ -390,7 +478,7 @@
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
                                 "required": [
                                     "token",
@@ -490,7 +578,7 @@
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
                                 "required": [
                                     "product_id",
@@ -684,7 +772,7 @@
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
                                 "required": [
                                     "name"
@@ -1092,7 +1180,7 @@
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
                                 "required": [
                                     "user_address_id",
@@ -1418,7 +1506,7 @@
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
                                 "required": [
                                     "msg",
@@ -1893,7 +1981,7 @@
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
                                 "required": [
                                     "card_name",

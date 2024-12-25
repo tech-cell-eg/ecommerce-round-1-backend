@@ -21,8 +21,10 @@ class RegisterController extends Controller
      *     description="Endpoint to register a new user",
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(
-     *             type="object",
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 type="object",
      *             required={"first_name", "last_name", "email", "password", "terms_agreed"},
      *             @OA\Property(
      *                 property="first_name",
@@ -56,7 +58,7 @@ class RegisterController extends Controller
      *                 description="Indicates whether the user agrees to the terms and conditions",
      *                 example=true
      *             )
-     *         )
+     *         ))
      *     ),
      *     @OA\Response(
      *          response="200", 

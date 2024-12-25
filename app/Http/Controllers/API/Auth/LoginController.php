@@ -20,8 +20,10 @@ class LoginController extends Controller
      *     description="Endpoint to authenticate a user",
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(
-     *             type="object",
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 type="object",
      *             required={"email", "password"},
      *             @OA\Property(
      *                 property="email",
@@ -37,7 +39,7 @@ class LoginController extends Controller
      *                 description="Password of the user",
      *                 example="SecurePassword123"
      *             )
-     *         )
+     *         ))
      *     ),
      *     @OA\Response(
      *          response="200", 

@@ -42,8 +42,10 @@ class OrderController extends Controller
      *     description="Endpoint to create a new order with user address, payment card, and product details",
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(
-     *             type="object",
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 type="object",
      *             required={"user_address_id", "user_card_id", "products", "quantities", "sizes"},
      *             @OA\Property(
      *                 property="user_address_id",
@@ -75,7 +77,7 @@ class OrderController extends Controller
      *                 description="Array of sizes for the products",
      *                 @OA\Items(type="string", example="M")
      *             )
-     *         )
+     *         ))
      *     ),
      *     @OA\Response(
      *          response="200", 

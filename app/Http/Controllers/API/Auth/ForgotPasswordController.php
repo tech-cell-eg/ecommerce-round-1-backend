@@ -20,8 +20,10 @@ class ForgotPasswordController extends Controller
      *     tags={"Auth"},
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(
-     *             type="object",
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 type="object",
      *             required={"email"},
      *             @OA\Property(
      *                 property="email",
@@ -30,7 +32,7 @@ class ForgotPasswordController extends Controller
      *                 description="Email address of the user",
      *                 example="user@example.com"
      *             )
-     *         )
+     *         ))
      *     ),
      *     @OA\Response(
      *          response="200", 

@@ -39,8 +39,10 @@ class CategoryController extends Controller
      *     description="Endpoint to create a new category",
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(
-     *             type="object",
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 type="object",
      *             required={"name"},
      *             @OA\Property(
      *                 property="name",
@@ -48,7 +50,7 @@ class CategoryController extends Controller
      *                 description="Name of the category",
      *                 example="Electronics"
      *             )
-     *         )
+     *         ))
      *     ),
      *     @OA\Response(
      *          response="200", 

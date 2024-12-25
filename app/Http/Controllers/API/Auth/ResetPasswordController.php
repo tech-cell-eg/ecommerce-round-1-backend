@@ -26,8 +26,10 @@ class ResetPasswordController extends Controller
      *     description="Endpoint to reset a user's password using a token",
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(
-     *             type="object",
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 type="object",
      *             required={"token", "password", "password_confirmation"},
      *             @OA\Property(
      *                 property="token",
@@ -49,7 +51,7 @@ class ResetPasswordController extends Controller
      *                 description="Confirmation of the new password",
      *                 example="SecurePassword123"
      *             )
-     *         )
+     *         ))
      *     ),
      *     @OA\Response(
      *          response="200", 

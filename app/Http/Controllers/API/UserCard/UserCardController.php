@@ -41,7 +41,7 @@ class UserCardController extends Controller
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\MediaType(
-     *             mediaType="application/json",
+     *             mediaType="multipart/form-data",
      *             @OA\Schema(
      *                 type="object",
      *                 required={"card_name", "card_number", "card_expiry_date", "card_cvv"},

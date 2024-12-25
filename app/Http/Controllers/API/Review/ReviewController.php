@@ -73,8 +73,10 @@ class ReviewController extends Controller implements HasMiddleware
      *     description="Endpoint to create a review with product, user details, and review information",
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(
-     *             type="object",
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 type="object",
      *             required={"msg", "stars", "product_id", "user_id", "user_role"},
      *             @OA\Property(
      *                 property="msg",
@@ -106,7 +108,7 @@ class ReviewController extends Controller implements HasMiddleware
      *                 description="Role ID of the user (e.g., 1 for customer, 2 for admin)",
      *                 example=1
      *             )
-     *         )
+     *         ))
      *     ),
      *     @OA\Response(
      *          response="200", 

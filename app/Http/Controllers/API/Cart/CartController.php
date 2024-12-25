@@ -42,8 +42,10 @@ class CartController extends Controller
      *     description="Endpoint to add a product to the user's shopping cart",
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(
-     *             type="object",
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 type="object",
      *             required={"product_id", "quantity"},
      *             @OA\Property(
      *                 property="product_id",
@@ -57,7 +59,7 @@ class CartController extends Controller
      *                 description="Quantity of the product to add",
      *                 example=2
      *             )
-     *         )
+     *         ))
      *     ),
      *     @OA\Response(
      *          response="200", 
