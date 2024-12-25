@@ -26,6 +26,11 @@ class TestimonialController extends Controller
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
+     *      ),
      * )
      */
     public function index()
@@ -81,6 +86,11 @@ class TestimonialController extends Controller
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
+     *      ),
      * )
      */
     public function store(TestimonialStoreRequest $request)
@@ -131,6 +141,11 @@ class TestimonialController extends Controller
      *          response="200", 
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
      *      ),
      * )
      */
@@ -194,6 +209,11 @@ class TestimonialController extends Controller
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
+     *      ),
      * )
      */
     public function update(TestimonialUpdateRequest $request, Testimonial $testimonial)
@@ -235,6 +255,11 @@ class TestimonialController extends Controller
      *          response="200", 
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
      *      ),
      * )
      */

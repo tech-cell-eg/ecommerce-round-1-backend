@@ -115,6 +115,11 @@ class ReviewController extends Controller implements HasMiddleware
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
+     *      ),
      * )
      */
     function store(ReviewRequest $request) {
@@ -179,6 +184,11 @@ class ReviewController extends Controller implements HasMiddleware
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
+     *      ),
      * )
      */
     function update(ReviewRequest $request, Review $review) {
@@ -205,6 +215,11 @@ class ReviewController extends Controller implements HasMiddleware
      *          response="200", 
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
      *      ),
      * )
      */

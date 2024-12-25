@@ -24,6 +24,11 @@ class CartController extends Controller
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
+     *      ),
      * )
      */
     public function index()
@@ -65,6 +70,11 @@ class CartController extends Controller
      *          response="200", 
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
      *      ),
      * )
      */
@@ -116,6 +126,11 @@ class CartController extends Controller
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
+     *      ),
      * )
      */
     public function update(Request $request, Cart $cart)
@@ -148,6 +163,11 @@ class CartController extends Controller
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
+     *      ),
      * )
      */
     public function destroy(Cart $cart)
@@ -166,6 +186,11 @@ class CartController extends Controller
      *          response="200", 
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
      *      ),
      * )
      */

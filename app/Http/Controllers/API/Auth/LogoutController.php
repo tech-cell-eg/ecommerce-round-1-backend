@@ -22,6 +22,11 @@ class LogoutController extends Controller
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
+     *      ),
      * )
      */
     public function __invoke(Request $request)

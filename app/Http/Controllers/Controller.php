@@ -24,12 +24,14 @@ use OpenApi\Attributes as OA;
  *         required={"status", "message"},
  *         @OA\Property(
  *             property="status",
- *             type="string",
+ *             type="integer",
+ *             example=200,
  *             description="Status of the API response"
  *         ),
  *         @OA\Property(
  *             property="message",
  *             type="string",
+ *             example="success message",
  *             description="Message describing the result"
  *         ),
  *         @OA\Property(
@@ -38,6 +40,16 @@ use OpenApi\Attributes as OA;
  *             nullable=true,
  *             description="Optional data payload"
  *         )
+ *     ),
+ *     @OA\Schema(
+ *         schema="ApiResponse-2",
+ *         type="object",
+ *         required={"message"},
+ *         @OA\Property(
+ *             property="message",
+ *             type="string",
+ *             example="Unauthenticated.",
+ *         ),
  *     )
  * )
  */

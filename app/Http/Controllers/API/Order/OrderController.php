@@ -24,6 +24,11 @@ class OrderController extends Controller
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
+     *      ),
      * )
      */
     public function index()
@@ -84,6 +89,11 @@ class OrderController extends Controller
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
+     *      ),
      * )
      */
     public function store(StoreOrder $request)
@@ -136,6 +146,11 @@ class OrderController extends Controller
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
+     *      ),
      * )
      */
     public function show(string $id)
@@ -164,6 +179,11 @@ class OrderController extends Controller
      *          response="200", 
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
      *      ),
      * )
      */

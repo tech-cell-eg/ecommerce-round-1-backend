@@ -28,6 +28,16 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Error: Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse-2"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -115,6 +125,16 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Error: Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse-2"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -148,6 +168,16 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Error: Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse-2"
                                 }
                             }
                         }
@@ -239,6 +269,16 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Error: Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse-2"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -270,6 +310,16 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Error: Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse-2"
                                 }
                             }
                         }
@@ -387,6 +437,16 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Error: Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse-2"
                                 }
                             }
                         }
@@ -560,6 +620,16 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Error: Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse-2"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -608,6 +678,16 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Error: Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse-2"
                                 }
                             }
                         }
@@ -668,6 +748,16 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Error: Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse-2"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -702,6 +792,16 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Error: Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse-2"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -728,6 +828,16 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Error: Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse-2"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -751,6 +861,16 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Error: Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse-2"
                                 }
                             }
                         }
@@ -799,6 +919,16 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Error: Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse-2"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -832,6 +962,16 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Error: Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse-2"
                                 }
                             }
                         }
@@ -890,6 +1030,16 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Error: Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse-2"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -922,6 +1072,16 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Error: Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse-2"
                                 }
                             }
                         }
@@ -2083,16 +2243,30 @@
                 "properties": {
                     "status": {
                         "description": "Status of the API response",
-                        "type": "string"
+                        "type": "integer",
+                        "example": 200
                     },
                     "message": {
                         "description": "Message describing the result",
-                        "type": "string"
+                        "type": "string",
+                        "example": "success message"
                     },
                     "data": {
                         "description": "Optional data payload",
                         "type": "object",
                         "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "ApiResponse-2": {
+                "required": [
+                    "message"
+                ],
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Unauthenticated."
                     }
                 },
                 "type": "object"
