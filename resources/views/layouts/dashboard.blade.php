@@ -339,6 +339,20 @@
                         </ul>
                     </div>
                 </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link"  href="{{route('users.index')}}">
+                        <span class="menu-title">Users</span>
+                        <i class="icon-book-open menu-icon"></i>
+                    </a>
+                    <div class="collapse" id="forms">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="{{route('users.index')}}">All Users</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="{{route('users.create')}}">Add User</a></li>
+                        </ul>
+                    </div>
+                </li>
             
         </nav>
         
