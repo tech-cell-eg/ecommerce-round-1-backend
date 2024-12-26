@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\Auth\UpdateUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminMiddleware;
@@ -46,6 +47,7 @@ Route::group(['middleware' => CatchErrorsMiddleware::class], function () {
     Route::post('/reset-password', ResetPasswordController::class)->middleware('throttle:5,1');
     Route::post('/forgot-password', ForgotPasswordController::class)->middleware('throttle:5,1');
     Route::apiResource('addresses', UserAddressController::class)->middleware('auth:sanctum');
+    Route::patch('/user', UpdateUserController::class)->middleware('auth:sanctum');
     Route::get('/cards', [UserCardController::class, 'index'])->middleware('auth:sanctum');
     Route::post('/cards/store', [UserCardController::class, 'store'])->middleware('auth:sanctum');
     Route::delete('/cards/{userCard}', [UserCardController::class, 'destroy'])->middleware('auth:sanctum');

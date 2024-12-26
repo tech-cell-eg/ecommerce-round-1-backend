@@ -17,7 +17,7 @@ class UserAddressController extends Controller
     public function index()
     {
         $user = auth()->user();
-        return $this->success(200, 'Address list', $user->addresses()->orderBy('default_address', 'desc')->get());
+        return $this->success(200, 'Address list', $user->addresses()->orderBy('default_address', 'desc')->latest()->get());
     }
 
     /**
@@ -27,8 +27,8 @@ class UserAddressController extends Controller
     {
         $validatedData = $request->validated();
         $user = auth()->user();
-        if ($validatedData['default_address']) {
-            $user->addresses()->update(['default_address' => false]);
+        if ($validatedData['default_address'] == 1) {
+            $user->addresses()->update(['default_address' => 0]);
         }
         $address = $user->addresses()->create($validatedData);
         return $this->success(200, 'New address added', $address);
