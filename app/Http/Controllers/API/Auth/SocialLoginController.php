@@ -12,6 +12,18 @@ class SocialLoginController extends Controller
 {
     use ApiResponse;
 
+    /**
+     * @OA\Get(
+     *     path="/twitter-login",
+     *     tags={"Auth"},
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     * )
+     */
+
     public function providerAuth($provider)
     {
         return TechcellSocialite::loginUsingProvider($provider);

@@ -14,6 +14,33 @@ class ForgotPasswordController extends Controller
 {
     use ApiResponse;
 
+    /**
+     * @OA\Post(
+     *     path="/forgot-password",
+     *     tags={"Auth"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 type="object",
+     *             required={"email"},
+     *             @OA\Property(
+     *                 property="email",
+     *                 type="string",
+     *                 format="email",
+     *                 description="Email address of the user",
+     *                 example="user@example.com"
+     *             )
+     *         ))
+     *     ),
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     * )
+     */
     public function __invoke(ForgotPasswordRequest $request)
     {
         $user = User::where('email', $request->email)->first();
