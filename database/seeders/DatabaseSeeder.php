@@ -23,14 +23,14 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         //    ]);
 
-        $this->call([
-            PermissionTableSeeder::class,
-            AdminSeeder::class,
-            TestimonialSeeder::class,
-            CategorySeeder::class,
-            SubCategorySeeder::class,
-            InstagramStoriesSeeder::class
-        ]);
+        // $this->call([
+        //     PermissionTableSeeder::class,
+        //     AdminSeeder::class,
+        //     TestimonialSeeder::class,
+        //     CategorySeeder::class,
+        //     SubCategorySeeder::class,
+        //     InstagramStoriesSeeder::class
+        // ]);
         // $this->call([
         //     PermissionTableSeeder::class,
         //     AdminSeeder::class,
@@ -40,11 +40,14 @@ class DatabaseSeeder extends Seeder
         // ]);
 
 
-        Category::factory()->count(3)->create();
-        Product::factory(5)->create();
+        // Category::factory()->count(3)->create();
+        // Product::factory(5)->create();
 
+        // $this->call([
+        //     RolePermissionSeeder::class,
+        // ]);
         $this->call([
-            RolePermissionSeeder::class,
+            AdminSeeder::class,
         ]);
     }
 }

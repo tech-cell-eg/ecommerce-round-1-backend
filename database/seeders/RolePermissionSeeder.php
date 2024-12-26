@@ -16,6 +16,8 @@ class RolePermissionSeeder extends Seeder
         // Define roles
         $roles = [
             'admin',
+            'productsManager',
+            'categoriesManager',
             'editor',
         ];
 
@@ -24,14 +26,17 @@ class RolePermissionSeeder extends Seeder
             'manage users',
             'manage roles',
             'manage permissions',
-            'view products',
-            'create products',
-            'edit products',
-            'delete products',
-            'view posts',
-            'create posts',
-            'edit posts',
-            'delete posts',
+            'manage categories',
+            'manage products',
+            'manage orders',
+            'manage settings',
+            'manage blogs',
+            'manage contacts',
+            'manage coupons',
+            'manage products',
+            'manage testimonials'
+
+
         ];
 
         // Create permissions
@@ -47,14 +52,18 @@ class RolePermissionSeeder extends Seeder
                 // Admin gets all permissions
                 $roleInstance->syncPermissions(Permission::all());
             }
-
-            if ($role === 'editor') {
+            
+            if ($role === 'productsManager') {
                 // Editor only manages products
                 $roleInstance->syncPermissions([
-                    'view products',
-                    'create products',
-                    'edit products',
-                    'delete products',
+                    'manage products'
+                ]);
+            }
+
+            if ($role === 'categoriesManager') {
+                // Editor only manages products
+                $roleInstance->syncPermissions([
+                    'manage categories'
                 ]);
             }
         }

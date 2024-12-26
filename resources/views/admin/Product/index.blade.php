@@ -28,7 +28,6 @@
                                             <th> Id </th>
                                             <th> Name </th>
                                             <th> image </th>
-                                            <th> Description </th>
                                             <th> Price </th>
                                             <th> Old Price </th>
                                             <th> rating </th>
@@ -50,7 +49,6 @@
                                             <td>
                                                 <img src="{{asset('storage/'.$product->image)}}" alt="image" />
                                             </td>
-                                            <td> {{$product->description}} </td>
                                             <td> $ {{$product->price}} </td>
                                             <td> $ {{$product->compare_price}} </td>
                                             <td> {{$product->rating}} </td>
@@ -59,6 +57,7 @@
                                             <td> {{$product->category->name}} </td>
                                             <td>
                                             <th><a href="{{route('products.edit',[$product->id])}}" class="btn btn-primary btn-sm">Update</a></th>
+                                            <th><a href="{{route('products.show',[$product->id])}}" class="btn btn-primary btn-sm">Show</a></th>
                                             <th>
                                                 <form action="{{route('products.destroy',[$product->id])}}" method="post">
                                                     @csrf
