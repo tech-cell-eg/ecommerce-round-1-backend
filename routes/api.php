@@ -50,21 +50,21 @@ Route::group(['middleware' => CatchErrorsMiddleware::class], function () {
     Route::apiResource('addresses', UserAddressController::class)->middleware('auth:sanctum');
     Route::patch('/user', UpdateUserController::class)->middleware('auth:sanctum');
     Route::get('/cards', [UserCardController::class, 'index'])->middleware('auth:sanctum');
-    Route::post('/cards/store', [UserCardController::class, 'store'])->middleware('auth:sanctum');
+    Route::post('/cards', [UserCardController::class, 'store'])->middleware('auth:sanctum');
     Route::delete('/cards/{userCard}', [UserCardController::class, 'destroy'])->middleware('auth:sanctum');
     Route::apiResource('orders', OrderController::class)->middleware('auth:sanctum');
     Route::get('/user-settings', [UserSettingController::class, 'index'])->middleware('auth:sanctum');
     Route::patch('/user-settings', [UserSettingController::class, 'update'])->middleware('auth:sanctum');
 });
 
-Route::apiResource('product', ProductController::class);
+Route::apiResource('products', ProductController::class);
 Route::get('products/search', [ProductController::class, 'search']);
 Route::get('favorites', [FavoriteController::class, 'index'])->middleware(['auth:sanctum']);
 Route::post('favorites', [FavoriteController::class, 'store'])->middleware(['auth:sanctum']);
 Route::delete('favorites/{product_id}', [FavoriteController::class, 'destroy'])->middleware(['auth:sanctum']);
-Route::apiResource("categories", CategoryController::class)->middleware(['auth:sanctum']);
-Route::apiResource('/testimonial', TestimonialController::class);
-Route::get('testimonial/{testimonial}/user', [TestimonialController::class, 'GetUserByTestimonial']);
+Route::apiResource("categories", CategoryController::class);
+Route::apiResource('/testimonials', TestimonialController::class);
+// Route::get('testimonial/{testimonial}/user', [TestimonialController::class, 'GetUserByTestimonial']);
 Route::post('/our-news', OurNewsController::class);
 Route::apiResource('/setting', SettingController::class)->middleware(['auth:sanctum']);
 Route::apiResource('/contact', ContactController::class);
@@ -94,14 +94,14 @@ Route::get('/blog/search', [GuestBlogController::class, 'search']);
 Route::get('/blog/recents', [GuestBlogController::class, 'show_recent_blogs']);
 Route::apiResource('/blog', GuestBlogController::class);
 
-Route::get('/fc', fn()=>\App\Models\OurStory::factory()->create());
-Route::group(['middleware' => 'auth:sanctum'], function () {
-    Route::apiResource('/testimonial', TestimonialController::class);
-});
+// Route::get('/fc', fn()=>\App\Models\OurStory::factory()->create());
+// Route::group(['middleware' => 'auth:sanctum'], function () {
+//     Route::apiResource('/testimonial', TestimonialController::class);
+// });
 
 Route::apiResource("reviews", ReviewController::class);
 Route::get("our-stories", [OurStoryController::class, "index"]);
-Route::post("our-stories", [OurStoryController::class, "store"]);
+Route::post("our-stories", [OurStoryController::class, "store"])->middleware('auth:sanctum');
 Route::get("our-stories/{ourStory}", [OurStoryController::class, "show"]);
 Route::delete('/cart/clear', [CartController::class, 'clearAllCart'])->middleware('auth:sanctum')->name('cart.clear');
 Route::apiResource("cart", CartController::class)->middleware('auth:sanctum');
