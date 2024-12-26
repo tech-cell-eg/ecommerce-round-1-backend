@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API\InstagramStory;
+namespace App\Http\Controllers\API\OurStory;
 
 use App\Http\Controllers\Controller;
 use App\Models\OurStory;

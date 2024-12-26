@@ -29,7 +29,7 @@ use App\Http\Controllers\API\Auth\ResetPasswordController;
 use App\Http\Controllers\API\Address\UserAddressController;
 use App\Http\Controllers\API\Testimonial\TestimonialController;
 use App\Http\Controllers\API\UserSetting\UserSettingController;
-use App\Http\Controllers\API\InstagramStory\OurStoryController;
+use App\Http\Controllers\API\OurStory\OurStoryController;
 use App\Http\Controllers\CouponController;
 
 Route::get('/user', function (Request $request) {
