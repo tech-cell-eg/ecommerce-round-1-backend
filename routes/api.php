@@ -29,7 +29,7 @@ use App\Http\Controllers\API\Auth\ResetPasswordController;
 use App\Http\Controllers\API\Address\UserAddressController;
 use App\Http\Controllers\API\Testimonial\TestimonialController;
 use App\Http\Controllers\API\UserSetting\UserSettingController;
-use App\Http\Controllers\API\InstagramStory\InstagramStoriesController;
+use App\Http\Controllers\API\InstagramStory\OurStoryController;
 use App\Http\Controllers\CouponController;
 
 Route::get('/user', function (Request $request) {
@@ -93,13 +93,14 @@ Route::get('/blog/search', [GuestBlogController::class, 'search']);
 Route::get('/blog/recents', [GuestBlogController::class, 'show_recent_blogs']);
 Route::apiResource('/blog', GuestBlogController::class);
 
-
+Route::get('/fc', fn()=>\App\Models\OurStory::factory()->create());
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResource('/testimonial', TestimonialController::class);
 });
 
 Route::apiResource("reviews", ReviewController::class);
-Route::get("instagram-stories", [InstagramStoriesController::class, "index"]);
+Route::get("our-stories", [OurStoryController::class, "index"]);
+Route::get("our-stories/{ourStory}", [OurStoryController::class, "show"]);
 Route::delete('/cart/clear', [CartController::class, 'clearAllCart'])->middleware('auth:sanctum')->name('cart.clear');
 Route::apiResource("cart", CartController::class)->middleware('auth:sanctum');
 

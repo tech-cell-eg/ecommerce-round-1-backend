@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
             TestimonialSeeder::class,
             CategorySeeder::class,
             SubCategorySeeder::class,
-            InstagramStoriesSeeder::class
+            OurStorySeeder::class
         ]);
         // $this->call([
         //     PermissionTableSeeder::class,
