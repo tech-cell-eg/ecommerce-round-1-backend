@@ -41,7 +41,7 @@
             </button>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center">
-            <h5 class="mb-0 font-weight-medium d-none d-lg-flex">Welcome stellar dashboard!</h5>
+            <h5 class="mb-0 font-weight-medium d-none d-lg-flex">Welcome dashboard!</h5>
             <ul class="navbar-nav navbar-nav-right">
                 <form class="search-form d-none d-md-block" action="#">
                     <i class="icon-magnifier"></i>
@@ -114,7 +114,7 @@
             </button>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center">
-            <h5 class="mb-0 font-weight-medium d-none d-lg-flex">Welcome stellar dashboard!</h5>
+            <h5 class="mb-0 font-weight-medium d-none d-lg-flex">Welcome dashboard!</h5>
             <ul class="navbar-nav navbar-nav-right">
                 <form class="search-form d-none d-md-block" action="#">
                     <i class="icon-magnifier"></i>
@@ -301,7 +301,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('testimonials.index')}}">
                         <span class="menu-title">Testimonials</span>
-                        <i class="icon-book-open menu-icon"></i>
+                        <i class="icon-layers menu-icon"></i>
                     </a>
                     <div class="collapse" id="forms">
                         <ul class="nav flex-column sub-menu">
@@ -315,7 +315,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('orders.index')}}">
                         <span class="menu-title">Orders</span>
-                        <i class="icon-book-open menu-icon"></i>
+                        <i class="icon-chart menu-icon"></i>
                     </a>
                     <div class="collapse" id="forms">
                         <ul class="nav flex-column sub-menu">
@@ -328,7 +328,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('coupons.index')}}">
                         <span class="menu-title">Coupons</span>
-                        <i class="icon-book-open menu-icon"></i>
+                        <i class="icon-folder-alt menu-icon"></i>
                     </a>
                     <div class="collapse" id="forms">
                         <ul class="nav flex-column sub-menu">
@@ -344,7 +344,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('blogs.index')}}">
                         <span class="menu-title">Blogs</span>
-                        <i class="icon-book-open menu-icon"></i>
+                        <i class="icon-grid menu-icon"></i>
                     </a>
                     <div class="collapse" id="forms">
                         <ul class="nav flex-column sub-menu">
@@ -358,7 +358,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('settings.index')}}">
                         <span class="menu-title">Settings</span>
-                        <i class="icon-book-open menu-icon"></i>
+                        <i class="icon-disc menu-icon"></i>
                     </a>
                     <div class="collapse" id="forms">
                         <ul class="nav flex-column sub-menu">
@@ -369,9 +369,22 @@
 
 
                 <li class="nav-item">
+                    <a class="nav-link" href="{{route('admin.contacts.index')}}">
+                        <span class="menu-title">Contacts</span>
+                        <i class="icon-globe menu-icon"></i>
+                    </a>
+                    <div class="collapse" id="forms">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="{{route('admin.contacts.index')}}">All Contacts</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+
+                <li class="nav-item">
                     <a class="nav-link" href="{{route('users.index')}}">
                         <span class="menu-title">Users</span>
-                        <i class="icon-book-open menu-icon"></i>
+                        <i class="icon-layers menu-icon"></i>
                     </a>
                     <div class="collapse" id="forms">
                         <ul class="nav flex-column sub-menu">
