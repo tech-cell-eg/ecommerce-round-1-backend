@@ -7,7 +7,8 @@ use App\Http\Requests\StoreProductRequest;
 use OpenApi\Attributes as OA;
 
 #[OA\Info(version: "1.0.0", title: "round-1", description: "round-1 doc")]
-#[OA\Server(url: "http://127.0.0.1:8000/api")]
+#[OA\Server(url: "http://127.0.0.1:8000/api", description: "local server")]
+#[OA\Server(url: "https://round-one.digital-vision-solutions.com/api", description: "production server")]
 #[OA\SecurityScheme(
     securityScheme: "bearerAuth",
     type: "http",
