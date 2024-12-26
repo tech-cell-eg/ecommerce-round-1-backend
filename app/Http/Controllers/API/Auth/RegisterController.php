@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\Auth\RegisterRequest;
 use App\Models\User;
+use App\Models\UserSetting;
 use App\Traits\ApiResponse;
 
 
@@ -17,6 +18,9 @@ class RegisterController extends Controller
         $validatedData = $request->validated();
         $user = User::create($validatedData);
         $token = $user->createToken('API Token')->plainTextToken;
+        UserSetting::factory()->create([
+            'user_id' => $user->id,
+        ]);
         return $this->success(200, 'User created successfully.', [
             'user' => $user,
             'token' => $token

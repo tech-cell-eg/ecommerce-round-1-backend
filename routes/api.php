@@ -53,7 +53,7 @@ Route::group(['middleware' => CatchErrorsMiddleware::class], function () {
     Route::delete('/cards/{userCard}', [UserCardController::class, 'destroy'])->middleware('auth:sanctum');
     Route::apiResource('orders', OrderController::class)->middleware('auth:sanctum');
     Route::get('/user-settings', [UserSettingController::class, 'index'])->middleware('auth:sanctum');
-    Route::post('/user-settings', [UserSettingController::class, 'update'])->middleware('auth:sanctum');
+    Route::patch('/user-settings', [UserSettingController::class, 'update'])->middleware('auth:sanctum');
 });
 
 Route::apiResource('product', ProductController::class);
