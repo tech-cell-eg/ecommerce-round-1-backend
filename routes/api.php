@@ -27,6 +27,7 @@ use App\Http\Controllers\API\UserCard\UserCardController;
 use App\Http\Controllers\API\Auth\ForgotPasswordController;
 use App\Http\Controllers\API\Auth\ResetPasswordController;
 use App\Http\Controllers\API\Address\UserAddressController;
+use App\Http\Controllers\API\InstagramStory\InstagramStoriesController;
 use App\Http\Controllers\API\Testimonial\TestimonialController;
 use App\Http\Controllers\API\UserSetting\UserSettingController;
 use App\Http\Controllers\API\OurStory\OurStoryController;
@@ -112,3 +113,4 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 });
 
 Route::post('/apply-coupon', [CouponController::class, 'applyCoupon']);
+Route::get("instagram-stories", [InstagramStoriesController::class, "index"]);
