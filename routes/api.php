@@ -1,13 +1,13 @@
 <?php
 
 use App\Http\Controllers\API\Auth\UpdateUserController;
+use App\Http\Controllers\API\Notification\NotificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\WishListController;
-use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\API\Cart\CartController;
 use App\Http\Controllers\Blog\UserBlogController;
 use App\Http\Controllers\API\Auth\LoginController;
@@ -100,6 +100,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
 Route::apiResource("reviews", ReviewController::class);
 Route::get("our-stories", [OurStoryController::class, "index"]);
+Route::post("our-stories", [OurStoryController::class, "store"]);
 Route::get("our-stories/{ourStory}", [OurStoryController::class, "show"]);
 Route::delete('/cart/clear', [CartController::class, 'clearAllCart'])->middleware('auth:sanctum')->name('cart.clear');
 Route::apiResource("cart", CartController::class)->middleware('auth:sanctum');
