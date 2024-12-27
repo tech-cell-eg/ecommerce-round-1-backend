@@ -7,10 +7,16 @@ use App\Http\Requests\API\Order\StoreOrder;
 use App\Models\Order;
 use App\Models\Product;
 use App\Traits\ApiResponse;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class OrderController extends Controller
+class OrderController extends Controller implements HasMiddleware
 {
     use ApiResponse;
+
+    public static function middleware()
+    {
+        return ['auth:sanctum'];
+    }
 
     /**
      * @OA\Get(

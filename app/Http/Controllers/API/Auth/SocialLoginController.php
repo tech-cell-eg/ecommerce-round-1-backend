@@ -5,12 +5,19 @@ namespace App\Http\Controllers\API\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Traits\ApiResponse;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Str;
 use TechCell\TechcellSocialite\Facades\TechcellSocialite;
 
-class SocialLoginController extends Controller
+class SocialLoginController extends Controller implements HasMiddleware
 {
     use ApiResponse;
+
+    public static function middleware()
+    {
+        return ['api', 'web'];
+    }
 
     /**
      * @OA\Get(
