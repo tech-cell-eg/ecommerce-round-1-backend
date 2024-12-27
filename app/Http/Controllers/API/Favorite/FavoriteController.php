@@ -18,7 +18,23 @@ class FavoriteController extends Controller
     use ApiResponse;
 
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/favorites",
+     *     tags={"favorite"},
+     *     security={{"bearerAuth": {}}},
+     *     summary="Get all favorites product",
+     *     description="Endpoint to get all favorites product",
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
+     *      ),
+     * )
      */
     public function index()
     {
@@ -28,6 +44,33 @@ class FavoriteController extends Controller
         return $this->success(200, "all favorites", $favorites);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/favorites/{product_id}",
+     *     tags={"favorite"},
+     *     security={{"bearerAuth": {}}},
+     *     summary="Add product to favorites by id",
+     *     description="Endpoint to Add product to favorites by id",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
+     *      ),
+     * )
+     */
     public function store(FavoriteRequest $request)
     {
         $user = Auth::user();
@@ -39,6 +82,33 @@ class FavoriteController extends Controller
     }
 
 
+    /**
+     * @OA\Delete(
+     *     path="/favorites/{id}",
+     *     tags={"favorite"},
+     *     security={{"bearerAuth": {}}},
+     *     summary="remove product from favorites",
+     *     description="Endpoint to remove product from favorites",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
+     *      ),
+     * )
+     */
     public function destroy($product_id)
     {
 

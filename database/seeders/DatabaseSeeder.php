@@ -24,11 +24,12 @@ class DatabaseSeeder extends Seeder
         //    ]);
 
         $this->call([
+            CategorySeeder::class,
+            SubCategorySeeder::class,
             PermissionTableSeeder::class,
             AdminSeeder::class,
             TestimonialSeeder::class,
-            CategorySeeder::class,
-            SubCategorySeeder::class,
+            OurStorySeeder::class,
             InstagramStoriesSeeder::class
         ]);
         // $this->call([

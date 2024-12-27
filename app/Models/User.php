@@ -58,6 +58,23 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
+    public function getDefaultAddress()
+    {
+        $address = $this->addresses()->where('default_address', 1)->first();
+        if ($address) {
+            return $address;
+        }
+        return null;
+    }
+
+    public function getformattedAddress($address)
+    {
+        if ($address) {
+            return $address['address'] . ',' . $address['area'] . ',' . $address['city'] . ',' . $address['state'] . ',' . $address['pin_code'];
+        }
+        return null;
+    }
+
     public function addresses(): HasMany
     {
         return $this->hasMany(UserAddress::class);
@@ -96,11 +113,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function bookmarkedBlogs()
     {
         return $this->belongsToMany(Blog::class, 'bookmarks', 'user_id', 'blog_id')
-                    ->withTimestamps();
+            ->withTimestamps();
     }
 
     public function follows()
     {
         return $this->belongsToMany(User::class, 'followers', 'follower_id', 'author_id');
+    }
+
+    public function settings(){
+        return $this->hasOne(UserSetting::class);
     }
 }
