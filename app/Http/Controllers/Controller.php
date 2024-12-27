@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Request;
 use App\Http\Requests\StoreProductRequest;
 
-
-abstract class Controller
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Routing\Controller as BaseController;
+abstract class Controller extends BaseController
 {
+    use AuthorizesRequests, ValidatesRequests;
     public function uploadImage(StoreProductRequest $request){
         if(!$request->hasFile('image')){
             return;

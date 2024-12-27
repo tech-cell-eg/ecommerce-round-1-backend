@@ -21,49 +21,68 @@
                             @endif
                             <h4 class="card-title mb-5"> {{$product->name}}</h4>
                             <div class="card mb-5" style="width: 18rem;">
-                                    <img src="{{asset('storage/'.$product->image)}}" alt="image" />
-                                </div>
-                            <div class="table-responsive">
-                                
-                                <table class="table table-striped mb-5">
+                                <img src="{{asset('storage/'.$product->image)}}" alt="image" />
+                            </div>
+                            <div class="card-body">
+                                <h6>Description: </h6>
+                                <p>
+                                    {!! $product->description !!}
+                                </p>
+                            </div>
+                            <div class="table-responsive mb-5">
+
+
+                                <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th> Id </th>
-                                            <th> Name </th>
-                                            <th> Price </th>
-                                            <th> Old Price </th>
-                                            <th> rating </th>
-                                            <th> Color </th>
-                                            <th> Size </th>
-                                            <th> category</th>
-
-
+                                            <th> Field </th>
+                                            <th> Value </th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td class="py-1">
-                                                {{$product->id}}
-                                            </td>
-                                            <td> {{$product->name}}</td>
-                                            <td>
-                                            </td>
-                                            <td> $ {{$product->price}} </td>
-                                            <td> $ {{$product->compare_price}} </td>
-                                            <td> {{$product->rating}} </td>
-                                            <td> {{$product->color}} </td>
-                                            <td> {{$product->size}} </td>
-                                            <td> {{$product->category->name}} </td>
-
-
+                                            <td> Product ID </td>
+                                            <td> {{ $product->id }} </td>
                                         </tr>
+                                        <tr>
+                                            <td> Product Name </td>
+                                            <td> {{ $product->name }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td> Product Price </td>
+                                            <td> {{ $product->price }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td> Product Old Price </td>
+                                            <td> {{ $product->compare_price }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td> Product Rate </td>
+                                            <td> {{ $product->rating }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Product Color </td>
+                                            <td> {{ $product->color }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td> Product Size </td>
+                                            <td> {{ $product->size }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td> Category </td>
+                                            <td> ${{ $product->category->name }} </td>
+                                        </tr>
+
+
                                     </tbody>
                                 </table>
 
 
+
+
                             </div>
 
-                            
+
                             <a href="{{ route('products.index') }}" class="btn btn-primary">Cancel</a>
                         </div>
                     </div>

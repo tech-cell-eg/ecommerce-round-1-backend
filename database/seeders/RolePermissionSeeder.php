@@ -15,56 +15,96 @@ class RolePermissionSeeder extends Seeder
     {
         // Define roles
         $roles = [
-            'admin',
-            'productsManager',
-            'categoriesManager',
-            'editor',
+            'super-admin',
+            'Product Manager',
+            'Category Manager',
+            'Testimonials Manager',
+            'Orders Manager',
+            'Coupons Manager',
+            'Blogs Manager',
+            'Settings Manager',
+            'Contacts Manager',
+            'Users Manager',
         ];
 
-        // Define permissions
-        $permissions = [
-            'manage users',
-            'manage roles',
-            'manage permissions',
-            'manage categories',
-            'manage products',
-            'manage orders',
-            'manage settings',
-            'manage blogs',
-            'manage contacts',
-            'manage coupons',
-            'manage products',
-            'manage testimonials'
+        // Define permissions for each role
+        $rolePermissions = [
+            'super-admin' => Permission::all(), // All permissions
 
+            'Product Manager' => [
+                'product-list',
+                'product-create',
+                'product-edit',
+                'product-delete',
+            ],
 
+            'Category Manager' => [
+                'category-list',
+                'category-create',
+                'category-edit',
+                'category-delete',
+            ],
+
+            'Testimonials Manager' => [
+                'testimonials-list',
+                'testimonials-create',
+                'testimonials-edit',
+                'testimonials-delete',
+            ],
+
+            'Orders Manager' => [
+                'order-list',
+                'order-create',
+                'order-edit',
+                'order-delete',
+            ],
+
+            'Coupons Manager' => [
+                'coupons-list',
+                'coupons-create',
+                'coupons-edit',
+                'coupons-delete',
+            ],
+
+            'Blogs Manager' => [
+                'blog-list',
+                'blog-create',
+                'blog-edit',
+                'blog-delete',
+            ],
+
+            'Settings Manager' => [
+                'setting-list',
+                'setting-create',
+                'setting-edit',
+                'setting-delete',
+            ],
+
+            'Contacts Manager' => [
+                'contact-list',
+                'contact-create',
+                'contact-edit',
+                'contact-delete',
+            ],
+
+            'Users Manager' => [
+                'user-list',
+                'user-create',
+                'user-edit',
+                'user-delete',
+            ],
         ];
 
-        // Create permissions
-        foreach ($permissions as $permission) {
-            Permission::firstOrCreate(['name' => $permission]);
-        }
-
-        // Assign permissions to roles
+        // Create roles and assign permissions
         foreach ($roles as $role) {
-            $roleInstance = Role::firstOrCreate(['name' => $role]);
+            $roleInstance = Role::firstOrCreate([
+                'name' => $role,
+                'guard_name' => 'admin',
+            ]);
 
-            if ($role === 'admin') {
-                // Admin gets all permissions
-                $roleInstance->syncPermissions(Permission::all());
-            }
-            
-            if ($role === 'productsManager') {
-                // Editor only manages products
-                $roleInstance->syncPermissions([
-                    'manage products'
-                ]);
-            }
-
-            if ($role === 'categoriesManager') {
-                // Editor only manages products
-                $roleInstance->syncPermissions([
-                    'manage categories'
-                ]);
+            // Assign permissions to the role
+            if (isset($rolePermissions[$role])) {
+                $roleInstance->syncPermissions($rolePermissions[$role]);
             }
         }
 

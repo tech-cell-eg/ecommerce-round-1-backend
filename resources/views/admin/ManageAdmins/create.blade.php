@@ -49,10 +49,14 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="permissions">Assign Permissions:</label>
-                                <select name="permissions[]" id="permissions" class="form-control">
-                                    @foreach($permissions as $permission)
-                                    <option value="{{ $permission->id }}">{{ $permission->name }}</option>
+                                <h4>Assign Permissions:</h4>
+                                @foreach($permissions as $permission)
+                                <label for="">
+                                    <input type="checkbox" name="permissions[]" value="{{ $permission->name }}">
+                                    {{ $permission->name }}
+                                    
+                                </label>
+                            
                                     @endforeach
                                 </select>
                             </div>

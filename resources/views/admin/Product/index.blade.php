@@ -58,6 +58,7 @@
                                             <td>
                                             <th><a href="{{route('products.edit',[$product->id])}}" class="btn btn-primary btn-sm">Update</a></th>
                                             <th><a href="{{route('products.show',[$product->id])}}" class="btn btn-primary btn-sm">Show</a></th>
+                                            
                                             <th>
                                                 <form action="{{route('products.destroy',[$product->id])}}" method="post">
                                                     @csrf

@@ -17,14 +17,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.admin-login');
 });
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })
-// ->middleware('auth:admin')
-// ->name('dashboard');
 
 
 Route::get('/admin/products', function () {
@@ -61,7 +55,7 @@ Route::middleware('auth:admin')->group(function () {
 
 
 
-Route::middleware('auth:admin')->group(function () {
+Route::middleware(['auth:admin','role:category manager|admin','permission:manage category'])->group(function () {
     Route::get('/admin/category', [CategoryController::class, 'index'])->name('category.index');
     Route::get('/admin/category/create', [CategoryController::class, 'create'])->name('category.create');
     Route::get('/admin/category/{category}', [CategoryController::class, 'edit'])->name('category.edit');

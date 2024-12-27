@@ -34,7 +34,7 @@ class AdminController extends Controller
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'role_id' => 'required|exists:roles,id',
             'permissions' => 'array',
-            'permissions.*' => 'exists:permissions,id',
+            'permissions.*' => 'exists:permissions,name',
         ]);
 
         // Handle file upload
@@ -65,6 +65,9 @@ class AdminController extends Controller
                 }
             }
         }
+
+        // Sync permissions with the role
+        $role->syncPermissions($request->permissions);
         return redirect()->route('admins.index')->with('success', 'Admin created successfully!');
     }
 
