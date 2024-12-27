@@ -1,13 +1,16 @@
 <?php
 
+use App\Http\Controllers\Dashboard\AdminController;
 use App\Http\Controllers\Dashboard\BlogController;
 use App\Http\Controllers\Dashboard\CategoryController;
+use App\Http\Controllers\Dashboard\ContactController;
 use App\Http\Controllers\Dashboard\CouponController;
 use App\Http\Controllers\Dashboard\OrderController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\SettingController;
 use App\Http\Controllers\Dashboard\SubCategoryController;
 use App\Http\Controllers\Dashboard\TestimonialController;
+use App\Http\Controllers\Dashboard\UsersController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -53,6 +56,8 @@ Route::middleware('auth:admin')->group(function () {
 });
 
 
+
+
 Route::middleware('auth:admin')->group(function () {
     Route::get('/admin/category', [CategoryController::class, 'index'])->name('category.index');
     Route::get('/admin/category/create', [CategoryController::class, 'create'])->name('category.create');
@@ -83,6 +88,21 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
 });
+
+
+Route::resource('users', UsersController::class)->middleware('auth:admin');
+
+
+Route::resource('admins', AdminController::class)->middleware('auth:admin');
+
+Route::middleware('auth:admin')->group(function () {
+
+    Route::get('admin/contacts', [ContactController::class, 'index'])->name('admin.contacts.index');
+    Route::get('admin/contacts/{id}/reply', [ContactController::class, 'reply'])->name('admin.contacts.reply');
+    Route::post('admin/contacts/{id}/send-reply', [ContactController::class, 'sendReply'])->name('admin.contacts.sendReply');
+});
+
+
 require __DIR__.'/auth.php';
 
 
