@@ -1136,14 +1136,24 @@
                 ]
             }
         },
-        "/favorites?product_id=2": {
+        "/favorites/{product_id}": {
             "post": {
                 "tags": [
                     "favorite"
                 ],
                 "summary": "Add product to favorites by id",
                 "description": "Endpoint to Add product to favorites by id",
-                "operationId": "4471fa5795b95cf2df9cd93a247f5b5d",
+                "operationId": "edd95928c7c54e4e84f5c261a9671afa",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "ok",
