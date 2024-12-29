@@ -8,11 +8,17 @@ use App\Mail\ResetPassword;
 use App\Models\PasswordResetToken;
 use App\Models\User;
 use App\Traits\ApiResponse;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Mail;
 
-class ForgotPasswordController extends Controller
+class ForgotPasswordController extends Controller implements HasMiddleware
 {
     use ApiResponse;
+
+    public static function middleware()
+    {
+        return ['throttle:5,1'];
+    }
 
     /**
      * @OA\Post(

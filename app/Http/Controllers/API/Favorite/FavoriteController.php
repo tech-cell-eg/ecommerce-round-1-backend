@@ -10,12 +10,17 @@ use App\Models\User;
 use App\Notifications\FavoriteNotification;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
-
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Auth;
 
-class FavoriteController extends Controller
+class FavoriteController extends Controller implements HasMiddleware
 {
     use ApiResponse;
+
+    public static function middleware()
+    {
+        return ['auth:sanctum'];
+    }
 
     /**
      * @OA\Get(

@@ -6,10 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\UserSetting\UserSettingRequest;
 use App\Models\UserSetting;
 use App\Traits\ApiResponse;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class UserSettingController extends Controller
+class UserSettingController extends Controller implements HasMiddleware
 {
     use ApiResponse;
+
+    public static function middleware()
+    {
+        return ['auth:sanctum'];
+    }
 
     public function index()
     {

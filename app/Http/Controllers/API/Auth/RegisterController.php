@@ -7,11 +7,17 @@ use App\Http\Requests\API\Auth\RegisterRequest;
 use App\Models\User;
 use App\Models\UserSetting;
 use App\Traits\ApiResponse;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-
-class RegisterController extends Controller
+class RegisterController extends Controller implements HasMiddleware
 {
     use ApiResponse;
+
+
+    public static function middleware()
+    {
+        return ['throttle:5,1'];
+    }
 
 
     /**

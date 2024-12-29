@@ -7,11 +7,17 @@ use App\Http\Requests\API\Cart\CartRequest;
 use App\Models\Cart;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Auth;
 
-class CartController extends Controller
+class CartController extends Controller implements HasMiddleware
 {
     use ApiResponse;
+
+    public static function middleware()
+    {
+        return ['auth:sanctum'];
+    }
 
     /**
      * @OA\Get(
