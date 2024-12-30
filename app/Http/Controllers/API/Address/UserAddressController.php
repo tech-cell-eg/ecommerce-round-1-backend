@@ -6,10 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\Address\StoreUserAddress;
 use App\Http\Requests\API\Address\UpdateUserAddress;
 use App\Traits\ApiResponse;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class UserAddressController extends Controller
+class UserAddressController extends Controller implements HasMiddleware
 {
     use ApiResponse;
+
+    public static function middleware()
+    {
+        return ['auth:sanctum'];
+    }
 
     /**
      * @OA\Get(

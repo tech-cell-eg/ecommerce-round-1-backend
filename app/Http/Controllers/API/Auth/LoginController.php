@@ -7,10 +7,16 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\API\Auth\LoginRequest;
 use App\Traits\ApiResponse;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class LoginController extends Controller
+class LoginController extends Controller implements HasMiddleware
 {
     use ApiResponse;
+
+    public static function middleware()
+    {
+        return ['throttle:10,1'];
+    }
 
     /**
      * @OA\Post(
