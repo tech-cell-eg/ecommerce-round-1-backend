@@ -47,7 +47,7 @@ class ProductController extends Controller
         if ($request->has('maxPrice')) {
             $model->where('price', '<=', $request->get('maxPrice'));
         }
-        return $this->success(200, 'Products retrieved successfully.', $model->get()->load('category'));
+        return $this->success(200, 'Products retrieved successfully.', $model->get()->load('category','reviews'));
     }
 
 
