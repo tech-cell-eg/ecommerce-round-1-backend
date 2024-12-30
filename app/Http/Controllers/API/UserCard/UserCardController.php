@@ -8,13 +8,13 @@ use App\Models\UserCard;
 use App\Traits\ApiResponse;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
-class UserCardController extends Controller implements HasMiddleware
+class UserCardController extends Controller
 {
     use ApiResponse;
 
-    public static function middleware()
+    public function __construct()
     {
-        return ['auth:sanctum'];
+        $this->middleware('auth:sanctum');
     }
 
     /**

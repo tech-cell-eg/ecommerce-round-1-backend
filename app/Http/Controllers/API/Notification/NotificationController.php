@@ -7,14 +7,15 @@ use App\Traits\ApiResponse;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Auth;
 
-class NotificationController extends Controller implements HasMiddleware
+class NotificationController extends Controller
 {
     use ApiResponse;
 
-    public static function middleware()
+    public function __construct()
     {
-        return ['auth:sanctum'];
+        $this->middleware('auth:sanctum');
     }
+
 
     /**
      * @OA\Get(

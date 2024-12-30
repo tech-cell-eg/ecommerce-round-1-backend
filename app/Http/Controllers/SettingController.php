@@ -10,13 +10,13 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 // use Illuminate\Http\Request;
 
-class SettingController extends Controller implements HasMiddleware
+class SettingController extends Controller
 {
     use ApiResponse;
 
-    public static function middleware()
+    public function __construct()
     {
-        return ['auth:sanctum'];
+        $this->middleware('auth:sanctum');
     }
 
     public function index()

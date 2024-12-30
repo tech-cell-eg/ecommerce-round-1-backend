@@ -10,13 +10,13 @@ use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Str;
 use TechCell\TechcellSocialite\Facades\TechcellSocialite;
 
-class SocialLoginController extends Controller implements HasMiddleware
+class SocialLoginController extends Controller
 {
     use ApiResponse;
 
-    public static function middleware()
+    public function __construct()
     {
-        return ['api', 'web'];
+        $this->middleware(['api', 'web']);
     }
 
     /**
@@ -24,7 +24,7 @@ class SocialLoginController extends Controller implements HasMiddleware
      *     path="/twitter-login",
      *     tags={"Auth"},
      *     @OA\Response(
-     *          response="200", 
+     *          response="200",
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      ),

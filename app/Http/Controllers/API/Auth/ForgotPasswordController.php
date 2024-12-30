@@ -11,13 +11,13 @@ use App\Traits\ApiResponse;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Mail;
 
-class ForgotPasswordController extends Controller implements HasMiddleware
+class ForgotPasswordController extends Controller
 {
     use ApiResponse;
 
-    public static function middleware()
+    public function __construct()
     {
-        return ['throttle:5,1'];
+        $this->middleware('throttle:5,1');
     }
 
     /**

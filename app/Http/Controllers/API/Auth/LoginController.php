@@ -9,14 +9,15 @@ use App\Http\Requests\API\Auth\LoginRequest;
 use App\Traits\ApiResponse;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
-class LoginController extends Controller implements HasMiddleware
+class LoginController extends Controller
 {
     use ApiResponse;
 
-    public static function middleware()
+    public function __construct()
     {
-        return ['throttle:10,1'];
+        $this->middleware('throttle:5,1');
     }
+
 
     /**
      * @OA\Post(
@@ -48,7 +49,7 @@ class LoginController extends Controller implements HasMiddleware
      *         ))
      *     ),
      *     @OA\Response(
-     *          response="200", 
+     *          response="200",
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      ),

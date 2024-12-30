@@ -12,16 +12,15 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 
-class ProductController extends Controller implements HasMiddleware
+class ProductController extends Controller
 {
     use ApiResponse;
 
-    public static function middleware()
+    public function __construct()
     {
-        return [
-            new Middleware('auth:sanctum', only: ['store']),
-        ];
+        $this->middleware('auth:sanctum')->only(['store']);
     }
+
 
     /**
      * @OA\Get(

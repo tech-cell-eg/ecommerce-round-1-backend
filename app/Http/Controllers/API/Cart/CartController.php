@@ -10,13 +10,13 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Auth;
 
-class CartController extends Controller implements HasMiddleware
+class CartController extends Controller
 {
     use ApiResponse;
 
-    public static function middleware()
+    public function __construct()
     {
-        return ['auth:sanctum'];
+        $this->middleware('auth:sanctum');
     }
 
     /**

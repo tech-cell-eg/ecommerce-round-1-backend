@@ -15,15 +15,14 @@ use App\Models\PasswordResetToken;
 use App\Traits\ApiResponse;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
-class ResetPasswordController extends Controller implements HasMiddleware
+class ResetPasswordController extends Controller
 {
     use ApiResponse;
 
-    public static function middleware()
+    public function __construct()
     {
-        return ['throttle:5,1'];
+        $this->middleware('throttle:5,1');
     }
-
     /**
      * @OA\Post(
      *     path="/reset-password",

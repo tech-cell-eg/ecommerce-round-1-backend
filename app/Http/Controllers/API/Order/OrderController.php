@@ -9,14 +9,15 @@ use App\Models\Product;
 use App\Traits\ApiResponse;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
-class OrderController extends Controller implements HasMiddleware
+class OrderController extends Controller
 {
     use ApiResponse;
 
-    public static function middleware()
+    public function __construct()
     {
-        return ['auth:sanctum'];
+        $this->middleware('auth:sanctum');
     }
+
 
     /**
      * @OA\Get(

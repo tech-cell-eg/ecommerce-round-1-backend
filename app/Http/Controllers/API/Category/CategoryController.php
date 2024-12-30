@@ -9,16 +9,15 @@ use App\Traits\ApiResponse;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 
-class CategoryController extends Controller implements HasMiddleware
+class CategoryController extends Controller
 {
     use ApiResponse;
 
-    public static function middleware()
+    public function __construct()
     {
-        return [
-            new Middleware('auth:sanctum', except: ['index', "show"]),
-        ];
+        $this->middleware('auth:sanctum')->except(['index', 'show']);
     }
+
 
     /**
      * @OA\Get(

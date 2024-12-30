@@ -11,16 +11,15 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Validator;
 
-class OurStoryController extends Controller implements HasMiddleware
+class OurStoryController extends Controller
 {
     use ApiResponse, FileControl;
 
-    public static function middleware()
+    public function __construct()
     {
-        return [
-            new Middleware('auth:sanctum', only: ['store']),
-        ];
+        $this->middleware('auth:sanctum')->only(['store']);
     }
+
 
     function index()
     {
