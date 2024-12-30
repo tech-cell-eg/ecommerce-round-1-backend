@@ -7,13 +7,35 @@ use App\Http\Requests\API\Order\StoreOrder;
 use App\Models\Order;
 use App\Models\Product;
 use App\Traits\ApiResponse;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class OrderController extends Controller
+class OrderController extends Controller implements HasMiddleware
 {
     use ApiResponse;
 
+    public static function middleware()
+    {
+        return ['auth:sanctum'];
+    }
+
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/orders",
+     *     tags={"order"},
+     *     security={{"bearerAuth": {}}},
+     *     summary="Get all orders",
+     *     description="Endpoint to Get all orders",
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
+     *      ),
+     * )
      */
     public function index()
     {
@@ -23,7 +45,62 @@ class OrderController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *     path="/orders",
+     *     tags={"order"},
+     *     security={{"bearerAuth": {}}},
+     *     summary="Create an order",
+     *     description="Endpoint to create a new order with user address, payment card, and product details",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 type="object",
+     *             required={"user_address_id", "user_card_id", "products", "quantities", "sizes"},
+     *             @OA\Property(
+     *                 property="user_address_id",
+     *                 type="integer",
+     *                 description="ID of the user's address",
+     *                 example=1
+     *             ),
+     *             @OA\Property(
+     *                 property="user_card_id",
+     *                 type="integer",
+     *                 description="ID of the user's payment card",
+     *                 example=2
+     *             ),
+     *             @OA\Property(
+     *                 property="products",
+     *                 type="array",
+     *                 description="Array of product IDs",
+     *                 @OA\Items(type="integer", example=101)
+     *             ),
+     *             @OA\Property(
+     *                 property="quantities",
+     *                 type="array",
+     *                 description="Array of quantities for the products",
+     *                 @OA\Items(type="integer", example=2)
+     *             ),
+     *             @OA\Property(
+     *                 property="sizes",
+     *                 type="array",
+     *                 description="Array of sizes for the products",
+     *                 @OA\Items(type="string", example="M")
+     *             )
+     *         ))
+     *     ),
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
+     *      ),
+     * )
      */
     public function store(StoreOrder $request)
     {
@@ -56,10 +133,33 @@ class OrderController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     *     path="/orders/{id}",
+     *     tags={"order"},
+     *     security={{"bearerAuth": {}}},
+     *     summary="Get order by id",
+     *     description="Endpoint to Get order by id",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
+     *      ),
+     * )
      */
-    public
-    function show(string $id)
+    public function show(string $id)
     {
         $user = auth()->user();
         $order = $user->orders()->findOrFail($id);
@@ -67,10 +167,33 @@ class OrderController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     *     path="/orders/{id}",
+     *     tags={"order"},
+     *     security={{"bearerAuth": {}}},
+     *     summary="Delete order",
+     *     description="Endpoint to Delete order",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
+     *      ),
+     * )
      */
-    public
-    function destroy(string $id)
+    public function destroy(string $id)
     {
         $user = auth()->user();
         $order = $user->orders()->findOrFail($id);

@@ -1,19 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\API\Favorite;
+namespace App\Http\Controllers\API\Notification;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\API\Favorite\FavoriteRequest;
-use App\Models\Favorite;
-use App\Models\Product;
-use App\Models\User;
-use App\Notifications\FavoriteNotification;
 use App\Traits\ApiResponse;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Auth;
 
-class FavoriteController extends Controller implements HasMiddleware
+class NotificationController extends Controller implements HasMiddleware
 {
     use ApiResponse;
 
@@ -24,11 +18,11 @@ class FavoriteController extends Controller implements HasMiddleware
 
     /**
      * @OA\Get(
-     *     path="/favorites",
-     *     tags={"favorite"},
+     *     path="/notifications",
+     *     tags={"Notification"},
      *     security={{"bearerAuth": {}}},
-     *     summary="Get all favorites product",
-     *     description="Endpoint to get all favorites product",
+     *     summary="Get all notifications",
+     *     description="Endpoint to get all notifications",
      *     @OA\Response(
      *          response="200", 
      *          description="ok",
@@ -41,21 +35,24 @@ class FavoriteController extends Controller implements HasMiddleware
      *      ),
      * )
      */
-    public function index()
-    {
-        $user_id = Auth::id();
-        // Fetching all favorite products for the specified user
-        $favorites = Favorite::where('user_id', $user_id)->with('product')->get();
-        return $this->success(200, "all favorites", $favorites);
+    function index() {
+        $user = Auth::user();
+        
+        $ids = $user->notifications->pluck("id")->toArray();
+        $data = $user->notifications->pluck("data")->toArray();
+        for ($i=0; $i < count($data); $i++) { 
+            $data[$i]["id"] = $ids[$i];
+        }
+
+        return $this->success(200, "all notifications", $data);
     }
 
     /**
-     * @OA\Post(
-     *     path="/favorites/{product_id}",
-     *     tags={"favorite"},
+     * @OA\Get(
+     *     path="/notifications/{id}",
+     *     tags={"Notification"},
      *     security={{"bearerAuth": {}}},
-     *     summary="Add product to favorites by id",
-     *     description="Endpoint to Add product to favorites by id",
+     *     summary="Get notification by id",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -76,24 +73,24 @@ class FavoriteController extends Controller implements HasMiddleware
      *      ),
      * )
      */
-    public function store(FavoriteRequest $request)
-    {
+    function show($id) {
         $user = Auth::user();
-        optional($user)->favorites()->syncWithoutDetaching([$request->product_id]);
-        $product_name = Product::find($request->product_id)->name;
-        // $favorite->notify(new FavoriteNotification($product_name . " has been added to favorites"));
-        return $this->success(200, "Product added to favorites");
 
+        foreach ($user->notifications as $notification) {
+            if($notification->id == $id) {
+                return $this->success(200, "notification found!", $notification);
+            }
+        }
+
+        return $this->failed(404, "id is not exist!");
     }
-
 
     /**
      * @OA\Delete(
-     *     path="/favorites/{id}",
-     *     tags={"favorite"},
+     *     path="/notifications/{id}",
+     *     tags={"Notification"},
      *     security={{"bearerAuth": {}}},
-     *     summary="remove product from favorites",
-     *     description="Endpoint to remove product from favorites",
+     *     summary="Delete notifications by id",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -114,19 +111,16 @@ class FavoriteController extends Controller implements HasMiddleware
      *      ),
      * )
      */
-    public function destroy($product_id)
-    {
+    function destroy($id) {
+        $user = Auth::user();
 
-        $user_id = Auth::id();
-        // Detach the product from the user's favorites
-        $deleted = Favorite::where('user_id', $user_id)
-            ->where('product_id', $product_id)
-            ->delete();
-        if ($deleted) {
-            return $this->success(200, "Favorite product detached successfully.");
-
-        } else {
-            return $this->failed(404, "Product was not found in favorites.");
+        foreach ($user->notifications as $notification) {
+            if($notification->id == $id) {
+                $notification->delete();
+                return $this->success(200, "notification deleted!");
+            }
         }
+
+        return $this->failed(404, "id is not exist!");
     }
 }

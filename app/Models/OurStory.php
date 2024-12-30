@@ -2,14 +2,19 @@
 
 namespace App\Models;
 
+use Database\Factories\OurStoryFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class InstagramStories extends Model
+class OurStory extends Model
 {
+    /** @use HasFactory<OurStoryFactory> */
     use HasFactory;
+
     protected $fillable = [
-        "image_link",
-        "insta_link"
+        "image",
+        "title",
+        "description"
     ];
+
 }

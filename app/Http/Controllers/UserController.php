@@ -104,9 +104,7 @@ class UserController extends Controller implements HasMiddleware
         $user = User::find($id);
         $user->update($input);
         DB::table('model_has_roles')->where('model_id', $id)->delete();
-
         $user->assignRole($request->input('roles'));
-
         return redirect()->route('users.index')->with('success', 'User updated successfully');
     }
 

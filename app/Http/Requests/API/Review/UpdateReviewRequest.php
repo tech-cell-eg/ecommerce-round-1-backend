@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Contact;
+namespace App\Http\Requests\API\Review;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ContactStoreRequest extends FormRequest
+class UpdateReviewRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,11 @@ class ContactStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email',
-            'name' => 'required|string',
-            'text' => 'required|string'
+            "msg" => ["nullable"],
+            "stars" => ["nullable", "min:1", "max:5"],
+            "product_id" => ["nullable"],
+            "name" => ["nullable", "string"],
+            "email" => ["nullable", "email"]
         ];
     }
 }

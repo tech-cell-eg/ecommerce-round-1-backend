@@ -6,12 +6,18 @@ use App\Http\Requests\Setting\SettingStoreRequest;
 use App\Http\Requests\Setting\SettingUpdateRequest;
 use App\Models\Setting;
 use App\Traits\ApiResponse;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
 // use Illuminate\Http\Request;
 
-class SettingController extends Controller
+class SettingController extends Controller implements HasMiddleware
 {
     use ApiResponse;
+
+    public static function middleware()
+    {
+        return ['auth:sanctum'];
+    }
 
     public function index()
     {

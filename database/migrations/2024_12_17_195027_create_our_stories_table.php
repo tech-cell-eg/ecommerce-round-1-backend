@@ -10,16 +10,11 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('reviews', function (Blueprint $table) {
+        Schema::create('our_stories', function (Blueprint $table) {
             $table->id();
-            $table->text("msg");
-            $table->enum('stars', [1, 2, 3, 4, 5]);
-            $table->foreignId("product_id")
-                ->constrained("products")
-                ->onUpdate("CASCADE")
-                ->onDelete("CASCADE");
-            $table->string('name');
-            $table->string('email');
+            $table->string("image");
+            $table->string("title", 255);
+            $table->text("description");
             $table->timestamps();
         });
     }
@@ -29,6 +24,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('reviews');
+        Schema::dropIfExists('our_stories');
     }
 };
