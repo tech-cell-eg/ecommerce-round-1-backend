@@ -22,6 +22,7 @@ class OrderFactory extends Factory
         return [
             'user_id' => User::factory()->create()->id,
             'user_address_id' => UserAddress::factory()->create()->id,
+            'payment_method' => 'card',
             'user_card_id' => UserCard::factory()->create()->id,
             'status' => fake()->randomElement(['in process', 'delivered', 'cancelled']),
             'delivery_date' => fake()->dateTimeBetween('now', '+2 months')->format('d-M-Y'),

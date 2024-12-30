@@ -24,6 +24,7 @@ class StoreOrder extends FormRequest
     public function rules(): array
     {
         return [
+            'payment_method' => ['required', 'in:card,cash,google_pay,paypal'],
             'user_address_id' => ['required', 'integer', 'exists:user_addresses,id', function ($attribute, $value, $fail) {
                 if (!UserAddress::where('id', $value)
                     ->where('user_id', auth()->user()->id)
@@ -31,7 +32,7 @@ class StoreOrder extends FormRequest
                     $fail('This address id does not exist.');
                 }
             }],
-            'user_card_id' => ['required', 'integer', 'exists:user_cards,id', function ($attribute, $value, $fail) {
+            'user_card_id' => ['required_if:payment_method,card', 'integer', 'exists:user_cards,id', function ($attribute, $value, $fail) {
                 if (!UserCard::where('id', $value)
                     ->where('user_id', auth()->user()->id)
                     ->exists()) {
