@@ -18,10 +18,8 @@ class DatabaseSeeder extends Seeder
     {
          // User::factory(10)->create();
 
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        //    ]);
+      
+
 
         $this->call([
             CategorySeeder::class,
@@ -30,22 +28,11 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             TestimonialSeeder::class,
             OurStorySeeder::class,
-            InstagramStoriesSeeder::class
-        ]);
-        // $this->call([
-        //     PermissionTableSeeder::class,
-        //     AdminSeeder::class,
-        //     TestimonialSeeder::class,
-        //     CategorySeeder::class,
-        //     SubCategorySeeder::class
-        // ]);
-
-
-        Category::factory()->count(3)->create();
-        Product::factory(5)->create();
-
-        $this->call([
+            InstagramStoriesSeeder::class,
+                      PermissionTableSeeder::class,
             RolePermissionSeeder::class,
         ]);
+
+      
     }
 }

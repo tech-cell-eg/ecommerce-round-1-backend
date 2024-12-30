@@ -10,10 +10,14 @@ use App\Observers\CartObserver;
 use App\Observers\FavoriteObserver;
 use App\Observers\ReviewObserver;
 use App\Observers\UserObserver;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+
+    protected $policies = [
+    ];
     /**
      * Register any application services.
      */
@@ -31,5 +35,17 @@ class AppServiceProvider extends ServiceProvider
         Review::observe(ReviewObserver::class);
         Favorite::observe(FavoriteObserver::class);
         Cart::observe(CartObserver::class);
+
+        Gate::define('manage admins', function ($user) {
+            return $user->hasRole('admin');
+        });
+
+        Gate::define('manage products', function ($user) {
+            return $user->hasPermissionTo('manage products');
+        });
+
+        Gate::define('manage categories', function ($user) {
+            return $user->hasRole('categoriesManager'); 
+        });
     }
 }

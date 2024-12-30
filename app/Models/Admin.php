@@ -20,8 +20,8 @@ class Admin extends Authenticatable implements MustVerifyEmail // Extend the Aut
  */
     use HasRoles;
     /** @use HasFactory<\Database\Factories\AdminFactory> */
-    use HasFactory, Notifiable, HasApiTokens;
     use HasRoles;
+    use HasFactory, Notifiable, HasApiTokens;
     protected $fillable = [
         'name',
         'email',

@@ -6,7 +6,9 @@ use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\ContactController;
 use App\Http\Controllers\Dashboard\CouponController;
 use App\Http\Controllers\Dashboard\OrderController;
+use App\Http\Controllers\Dashboard\PermissionController;
 use App\Http\Controllers\Dashboard\ProductController;
+use App\Http\Controllers\Dashboard\RolePermissionController;
 use App\Http\Controllers\Dashboard\SettingController;
 use App\Http\Controllers\Dashboard\SubCategoryController;
 use App\Http\Controllers\Dashboard\TestimonialController;
@@ -15,14 +17,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.admin-login');
 });
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })
-// ->middleware('auth:admin')
-// ->name('dashboard');
 
 
 Route::get('/admin/products', function () {
@@ -49,6 +45,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth:admin')->group(function () {
     Route::get('/admin/products', [ProductController::class, 'index'])->name('products.index');
     Route::get('/admin/products/create', [ProductController::class, 'create'])->name('products.create');
+    Route::get('/admin/products/show/{product}', [ProductController::class, 'show'])->name('products.show');
     Route::post('/admin/products', [ProductController::class, 'store'])->name('products.store');
     Route::get('/admin/products/{product}', [ProductController::class, 'edit'])->name('products.edit');
     Route::patch('/admin/products/{product}', [ProductController::class, 'update'])->name('products.update');
@@ -58,7 +55,7 @@ Route::middleware('auth:admin')->group(function () {
 
 
 
-Route::middleware('auth:admin')->group(function () {
+Route::middleware(['auth:admin','role:category manager|admin','permission:manage category'])->group(function () {
     Route::get('/admin/category', [CategoryController::class, 'index'])->name('category.index');
     Route::get('/admin/category/create', [CategoryController::class, 'create'])->name('category.create');
     Route::get('/admin/category/{category}', [CategoryController::class, 'edit'])->name('category.edit');
@@ -103,6 +100,18 @@ Route::middleware('auth:admin')->group(function () {
 });
 
 
+
+Route::middleware('auth:admin')->group(function () {
+    Route::get('admin/roles-permissions', [RolePermissionController::class, 'index'])->name('roles.index');
+    Route::get('admin/roles', [RolePermissionController::class, 'create'])->name('roles.create');
+    
+    Route::post('admin/roles', [RolePermissionController::class, 'store'])->name('roles.store');
+   });
+
+Route::middleware('auth:admin')->group(function () {
+    Route::get('admin/permissions', [PermissionController::class, 'create'])->name('permissions.create');
+    Route::post('admin/permissions', [PermissionController::class, 'store'])->name('permissions.store');
+});
 require __DIR__.'/auth.php';
 
 

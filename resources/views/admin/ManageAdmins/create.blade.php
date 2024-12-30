@@ -41,9 +41,22 @@
 
                             <div class="form-group">
                                 <label for="role">Role</label>
-                                <select name="role_id" required  class="form-select mb-3">
+                                <select name="role_id" required class="form-select mb-3">
                                     @foreach ($roles as $role)
                                     <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <h4>Assign Permissions:</h4>
+                                @foreach($permissions as $permission)
+                                <label for="">
+                                    <input type="checkbox" name="permissions[]" value="{{ $permission->name }}">
+                                    {{ $permission->name }}
+                                    
+                                </label>
+                            
                                     @endforeach
                                 </select>
                             </div>
@@ -53,14 +66,14 @@
                                 <label>Image upload</label>
                                 <input type="file" name="image" class="form-control mb-3">
                                 @error('image')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
-                            
+
                             </div>
                             <button type="submit" class="btn btn-primary me-2">Submit</button>
                         </form>
 
-                      
+
                     </div>
                 </div>
             </div>

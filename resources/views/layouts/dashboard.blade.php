@@ -237,38 +237,7 @@
                     </a>
                 </li>
 
-
-
-                @if(Auth::user()->hasRole('editor'))
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('products.index') }}">
-                        <span class="menu-title">Product</span>
-                        <i class="icon-globe menu-icon"></i>
-                    </a>
-                    <div class="collapse" id="icons">
-                        <ul class="nav flex-column sub-menu">
-                            @can('view products')
-                            <li class="nav-item"><a class="nav-link" href="{{ route('products.index') }}">All Products</a></li>
-                            @endcan
-
-                            @can('create products')
-                            <li class="nav-item"><a class="nav-link" href="{{ route('products.create') }}">Add Product</a></li>
-                            @endcan
-
-                            @can('edit products')
-                            <li class="nav-item"><a class="nav-link" href="{{ route('products.edit', ['product' => 1]) }}">Edit Product</a></li>
-                            @endcan
-
-                            @can('delete products')
-                            <li class="nav-item"><a class="nav-link" href="#" onclick="confirmDelete()">Delete Product</a></li>
-                            @endcan
-                        </ul>
-                    </div>
-                </li>
-                @endif
-
-               
-                @if(Auth::user()->hasRole('admin'))
+                @hasanyrole('Product Manager|super-admin')
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('products.index') }}">
                         <span class="menu-title">Product</span>
@@ -277,12 +246,17 @@
                     <div class="collapse" id="icons">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item"><a class="nav-link" href="{{ route('products.index') }}">All Products</a></li>
+                            
                             <li class="nav-item"><a class="nav-link" href="{{ route('products.create') }}">Add Product</a></li>
+                            
                         </ul>
                     </div>
                 </li>
+                @endhasanyrole
 
 
+
+                @hasanyrole('Category Manager|super-admin')
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('category.index')}}">
                         <span class="menu-title">Category</span>
@@ -297,7 +271,9 @@
                         </ul>
                     </div>
                 </li>
+                @endhasanyrole
 
+                @hasanyrole('Testimonials Manager|super-admin')
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('testimonials.index')}}">
                         <span class="menu-title">Testimonials</span>
@@ -310,27 +286,33 @@
                         </ul>
                     </div>
                 </li>
+                @endhasanyrole
 
 
+            
+
+                @hasanyrole('Orders Manager|super-admin')
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('orders.index')}}">
                         <span class="menu-title">Orders</span>
                         <i class="icon-chart menu-icon"></i>
                     </a>
-                    <div class="collapse" id="forms">
+                    <div class="collapse" id="forms3">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item"> <a class="nav-link" href="{{route('orders.index')}}">All Orders</a></li>
                         </ul>
                     </div>
                 </li>
 
+                @endhasanyrole
 
+                @hasanyrole('Coupons Manager|super-admin')
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('coupons.index')}}">
                         <span class="menu-title">Coupons</span>
                         <i class="icon-folder-alt menu-icon"></i>
                     </a>
-                    <div class="collapse" id="forms">
+                    <div class="collapse" id="forms4">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item"> <a class="nav-link" href="{{route('coupons.index')}}">All Coupons</a></li>
                             <li class="nav-item"> <a class="nav-link" href="{{route('coupons.create')}}">Add Coupon</a></li>
@@ -338,76 +320,99 @@
                     </div>
                 </li>
 
+                @endhasanyrole
 
-
-
+                @hasanyrole('Blogs Manager|super-admin')
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('blogs.index')}}">
                         <span class="menu-title">Blogs</span>
                         <i class="icon-grid menu-icon"></i>
                     </a>
-                    <div class="collapse" id="forms">
+                    <div class="collapse" id="forms5">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item"> <a class="nav-link" href="{{route('blogs.index')}}">All Blogs</a></li>
                             <li class="nav-item"> <a class="nav-link" href="{{route('blogs.create')}}">Add Blogs</a></li>
                         </ul>
                     </div>
                 </li>
+                @endhasanyrole
 
+                @hasanyrole('Settings Manager|super-admin')
 
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('settings.index')}}">
                         <span class="menu-title">Settings</span>
                         <i class="icon-disc menu-icon"></i>
                     </a>
-                    <div class="collapse" id="forms">
+                    <div class="collapse" id="forms6">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item"> <a class="nav-link" href="{{route('settings.index')}}">All Settings</a></li>
                         </ul>
                     </div>
                 </li>
+                @endhasanyrole
 
+                @hasanyrole('Contacts Manager|super-admin')
 
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('admin.contacts.index')}}">
                         <span class="menu-title">Contacts</span>
                         <i class="icon-globe menu-icon"></i>
                     </a>
-                    <div class="collapse" id="forms">
+                    <div class="collapse" id="forms7">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item"> <a class="nav-link" href="{{route('admin.contacts.index')}}">All Contacts</a></li>
                         </ul>
                     </div>
                 </li>
+                @endhasanyrole
 
+                @hasanyrole('Users Manager|super-admin')
 
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('users.index')}}">
                         <span class="menu-title">Users</span>
                         <i class="icon-layers menu-icon"></i>
                     </a>
-                    <div class="collapse" id="forms">
+                    <div class="collapse" id="forms8">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item"> <a class="nav-link" href="{{route('users.index')}}">All Users</a></li>
                             <li class="nav-item"> <a class="nav-link" href="{{route('users.create')}}">Add User</a></li>
                         </ul>
                     </div>
                 </li>
+                @endhasanyrole
 
+                @hasanyrole('super-admin')
 
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('admins.index')}}">
                         <span class="menu-title">Admins</span>
                         <i class="icon-book-open menu-icon"></i>
                     </a>
-                    <div class="collapse" id="forms">
+                    <div class="collapse" id="forms9">
                         <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"> <a class="nav-link" href="{{route('admins.index')}}">Add Admin</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="{{route('admins.index')}}">All Admins</a></li>
                             <li class="nav-item"> <a class="nav-link" href="{{route('admins.create')}}">Add Admin</a></li>
                         </ul>
                     </div>
                 </li>
-                @endif
+
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('roles.index')}}">
+                        <span class="menu-title">Roles And Permissions</span>
+                        <i class="icon-screen-desktop menu-icon"></i>
+                    </a>
+                    <div class="collapse" id="forms10">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="{{route('roles.index')}}">All Roles</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="{{route('roles.create')}}">Add Roles</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="{{route('permissions.create')}}">Add Permissions</a></li>
+                        </ul>
+                    </div>
+                </li>
+                @endhasanyrole
         </nav>
 
         <!-- partial -->
