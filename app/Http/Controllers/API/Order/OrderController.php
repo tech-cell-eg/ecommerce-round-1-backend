@@ -127,8 +127,8 @@ class OrderController extends Controller
         $deliveryCharge = $totalProductPrice * (config('order.Delivery Fees Percentage') / 100);
         $grandTotal = $totalProductPrice + $deliveryCharge;
         $order->update([
-            'grand_total' => $grandTotal,
-            'delivery_charge' => $deliveryCharge,
+            'grand_total' => number_format($grandTotal,2),
+            'delivery_charge' => number_format($deliveryCharge,2),
         ]);
         return $this->success(200, 'Order created successfully.', $order->load('products','card','address'));
     }
