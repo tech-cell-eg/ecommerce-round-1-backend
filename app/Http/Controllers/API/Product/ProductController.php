@@ -28,24 +28,26 @@ class ProductController extends Controller
      *     tags={"product"},
      *     summary="Get all products",
      *     @OA\Response(
-     *      response="200", 
+     *      response="200",
      *      description="ok",
      *      @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      )
      * )
      */
-    
+
     public function index(Request $request)
     {
-        $query = Product::query();
-
-        $filters = new ProductFilter();
-
-        $query = $filters->filter($query, $request->all());
-        $products = $query->paginate(); // Paginate results
-
-        return $this->success(200, 'Products retrieved successfully.', ProductResource::collection($products));
-
+        $model = Product::query();
+        if ($request->has('category_id')) {
+            $model->where('category_id', $request->get('category_id'));
+        }
+        if ($request->has('minPrice')) {
+            $model->where('price', '>=', $request->get('minPrice'));
+        }
+        if ($request->has('maxPrice')) {
+            $model->where('price', '<=', $request->get('maxPrice'));
+        }
+        return $this->success(200, 'Products retrieved successfully.', ProductResource::collection($model->get()));
     }
 
 
@@ -63,7 +65,7 @@ class ProductController extends Controller
      *         )
      *     ),
      *     @OA\Response(
-     *          response="200", 
+     *          response="200",
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      ),
@@ -137,12 +139,12 @@ class ProductController extends Controller
      *         )
      *     ),
      *     @OA\Response(
-     *          response="200", 
+     *          response="200",
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      ),
      *     @OA\Response(
-     *          response="401", 
+     *          response="401",
      *          description="Error: Unauthorized",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
      *      ),
@@ -170,7 +172,7 @@ class ProductController extends Controller
      *     tags={"product"},
      *     summary="Search in products list",
      *     @OA\Response(
-     *          response="200", 
+     *          response="200",
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      ),

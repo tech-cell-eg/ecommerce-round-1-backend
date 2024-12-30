@@ -144,7 +144,7 @@ class CartController extends Controller
         $cart->update([
             "product_id" => $cart->product_id,
             "user_id" => Auth::user()->id,
-            "quantity" => $request->quantity || $cart->quantity
+            "quantity" => $request->quantity ?? $cart->quantity
         ]);
 
         return $this->success(200, "item has been updated successfully!", $cart);
