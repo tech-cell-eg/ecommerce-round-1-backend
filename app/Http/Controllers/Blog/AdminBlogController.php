@@ -10,13 +10,13 @@ use App\Models\User;
 use App\Models\Blog;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
-class AdminBlogController extends Controller implements HasMiddleware
+class AdminBlogController extends Controller
 {
     // As an admin user, I want to create, edit, and delete blog posts to ensure the content is up-to-date and relevant.
 
-    public static function middleware()
+    public function __construct()
     {
-        return ['auth:sanctum', "Admin"];
+        $this->middleware(['auth:sanctum','Admin']);
     }
 
     
