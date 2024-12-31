@@ -162,67 +162,6 @@ class TestimonialController extends Controller
         return $this->success(200, "Testimonial returned successfully!", $testimonial);
     }
 
-    /**
-     * @OA\Put(
-     *     path="/testimonial/{id}",
-     *     tags={"testimonial"},
-     *     security={{"bearerAuth": {}}},
-     *     summary="Update a testimonial for a product",
-     *     description="Endpoint to update a testimonial with product, text, image, and video",
-     *     @OA\Parameter(
-     *         name="id",
-     *         in="path",
-     *         required=true,
-     *         @OA\Schema(
-     *             type="integer"
-     *         )
-     *     ),
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\MediaType(
-     *             mediaType="multipart/form-data",
-     *             @OA\Schema(
-     *                 type="object",
-     *                 required={"product_id", "text"},
-     *                 @OA\Property(
-     *                     property="product_id",
-     *                     type="integer",
-     *                     description="ID of the product for the testimonial",
-     *                     example=101
-     *                 ),
-     *                 @OA\Property(
-     *                     property="text",
-     *                     type="string",
-     *                     description="Updated testimonial text",
-     *                     example="This product is even better now!"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="image",
-     *                     type="string",
-     *                     format="binary",
-     *                     description="Updated testimonial image file (optional)"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="video",
-     *                     type="string",
-     *                     format="binary",
-     *                     description="Updated testimonial video file (optional)"
-     *                 )
-     *             )
-     *         )
-     *     ),
-     *     @OA\Response(
-     *          response="200", 
-     *          description="ok",
-     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
-     *      ),
-     *     @OA\Response(
-     *          response="401", 
-     *          description="Error: Unauthorized",
-     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
-     *      ),
-     * )
-     */
     public function update(TestimonialUpdateRequest $request, Testimonial $testimonial)
     {
 

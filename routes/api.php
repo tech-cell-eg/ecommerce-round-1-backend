@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\API\Auth\UpdateUserController;
 use App\Http\Controllers\API\Notification\NotificationController;
-use App\Http\Controllers\Dashboard\SubCategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminMiddleware;
@@ -33,7 +32,7 @@ use App\Http\Controllers\API\Testimonial\TestimonialController;
 use App\Http\Controllers\API\UserSetting\UserSettingController;
 use App\Http\Controllers\API\OurStory\OurStoryController;
 use App\Http\Controllers\CouponController;
-// use \App\Http\Controllers\API\SubCategory\SubCategoryController;
+use \App\Http\Controllers\API\SubCategory\SubCategoryController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
