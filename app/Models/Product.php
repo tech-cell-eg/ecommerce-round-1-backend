@@ -11,6 +11,9 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name', 'description', 'image', 'price', 'compare_price', 'rating', 'featured', 'category_id', 'size', 'color',
+    ];
     protected $guarded = [];
 
     public function testimonials()
@@ -57,8 +60,9 @@ class Product extends Model
     {
         return $this->belongsToMany(Order::class)->withPivot('price', 'quantity', 'size')->withTimestamps();
     }
+
     public function wishlistedByUsers()
     {
-        return $this->belongsToMany(User::class, 'wishes_list','product_id', 'user_id');
+        return $this->belongsToMany(User::class, 'wishes_list', 'product_id', 'user_id');
     }
 }

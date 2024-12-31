@@ -11,15 +11,17 @@ use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
     use ApiResponse;
 
-    public function __construct()
-    {
-        $this->middleware('auth:sanctum')->only(['store']);
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:sanctum')->only(['store']);
+    // }
 
 
     /**
@@ -28,24 +30,26 @@ class ProductController extends Controller
      *     tags={"product"},
      *     summary="Get all products",
      *     @OA\Response(
-     *      response="200", 
+     *      response="200",
      *      description="ok",
      *      @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      )
      * )
      */
-    
+
     public function index(Request $request)
     {
-        $query = Product::query();
-
-        $filters = new ProductFilter();
-
-        $query = $filters->filter($query, $request->all());
-        $products = $query->paginate(); // Paginate results
-
-        return $this->success(200, 'Products retrieved successfully.', ProductResource::collection($products));
-
+        $model = Product::query();
+        if ($request->has('category_id')) {
+            $model->where('category_id', $request->get('category_id'));
+        }
+        if ($request->has('minPrice')) {
+            $model->where('price', '>=', $request->get('minPrice'));
+        }
+        if ($request->has('maxPrice')) {
+            $model->where('price', '<=', $request->get('maxPrice'));
+        }
+        return $this->success(200, 'Products retrieved successfully.', $model->with('category', 'reviews')->paginate(8));
     }
 
 
@@ -63,7 +67,7 @@ class ProductController extends Controller
      *         )
      *     ),
      *     @OA\Response(
-     *          response="200", 
+     *          response="200",
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      ),
@@ -137,16 +141,70 @@ class ProductController extends Controller
      *         )
      *     ),
      *     @OA\Response(
-     *          response="200", 
+     *          response="200",
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      ),
      *     @OA\Response(
-     *          response="401", 
+     *          response="401",
      *          description="Error: Unauthorized",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
      *      ),
      * )
+     * 
+     * 
+     * 
+     *        if($request->hasFile("image")) {
+            File::delete(public_path($request->image));
+            $image = $request->file("image");
+            $fileName = $image->store("/", "public");
+            $filePath = "uploads/".$fileName;
+            $product->image = $filePath;
+        }
+
+        $product->name = $request->name;
+        $product->price = $request->price;
+        $product->short_description = $request->short_description;
+        $product->description = $request->description;
+        $product->quantity = $request->qty;
+        $product->sku = $request->sku;
+        $product->save();
+
+        // insert colors
+        if($request->has("colors") && $request->filled("colors")) {
+
+            foreach ($product->colors as $color) {
+                $color->delete();
+            }
+
+            foreach ($request->colors as $color) {
+                ProductColor::create([
+                    "name" => $color,
+                    "product_id" => $product->id
+                ]);
+            }
+        }
+            
+        if($request->hasFile("images")) {
+
+            foreach ($product->images as $image) {
+                File::delete(public_path($image->path));
+            }
+            $product->images()->delete();
+
+            foreach ($request->file("images") as  $image) {
+                $fileName = $image->store("/", "public");
+                $filePath = "uploads/".$fileName;
+                ProductImage::create([
+                    "path" => $filePath,
+                    "product_id" => $product->id
+                ]);
+            }
+        }
+
+
+        notyf('Product Updated Successfully.');
+        return redirect()->back();
      */
     // This function just for testing images
     public function store(StoreProductRequest $request)
@@ -155,7 +213,10 @@ class ProductController extends Controller
         $validatedData = $request->validated();
 
         if ($request->hasFile('image')) {
-            $validatedData['image'] = $request->file('image')->store('uploads', 'public');
+
+            // $validatedData['image'] = $request->file('image');
+            $validatedData['image'] = $request->file('image')->store('/uploads');
+            Storage::disk("public")->putFile($request->image);
         }
         // Create the product using validated and modified data
         $product = Product::create($validatedData);
@@ -170,7 +231,7 @@ class ProductController extends Controller
      *     tags={"product"},
      *     summary="Search in products list",
      *     @OA\Response(
-     *          response="200", 
+     *          response="200",
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      ),

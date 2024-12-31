@@ -55,9 +55,10 @@ class ReviewController extends Controller
      *      ),
      * )
      */
-    function show(Review $review)
+    function show($id)
     {
-        return $this->success(200, "review found!", $review);
+        $reviews = Review::where("product_id", $id)->get();
+        return $this->success(200, "review found!", $reviews);
     }
 
     /**

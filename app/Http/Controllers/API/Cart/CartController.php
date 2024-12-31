@@ -26,12 +26,12 @@ class CartController extends Controller
      *     security={{"bearerAuth": {}}},
      *     summary="Get all product in cart",
      *     @OA\Response(
-     *          response="200", 
+     *          response="200",
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      ),
      *     @OA\Response(
-     *          response="401", 
+     *          response="401",
      *          description="Error: Unauthorized",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
      *      ),
@@ -73,12 +73,12 @@ class CartController extends Controller
      *         ))
      *     ),
      *     @OA\Response(
-     *          response="200", 
+     *          response="200",
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      ),
      *     @OA\Response(
-     *          response="401", 
+     *          response="401",
      *          description="Error: Unauthorized",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
      *      ),
@@ -128,12 +128,12 @@ class CartController extends Controller
      *         )
      *     ),
      *     @OA\Response(
-     *          response="200", 
+     *          response="200",
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      ),
      *     @OA\Response(
-     *          response="401", 
+     *          response="401",
      *          description="Error: Unauthorized",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
      *      ),
@@ -144,7 +144,7 @@ class CartController extends Controller
         $cart->update([
             "product_id" => $cart->product_id,
             "user_id" => Auth::user()->id,
-            "quantity" => $request->quantity || $cart->quantity
+            "quantity" => $request->quantity ?? $cart->quantity
         ]);
 
         return $this->success(200, "item has been updated successfully!", $cart);
@@ -165,19 +165,26 @@ class CartController extends Controller
      *         )
      *     ),
      *     @OA\Response(
-     *          response="200", 
+     *          response="200",
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      ),
      *     @OA\Response(
-     *          response="401", 
+     *          response="401",
      *          description="Error: Unauthorized",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
      *      ),
      * )
      */
-    public function destroy(Cart $cart)
+    public function destroy(Request $request, Cart $cart)
     {
+        request()->validate([
+            "product_id" => "required|integer"
+        ]);
+        $cart = $cart->where("product_id", $request->product_id)->where("user_id", auth()->user()->id)->first();
+        if (!$cart) {
+            return $this->failed(404, "product id not found in cart");
+        }
         $cart->delete();
         return $this->success(200, "item has been deleted successfully!");
     }
@@ -189,12 +196,12 @@ class CartController extends Controller
      *     security={{"bearerAuth": {}}},
      *     summary="Delete all product from cart",
      *     @OA\Response(
-     *          response="200", 
+     *          response="200",
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      ),
      *     @OA\Response(
-     *          response="401", 
+     *          response="401",
      *          description="Error: Unauthorized",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
      *      ),
