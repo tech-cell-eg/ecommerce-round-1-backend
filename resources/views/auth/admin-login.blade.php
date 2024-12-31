@@ -7,15 +7,21 @@
     @csrf
     <div class="form-group">
         <label for="email" :value="__('Email')">Email</label>
-        <input type="email" class="form-control form-control-lg" name="email" :value="old('email')" required autofocus autocomplete="username">
+        <input type="email" class="form-control form-control-lg mb-3" name="email" :value="old('email')" required autofocus autocomplete="username">
+        @error('email')
+        <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
     </div>
 
 
     <div class="form-group">
         <label for="password" :value="__('Password')">Password</label>
-        <input type="password" class="form-control form-control-lg" id="password" class="block mt-1 w-full"
+        <input type="password" class="form-control form-control-lg mb-3" id="password" class="block mt-1 w-full"
             name="password"
             required autocomplete="current-password">
+        @error('password')
+        <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
     </div>
     <div class="mt-3">
         <button type="submit" name="submit" class="btn d-grid btn-primary btn-lg font-weight-medium auth-form-btn">SIGN IN</button>

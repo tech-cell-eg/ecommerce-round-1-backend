@@ -6,24 +6,34 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Stellar Admin</title>
-    <!-- plugins:css -->
-    <link rel="stylesheet" href="{{asset('assets/vendors/simple-line-icons/css/simple-line-icons.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/vendors/flag-icon-css/css/flag-icons.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/vendors/css/vendor.bundle.base.css')}}">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <link rel="stylesheet" href="{{asset('assets/vendors/font-awesome/css/font-awesome.min.css')}}" />
-    <link rel="stylesheet" href="{{asset('assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/vendors/jvectormap/jquery-jvectormap.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/vendors/daterangepicker/daterangepicker.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/vendors/chartist/chartist.min.css')}}">
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <!-- endinject -->
+    
+    <!-- CSS links -->
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMFZL8436JM8V0cE82WTSK5tPHkH6E6D1A4L8T" crossorigin="anonymous">
+    
+    <!-- Simple Line Icons -->
+    <link rel="stylesheet" href="{{ asset('assets/vendors/simple-line-icons/css/simple-line-icons.css') }}">
+    
+    <!-- Flag Icons -->
+    <link rel="stylesheet" href="{{ asset('assets/vendors/flag-icon-css/css/flag-icons.min.css') }}">
+    
+    <!-- Vendor CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/vendors/css/vendor.bundle.base.css') }}">
+    
+    <!-- Plugin CSS for specific plugins -->
+    <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/jvectormap/jquery-jvectormap.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/daterangepicker/daterangepicker.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/chartist/chartist.min.css') }}">
+    
     <!-- Layout styles -->
-    <link rel="stylesheet" href="{{asset('assets/css/vertical-light-layout/style.css')}}">
-    <!-- End layout styles -->
-    <link rel="shortcut icon" href="{{asset('assets/images/favicon.png')}}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/vertical-light-layout/style.css') }}">
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" />
 </head>
 
 <body>
@@ -245,8 +255,10 @@
                     </a>
                     <div class="collapse" id="icons">
                         <ul class="nav flex-column sub-menu">
+                        
+                        @can('product-list')
                             <li class="nav-item"><a class="nav-link" href="{{ route('products.index') }}">All Products</a></li>
-                            
+                        @endcan
                             <li class="nav-item"><a class="nav-link" href="{{ route('products.create') }}">Add Product</a></li>
                             
                         </ul>
@@ -258,14 +270,20 @@
 
                 @hasanyrole('Category Manager|super-admin')
                 <li class="nav-item">
+                    @can('category-list')
                     <a class="nav-link" href="{{route('category.index')}}">
+                    @endcan
                         <span class="menu-title">Category</span>
                         <i class="icon-book-open menu-icon"></i>
                     </a>
                     <div class="collapse" id="forms">
                         <ul class="nav flex-column sub-menu">
+                            @can('category-list')
                             <li class="nav-item"> <a class="nav-link" href="{{route('category.index')}}">All Categories</a></li>
+                            @endcan
+                            @can('category-create')
                             <li class="nav-item"> <a class="nav-link" href="{{route('category.create')}}">Add Category</a></li>
+                            @endcan
                             <li class="nav-item"> <a class="nav-link" href="{{route('subCategory.index')}}">All Sub Categories</a></li>
                             <li class="nav-item"> <a class="nav-link" href="{{route('subCategory.create')}}">Add Sub Category</a></li>
                         </ul>
@@ -275,14 +293,20 @@
 
                 @hasanyrole('Testimonials Manager|super-admin')
                 <li class="nav-item">
+                        @can('testimonials-list')
                     <a class="nav-link" href="{{route('testimonials.index')}}">
+                        @endcan
                         <span class="menu-title">Testimonials</span>
                         <i class="icon-layers menu-icon"></i>
                     </a>
                     <div class="collapse" id="forms">
                         <ul class="nav flex-column sub-menu">
+                        @can('testimonials-list')
                             <li class="nav-item"> <a class="nav-link" href="{{route('testimonials.index')}}">All Testimonials</a></li>
+                            @endcan
+                        @can('testimonials-create')
                             <li class="nav-item"> <a class="nav-link" href="{{route('testimonials.create')}}">Add Testimonial</a></li>
+                        @endcan
                         </ul>
                     </div>
                 </li>
@@ -293,13 +317,17 @@
 
                 @hasanyrole('Orders Manager|super-admin')
                 <li class="nav-item">
+                @can('order-list')
                     <a class="nav-link" href="{{route('orders.index')}}">
+                        @endcan
                         <span class="menu-title">Orders</span>
                         <i class="icon-chart menu-icon"></i>
                     </a>
                     <div class="collapse" id="forms3">
                         <ul class="nav flex-column sub-menu">
+                            @can('order-list')
                             <li class="nav-item"> <a class="nav-link" href="{{route('orders.index')}}">All Orders</a></li>
+                            @endcan
                         </ul>
                     </div>
                 </li>
@@ -308,14 +336,23 @@
 
                 @hasanyrole('Coupons Manager|super-admin')
                 <li class="nav-item">
+                @can('coupons-list')
+
                     <a class="nav-link" href="{{route('coupons.index')}}">
+                        @endcan
                         <span class="menu-title">Coupons</span>
                         <i class="icon-folder-alt menu-icon"></i>
                     </a>
                     <div class="collapse" id="forms4">
                         <ul class="nav flex-column sub-menu">
+                @can('coupons-list')
+
                             <li class="nav-item"> <a class="nav-link" href="{{route('coupons.index')}}">All Coupons</a></li>
+                            @endcan
+                @can('coupons-create')
+
                             <li class="nav-item"> <a class="nav-link" href="{{route('coupons.create')}}">Add Coupon</a></li>
+                        @endcan
                         </ul>
                     </div>
                 </li>
@@ -324,14 +361,24 @@
 
                 @hasanyrole('Blogs Manager|super-admin')
                 <li class="nav-item">
+                @can('blog-list')
+                    
                     <a class="nav-link" href="{{route('blogs.index')}}">
+                        @endcan
                         <span class="menu-title">Blogs</span>
                         <i class="icon-grid menu-icon"></i>
                     </a>
                     <div class="collapse" id="forms5">
                         <ul class="nav flex-column sub-menu">
+                @can('blog-list')
+
                             <li class="nav-item"> <a class="nav-link" href="{{route('blogs.index')}}">All Blogs</a></li>
+                            @endcan
+                @can('blog-create')
+
                             <li class="nav-item"> <a class="nav-link" href="{{route('blogs.create')}}">Add Blogs</a></li>
+                @endcan
+
                         </ul>
                     </div>
                 </li>
@@ -340,13 +387,17 @@
                 @hasanyrole('Settings Manager|super-admin')
 
                 <li class="nav-item">
+                    @can('setting-list')
                     <a class="nav-link" href="{{route('settings.index')}}">
+                        @endcan
                         <span class="menu-title">Settings</span>
                         <i class="icon-disc menu-icon"></i>
                     </a>
                     <div class="collapse" id="forms6">
                         <ul class="nav flex-column sub-menu">
+                            @can('setting-list')
                             <li class="nav-item"> <a class="nav-link" href="{{route('settings.index')}}">All Settings</a></li>
+                            @endcan
                         </ul>
                     </div>
                 </li>
@@ -355,13 +406,17 @@
                 @hasanyrole('Contacts Manager|super-admin')
 
                 <li class="nav-item">
+                    @can('contact-list')
                     <a class="nav-link" href="{{route('admin.contacts.index')}}">
+                        @endcan
                         <span class="menu-title">Contacts</span>
                         <i class="icon-globe menu-icon"></i>
                     </a>
                     <div class="collapse" id="forms7">
                         <ul class="nav flex-column sub-menu">
+                            @can('contact-list')
                             <li class="nav-item"> <a class="nav-link" href="{{route('admin.contacts.index')}}">All Contacts</a></li>
+                            @endcan
                         </ul>
                     </div>
                 </li>
@@ -370,14 +425,21 @@
                 @hasanyrole('Users Manager|super-admin')
 
                 <li class="nav-item">
+                    @can('user-list')
                     <a class="nav-link" href="{{route('users.index')}}">
+                        @endcan
                         <span class="menu-title">Users</span>
                         <i class="icon-layers menu-icon"></i>
                     </a>
                     <div class="collapse" id="forms8">
                         <ul class="nav flex-column sub-menu">
+                            @can('user-list')
                             <li class="nav-item"> <a class="nav-link" href="{{route('users.index')}}">All Users</a></li>
+                            @endcan
+                            @can('user-create')
+
                             <li class="nav-item"> <a class="nav-link" href="{{route('users.create')}}">Add User</a></li>
+                            @endcan
                         </ul>
                     </div>
                 </li>
@@ -408,6 +470,8 @@
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item"> <a class="nav-link" href="{{route('roles.index')}}">All Roles</a></li>
                             <li class="nav-item"> <a class="nav-link" href="{{route('roles.create')}}">Add Roles</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="{{route('roles.permissions')}}">All Permission</a></li>
+
                             <li class="nav-item"> <a class="nav-link" href="{{route('permissions.create')}}">Add Permissions</a></li>
                         </ul>
                     </div>
@@ -418,9 +482,6 @@
         <!-- partial -->
         <div class="main-panel">
             <div class="content-wrapper">
-
-
-
 
 
 
@@ -462,29 +523,35 @@
     </div>
     <!-- container-scroller -->
     <!-- plugins:js -->
-    <script src="{{asset('assets/vendors/js/vendor.bundle.base.js')}}"></script>
-    <!-- endinject -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap Bundle JS CDN (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- JS for specific plugins -->
+    <script src="{{ asset('assets/vendors/js/vendor.bundle.base.js') }}"></script>
+    
     <!-- Plugin js for this page -->
-    <script src="{{asset('assets/vendors/chart.js/chart.umd.js')}}"></script>
-    <script src="{{asset('assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js')}}"></script>
-    <script src="{{asset('assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
-    <script src="{{asset('assets/vendors/jvectormap/jquery-jvectormap.min.js')}}"></script>
-    <script src="{{asset('assets/vendors/moment/moment.min.js')}}"></script>
-    <script src="{{asset('assets/vendors/daterangepicker/daterangepicker.js')}}"></script>
-    <script src="{{asset('assets/vendors/chartist/chartist.min.js')}}"></script>
-    <script src="{{asset('assets/vendors/progressbar.js/progressbar.min.js')}}"></script>
-    <script src="{{asset('assets/js/jquery.cookie.js')}}"></script>
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
-    <script src="{{asset('assets/js/off-canvas.js')}}"></script>
-    <script src="{{asset('assets/js/hoverable-collapse.js')}}"></script>
-    <script src="{{asset('assets/js/misc.js')}}"></script>
-    <script src="{{asset('assets/js/settings.js')}}"></script>
-    <script src="{{asset('assets/js/todolist.js')}}"></script>
-    <!-- endinject -->
+    <script src="{{ asset('assets/vendors/chart.js/chart.umd.js') }}"></script>
+    <script src="{{ asset('assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
+    <script src="{{ asset('assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/jvectormap/jquery-jvectormap.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/moment/moment.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/daterangepicker/daterangepicker.js') }}"></script>
+    <script src="{{ asset('assets/vendors/chartist/chartist.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/progressbar.js/progressbar.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.cookie.js') }}"></script>
+    
     <!-- Custom js for this page -->
-    <script src="{{asset('assets/js/dashboard.js')}}"></script>
-    <!-- End custom js for this page -->
+    <script src="{{ asset('assets/js/dashboard.js') }}"></script>
+    
+    <!-- inject:js -->
+    <script src="{{ asset('assets/js/off-canvas.js') }}"></script>
+    <script src="{{ asset('assets/js/hoverable-collapse.js') }}"></script>
+    <script src="{{ asset('assets/js/misc.js') }}"></script>
+    <script src="{{ asset('assets/js/settings.js') }}"></script>
+    <script src="{{ asset('assets/js/todolist.js') }}"></script>
+    <!-- endinject -->
 </body>
 
 </html>

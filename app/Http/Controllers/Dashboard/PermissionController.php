@@ -9,7 +9,7 @@ use Spatie\Permission\Models\Permission;
 class PermissionController extends Controller
 {
     public function create(){
-        $permissions = Permission::all();
+        $permissions = Permission::paginate();
         return view('admin.Roles.createPermission', compact('permissions'));
     }
 

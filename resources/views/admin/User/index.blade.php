@@ -44,13 +44,17 @@
                                             <td> {{$user->last_name}} </td>
                                             <td> {{$user->email}} </td>
                                             <td>
+                                                @can('user-edit')
                                             <th><a href="{{route('users.edit',[$user->id])}}" class="btn btn-primary btn-sm">Update</a></th>
+                                                @endcan
                                             <th>
+                                            @can('user-delete')
                                                 <form action="{{route('users.destroy',[$user->id])}}" method="post">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm"  onclick="return confirm('Are you sure you want to delete this Product?');">Delete</button>
                                                 </form>
+                                                @endcan
                                             </th>
                                             </td>
 
@@ -63,6 +67,11 @@
                         </div>
                     </div>
                 </div>
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        {{ $users->links() }}
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>

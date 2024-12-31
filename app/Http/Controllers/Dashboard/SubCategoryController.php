@@ -37,7 +37,7 @@ class SubCategoryController extends Controller
     {
             $validatedData = $request->validated();
 
-            $subcategory = SubCategory::create($validatedData->all());
+            $subcategory = SubCategory::create($validatedData);
             return redirect()->route('subCategory.index')->with('success', 'Sub Category created successfully');
     }
 
@@ -55,13 +55,13 @@ class SubCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(SubCategoryRequest $request, string $id)
     {
         
         $validatedData = $request->validated();
 
             $subcategory = SubCategory::findOrFail($id);
-            $subcategory->update($validatedData->all());
+            $subcategory->update($validatedData);
             return redirect()->route('subCategory.index')->with('success', 'Sub Category updated successfully');
     }
 

@@ -45,13 +45,17 @@
                                         <td>{{ $coupon->current_usage }}</td>
                                         <td>{{ $coupon->expiry_date }}</td>
                                         <td>
-                                        <th><a href="{{route('coupons.edit', $coupon->id)}}" class="btn btn-primary btn-sm">Update</a></th>
+                                            @can('coupons-edit')
+                                        <th><a href="{{route('coupons.edit', $coupon)}}" class="btn btn-primary btn-sm">Update</a></th>
+                                        @endcan
                                         <th>
-                                            <form action="{{route('coupons.destroy', $coupon->id)}}" method="post">
+                                            @can('coupons-delete')
+                                            <form action="{{route('coupons.destroy', $coupon)}}" method="post">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this Product?');">Delete</button>
                                             </form>
+                                            @endcan
                                         </th>
                                         </td>
 
@@ -64,6 +68,11 @@
                         </div>
                     </div>
                 </div>
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        {{ $coupons->links() }}
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>

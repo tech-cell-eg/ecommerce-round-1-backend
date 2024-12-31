@@ -8,17 +8,12 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreProductRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
 
-    public function __construct()
-{
-    $this->middleware('role:product manager|super-admin')->only(['create', 'store']);
-    $this->middleware(['permission:product-list|product-create|product-edit|product-delete']);
-
-}
 
     /**
      * Display a listing of the resource.

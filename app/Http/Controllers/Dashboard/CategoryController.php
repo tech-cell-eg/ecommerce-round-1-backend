@@ -7,6 +7,7 @@ use App\Http\Requests\CategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
@@ -37,7 +38,7 @@ class CategoryController extends Controller
         $validatedData = $request->validated();
 
         // Create the category
-        $category = Category::create($validatedData->all());
+        $category = Category::create($validatedData);
 
         return redirect()->route('category.index')->with('success', 'Category added successfully');
     }
@@ -71,7 +72,7 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
 
         // Update the category with the request data
-        $category->update($validatedData->all());
+        $category->update($validatedData);
 
         return redirect()->route('category.index')->with('success', 'Category updated successfully');
     }

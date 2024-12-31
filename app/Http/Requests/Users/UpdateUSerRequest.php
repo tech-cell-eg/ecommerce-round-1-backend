@@ -25,12 +25,12 @@ class UpdateUSerRequest extends FormRequest
     {
         $userId = $this->route('user');
         return [
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'email' => ['required','string','lowercase','email','max:255',
+            'first_name' => ['sometimes','required', 'string', 'max:255'],
+            'last_name' => ['sometimes','required', 'string', 'max:255'],
+            'email' => ['sometimes','required','string','lowercase','email','max:255',
             'unique:' . User::class . ',email,' . $userId,
             ],
-            'password' => ['nullable', Rules\Password::defaults()], // Password is optional on updates
+            'password' => ['sometimes','nullable', Rules\Password::defaults()], // Password is optional on updates
         ];
     }
 }

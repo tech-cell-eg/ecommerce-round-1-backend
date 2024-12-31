@@ -32,7 +32,7 @@ class OrderController extends Controller
     // Update an order
     public function update(UpdateOrderRequest $request, Order $order)
     {
-        $validated = $request->validate();
+        $validated = $request->validated();
 
         $order->update($validated);
         return redirect()->route('orders.index')->with('success', 'Order updated successfully.');

@@ -56,15 +56,21 @@
                                             <td> {{$product->size}} </td>
                                             <td> {{$product->category->name}} </td>
                                             <td>
+                                                @can('product-edit')
                                             <th><a href="{{route('products.edit',[$product->id])}}" class="btn btn-primary btn-sm">Update</a></th>
+                                            @endcan
+                                            @can('product-list')
                                             <th><a href="{{route('products.show',[$product->id])}}" class="btn btn-primary btn-sm">Show</a></th>
-                                            
+                                            @endcan
+
                                             <th>
+                                                @can('product-delete')
                                                 <form action="{{route('products.destroy',[$product->id])}}" method="post">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"  onclick="return confirm('Are you sure you want to delete this Product?');">Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this Product?');">Delete</button>
                                                 </form>
+                                                @endcan
                                             </th>
                                             </td>
 
@@ -77,17 +83,19 @@
                         </div>
                     </div>
                 </div>
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        {{ $products->links() }}
+                    </ul>
+                </nav>
             </div>
+
         </div>
+
+
     </div>
+
 </div>
 
-
-<nav aria-label="Page navigation">
-    <ul class="pagination">
-
-        {{ $products->withQueryString()->links() }}
-    </ul>
-</nav>
 
 @endsection

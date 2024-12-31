@@ -31,7 +31,7 @@ class BlogController extends Controller
         }
 
         // Fetch blogs with pagination
-        $blogs = $query->paginate(10);
+        $blogs = $query->paginate();
         return view('admin.Blogs.index', compact('blogs'));
     }
 

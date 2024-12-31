@@ -35,6 +35,8 @@ class Admin extends Authenticatable implements MustVerifyEmail // Extend the Aut
         'remember_token',
     ];
 
+
+
     protected function casts(): array
     {
         return [
@@ -57,6 +59,8 @@ class Admin extends Authenticatable implements MustVerifyEmail // Extend the Aut
 
     public function role()
     {
-        return $this->belongsTo(Role::class); // This assumes you have a role_id column.
+        return $this->belongsTo(Role::class); 
     }
+
+
 }

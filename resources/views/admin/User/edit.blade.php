@@ -41,7 +41,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="password" class="form-control form-control-lg" name="password" placeholder="Password">
+                                    <input type="password" class="form-control form-control-lg" name="password" placeholder="Password" required>
                                     @error('password')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror

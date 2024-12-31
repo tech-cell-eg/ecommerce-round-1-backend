@@ -45,8 +45,13 @@
                                             <td>{{ $blog->category }}</td>
                                             <td>
                                             <td>
+                                                @can('blog-list')
                                             <th><a href="{{route('blogs.show',[$blog->id])}}" class="btn btn-primary btn-sm">Show</a></th>
+                                            @endcan
+                                            @can('blog-edit')
                                             <th><a href="{{route('blogs.edit',[$blog->id])}}" class="btn btn-primary btn-sm">Update</a></th>
+                                            @endcan
+                                            @can('blog-delete')
                                             <th>
                                                 <form action="{{route('blogs.destroy',[$blog->id])}}" method="post">
                                                     @csrf
@@ -54,6 +59,7 @@
                                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this Product?');">Delete</button>
                                                 </form>
                                             </th>
+                                            @endcan
                                             </td>
 
                                         </tr>
@@ -69,10 +75,15 @@
                         </div>
                     </div>
                 </div>
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        {{ $blogs->links() }}
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
-    {{ $blogs->links() }}
+
 </div>
 
 

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Testimonial extends Model
 {
     use HasFactory;
-    protected $fillable = ['image', 'video', 'product_id', 'text'];
+    protected $fillable = ['image', 'video', 'product_id', 'text','user_id'];
 
     public function user()
     {
