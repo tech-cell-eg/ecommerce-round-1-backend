@@ -15,7 +15,7 @@ class TestimonialController extends Controller
     public function index()
     {
         // Return a view and pass all testimonials to it
-        $testimonials = Testimonial::with(['user', 'product'])->get();
+        $testimonials = Testimonial::with(['user', 'product'])->paginate();
         return view('admin.Testimonial.index', compact('testimonials'));
     }
 

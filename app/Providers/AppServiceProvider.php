@@ -10,6 +10,7 @@ use App\Observers\CartObserver;
 use App\Observers\FavoriteObserver;
 use App\Observers\ReviewObserver;
 use App\Observers\UserObserver;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -47,5 +48,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('manage categories', function ($user) {
             return $user->hasRole('categoriesManager'); 
         });
+
+        Paginator::useBootstrapFive();
     }
 }

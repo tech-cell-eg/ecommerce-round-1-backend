@@ -25,7 +25,8 @@ class TestimonialStoreRequest extends FormRequest
             'image' => 'nullable|image|mimes:jpg,jpeg,png',
             'video' => 'nullable|file|mimes:mp4', 
             'product_id' => 'required|exists:products,id',
-            'text' => 'required|string'
+            'text' => 'required|string',
+            'user_id' => 'exists:users,id',
         ];
     }
 

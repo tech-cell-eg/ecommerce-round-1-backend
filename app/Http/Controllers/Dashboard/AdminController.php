@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
@@ -14,8 +15,10 @@ class AdminController extends Controller
 
     public function index()
     {
-        $admins = Admin::all();
+        $admins = Admin::paginate();
+
         return view('admin.ManageAdmins.index', compact('admins'));
+        
     }
     public function create()
     {

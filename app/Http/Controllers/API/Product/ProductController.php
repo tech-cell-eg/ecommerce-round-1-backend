@@ -14,6 +14,12 @@ use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
+<<<<<<< HEAD
+class ProductController extends Controller 
+{
+    use ApiResponse;
+
+=======
 class ProductController extends Controller
 {
     use ApiResponse;
@@ -37,6 +43,7 @@ class ProductController extends Controller
      * )
      */
 
+>>>>>>> 748174592067e6e0959270e184b9a93737589bc6
     public function index(Request $request)
     {
         $model = Product::query();

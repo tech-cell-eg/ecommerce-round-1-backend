@@ -39,7 +39,9 @@
                                             <td>{{ $contact->email}}</td>
                                             <td>{{ $contact->text }}</td>
                                             <td>
+                                                @can('contact-create')
                                             <th><a href="{{ route('admin.contacts.reply', $contact->id) }}" class="btn btn-primary btn-sm">Reply</a></th>
+                                                @endcan
                                             </td>
 
                                         </tr>
@@ -52,6 +54,11 @@
                             </div>
                         </div>
                     </div>
+                    <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        {{ $contacts->links() }}
+                    </ul>
+                </nav>
                 </div>
             </div>
         </div>

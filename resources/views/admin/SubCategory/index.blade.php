@@ -43,15 +43,17 @@
                                             <td> {{$subcategory->name}}</td>
                                             <td>{{$subcategory->category->name}}</td>
                                             <td>
-
-                                                <!-- <th><a href="{{route('subCategory.edit',[$subcategory->id])}}" class="badge badge-primary">Update</a></th> -->
-                                            <th><a href="{{ route('subCategory.edit', [$subcategory->id]) }}" class="badge badge-primary">Update</a></th>
+                                                @can('category-edit')
+                                            <th><a href="{{ route('subCategory.edit', [$subcategory->id]) }}" class="btn btn-primary btn-sm">Update</a></th>
+                                            @endcan
                                             <th>
+                                                @can('category-delete')
                                                 <form action="{{route('subCategory.destroy',[$subcategory->id])}}" method="post">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm"  onclick="return confirm('Are you sure you want to delete this Sub Category?');">Delete</button>
                                                 </form>
+                                                @endcan
                                                 </td>
 
                                         </tr>
@@ -62,6 +64,11 @@
                         </div>
                     </div>
                 </div>
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        {{ $subcategories->links() }}
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>

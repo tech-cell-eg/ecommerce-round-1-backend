@@ -44,14 +44,20 @@
                                             <td>{{ $order->grand_total }}</td>
                                             <td>
                                             <td>
+                                                @can('order-edit')
                                                 <a href="{{ route('orders.edit', $order) }}" class="btn btn-primary btn-sm">Edit</a>
+                                                @endcan
+                                                @can('order-list')
                                                 <a href="{{ route('orders.show', $order) }}" class="btn btn-success btn-sm">Show</a>
+                                                @endcan
 
+                                                @can('order-delete')
                                                 <form action="{{ route('orders.destroy', $order) }}" method="POST" style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this testimonial?');">Delete</button>
                                                 </form>
+                                                @endcan
                                             </td>
                                         </tr>
                                         @endforeach
@@ -61,6 +67,11 @@
                         </div>
                     </div>
                 </div>
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        {{ $orders->links() }}
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>

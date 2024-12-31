@@ -63,13 +63,17 @@
                                             <td>{{ $testimonial->product->name }}</td>
 
                                             <td>
+                                                @can('testimonials-edit')
                                                 <a href="{{ route('testimonials.edit', $testimonial) }}" class="btn btn-primary btn-sm">Edit</a>
-
+                                                @endcan
+                                                
+                                                @can('testimonials-delete')
                                                 <form action="{{ route('testimonials.destroy', $testimonial) }}" method="POST" style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this testimonial?');">Delete</button>
                                                 </form>
+                                                @endcan
                                             </td>
                                         </tr>
                                         @endforeach
@@ -79,6 +83,11 @@
                         </div>
                     </div>
                 </div>
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        {{ $testimonials->links() }}
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>

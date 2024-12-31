@@ -43,8 +43,12 @@
                                             
                                             
                                             <td>
-
+                                            @can('category-edit')
                                             <th><a href="{{route('category.edit',[$category->id])}}" class="btn btn-primary btn-sm">Update</a></th>
+                                            @endcan
+
+                                            @can('category-delete')
+
                                             <th>
                                                 <form action="{{route('category.destroy',[$category->id])}}" method="post">
                                                     @csrf
@@ -52,7 +56,7 @@
                                                     <button type="submit" class="btn btn-danger btn-sm"  onclick="return confirm('Are you sure you want to delete this Category?');">Delete</button>
                                                 </form>
                                                 </td>
-
+                                                    @endcan
                                         </tr>
                                         @endforeach
                                     </tbody>
@@ -61,8 +65,14 @@
                         </div>
                     </div>
                 </div>
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        {{ $categories->links() }}
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
 </div>
+
 @endsection

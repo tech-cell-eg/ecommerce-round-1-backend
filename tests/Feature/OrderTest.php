@@ -1,6 +1,6 @@
 <?php
 
-
+namespace Tests\Feature;
 use App\Models\PasswordResetToken;
 use App\Models\Product;
 use App\Models\User;

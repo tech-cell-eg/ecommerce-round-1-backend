@@ -75,16 +75,12 @@ class RolePermissionSeeder extends Seeder
 
             'Settings Manager' => [
                 'setting-list',
-                'setting-create',
                 'setting-edit',
-                'setting-delete',
             ],
 
             'Contacts Manager' => [
                 'contact-list',
                 'contact-create',
-                'contact-edit',
-                'contact-delete',
             ],
 
             'Users Manager' => [

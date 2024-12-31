@@ -10,7 +10,7 @@ class ContactController extends Controller
 {
     public function index()
     {
-        $contacts = Contact::all();
+        $contacts = Contact::paginate();
         return view('admin.contacts.index', compact('contacts'));
     }
 
@@ -28,11 +28,6 @@ class ContactController extends Controller
         ]);
 
         $contact = Contact::findOrFail($id);
-
-        // Send email using Mailable (you'll define the Mailable next)
-        // Mail::to($contact->email)
-        // ->send(new ReplyToContact($contact, $request->reply));
-        // return redirect()->route('admin.contacts.index')->with('success', 'Reply sent successfully.');
         Mail::to($contact->email)->send(new \App\Mail\ContactReply($contact, $request->reply));
 
         return redirect()->route('admin.contacts.index')->with('success', 'Reply sent successfully.');
