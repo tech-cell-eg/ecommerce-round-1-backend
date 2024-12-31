@@ -20,10 +20,10 @@ class ReviewFactory extends Factory
     {
         return [
             "msg" => fake()->paragraph(),
-            "stars" => fake()->numberBetween(1,5),
+            "stars" => fake()->numberBetween(1, 5),
             "product_id" => Product::first()->id,
-            "user_id" => User::first()->id,
-            "user_role" => Product::first()->role == "user" ? 2:1
+            "name" => fake()->name(),
+            "email" => fake()->email()
         ];
     }
 }

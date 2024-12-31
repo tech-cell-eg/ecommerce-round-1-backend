@@ -19,7 +19,7 @@ class OrderController extends Controller
     // View a single order's details
     public function show(Order $order)
     {
-        $order->load(['user', 'products', 'address', 'card']);
+        $order->loadMissing(['user', 'products', 'address', 'card']);   
         return view('admin.Orders.show', compact('order'));
     }
 

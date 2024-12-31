@@ -25,8 +25,8 @@ class ReviewRequest extends FormRequest
             "msg" => ["required"],
             "stars" => ["required", "min:1", "max:5"],
             "product_id" => ["required"],
-            "user_id" => ["required"],
-            "user_role" => ["required"]
+            "name" => ["required", "string"],
+            "email" => ["required", "email"]
         ];
     }
 }

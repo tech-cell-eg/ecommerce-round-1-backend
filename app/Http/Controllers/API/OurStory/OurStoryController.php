@@ -7,11 +7,19 @@ use App\Models\OurStory;
 use App\Traits\ApiResponse;
 use App\Traits\FileControl;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Validator;
 
 class OurStoryController extends Controller
 {
     use ApiResponse, FileControl;
+
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')->only(['store']);
+    }
+
 
     function index()
     {

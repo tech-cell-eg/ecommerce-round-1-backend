@@ -7,10 +7,17 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\API\Auth\LoginRequest;
 use App\Traits\ApiResponse;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
 class LoginController extends Controller
 {
     use ApiResponse;
+
+    public function __construct()
+    {
+        $this->middleware('throttle:5,1');
+    }
+
 
     /**
      * @OA\Post(
@@ -42,7 +49,7 @@ class LoginController extends Controller
      *         ))
      *     ),
      *     @OA\Response(
-     *          response="200", 
+     *          response="200",
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      ),

@@ -13,11 +13,16 @@ use App\Models\User;
 use App\Http\Requests\API\Auth\ResetPasswordRequest;
 use App\Models\PasswordResetToken;
 use App\Traits\ApiResponse;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
 class ResetPasswordController extends Controller
 {
     use ApiResponse;
 
+    public function __construct()
+    {
+        $this->middleware('throttle:5,1');
+    }
     /**
      * @OA\Post(
      *     path="/reset-password",

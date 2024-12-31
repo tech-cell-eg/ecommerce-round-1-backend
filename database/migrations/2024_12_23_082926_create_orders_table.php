@@ -17,7 +17,8 @@ return new class extends Migration {
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(UserAddress::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(UserCard::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(UserCard::class)->nullable()->constrained()->cascadeOnDelete();
+            $table->enum('payment_method', ['cash', 'paypal', 'card', 'google_pay'])->default('cash');
             $table->enum('status', ['delivered', 'in process', 'cancelled'])->default('in process');
             $table->string('delivery_date')->default(date('d-M-Y', strtotime('+2 day')));
             $table->string('discount_code')->nullable();

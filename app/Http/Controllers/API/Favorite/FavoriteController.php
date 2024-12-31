@@ -10,12 +10,18 @@ use App\Models\User;
 use App\Notifications\FavoriteNotification;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
-
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Auth;
 
 class FavoriteController extends Controller
 {
     use ApiResponse;
+
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum');
+    }
+
 
     /**
      * @OA\Get(
@@ -46,11 +52,19 @@ class FavoriteController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/favorites?product_id=2",
+     *     path="/favorites/{product_id}",
      *     tags={"favorite"},
      *     security={{"bearerAuth": {}}},
      *     summary="Add product to favorites by id",
      *     description="Endpoint to Add product to favorites by id",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
      *     @OA\Response(
      *          response="200", 
      *          description="ok",

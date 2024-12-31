@@ -6,11 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\Auth\UpdateUserRequest;
 use App\Models\User;
 use App\Traits\ApiResponse;
-
+use Illuminate\Routing\Controllers\HasMiddleware;
 
 class UpdateUserController extends Controller
 {
     use ApiResponse;
+
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum');
+    }
 
     public function __invoke(UpdateUserRequest $request)
     {

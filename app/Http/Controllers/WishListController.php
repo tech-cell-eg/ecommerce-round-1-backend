@@ -31,7 +31,7 @@ class WishListController extends Controller
         $user = auth()->user();
         $user->wishlistProducts()->syncWithoutDetaching($request->validated());
         $product = Product::find($request->product_id);
-        return $this->success(200, "This product is added to wish list successfully." , $products);
+        return $this->success(200, "This product is added to wish list successfully." , $product);
 
     }
 

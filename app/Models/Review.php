@@ -14,8 +14,8 @@ class Review extends Model
         "msg",
         "stars",
         "product_id",
-        "user_id",
-        "user_role"
+        "name",
+        "email"
     ];
 
     protected $hidden = [

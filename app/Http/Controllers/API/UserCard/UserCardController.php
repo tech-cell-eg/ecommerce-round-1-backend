@@ -6,10 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\UserCard\UserCardRequest;
 use App\Models\UserCard;
 use App\Traits\ApiResponse;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
 class UserCardController extends Controller
 {
     use ApiResponse;
+
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum');
+    }
 
     /**
      * @OA\Get(

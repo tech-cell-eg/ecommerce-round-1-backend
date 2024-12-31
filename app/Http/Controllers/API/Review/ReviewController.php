@@ -4,22 +4,16 @@ namespace App\Http\Controllers\API\Review;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\Review\ReviewRequest;
+use App\Http\Requests\API\Review\UpdateReviewRequest;
 use App\Models\Review;
-use App\Notifications\ReviewNotification;
 use App\Traits\ApiResponse;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 
-class ReviewController extends Controller implements HasMiddleware
+class ReviewController extends Controller
 {
     use ApiResponse;
 
-    public static function middleware(): array
-    {
-        return [
-            new Middleware('auth', except: ['index', "show"]),
-        ];
-    }
 
     /**
      * @OA\Get(
@@ -28,13 +22,14 @@ class ReviewController extends Controller implements HasMiddleware
      *     summary="Get all reviews",
      *     description="Endpoint to Get all reviews",
      *     @OA\Response(
-     *          response="200", 
+     *          response="200",
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      ),
      * )
      */
-    function index() {
+    function index()
+    {
         $reviews = Review::all();
         return $this->success(200, "all reviews", $reviews);
     }
@@ -54,13 +49,14 @@ class ReviewController extends Controller implements HasMiddleware
      *         )
      *     ),
      *     @OA\Response(
-     *          response="200", 
+     *          response="200",
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      ),
      * )
      */
-    function show(Review $review) {
+    function show(Review $review)
+    {
         return $this->success(200, "review found!", $review);
     }
 
@@ -111,20 +107,21 @@ class ReviewController extends Controller implements HasMiddleware
      *         ))
      *     ),
      *     @OA\Response(
-     *          response="200", 
+     *          response="200",
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      ),
      *     @OA\Response(
-     *          response="401", 
+     *          response="401",
      *          description="Error: Unauthorized",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
      *      ),
      * )
      */
-    function store(ReviewRequest $request) {
-        Review::create($request->validated());
-        return $this->success(200, "review created successfully!");
+    function store(ReviewRequest $request)
+    {
+        $review = Review::create($request->validated());
+        return $this->success(200, "review created successfully!", $review);
     }
 
     /**
@@ -180,18 +177,19 @@ class ReviewController extends Controller implements HasMiddleware
      *         )
      *     ),
      *     @OA\Response(
-     *          response="200", 
+     *          response="200",
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      ),
      *     @OA\Response(
-     *          response="401", 
+     *          response="401",
      *          description="Error: Unauthorized",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
      *      ),
      * )
      */
-    function update(ReviewRequest $request, Review $review) {
+    function update(UpdateReviewRequest $request, Review $review)
+    {
         $review->update($request->validated());
         return $this->success(200, "review updated successfully!");
     }
@@ -212,18 +210,19 @@ class ReviewController extends Controller implements HasMiddleware
      *         )
      *     ),
      *     @OA\Response(
-     *          response="200", 
+     *          response="200",
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      ),
      *     @OA\Response(
-     *          response="401", 
+     *          response="401",
      *          description="Error: Unauthorized",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
      *      ),
      * )
      */
-    function destroy(Review $review) {
+    function destroy(Review $review)
+    {
         $review->delete();
         return $this->success(200, "review deleted successfully!");
     }

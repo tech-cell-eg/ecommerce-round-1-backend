@@ -7,10 +7,17 @@ use App\Http\Requests\API\Order\StoreOrder;
 use App\Models\Order;
 use App\Models\Product;
 use App\Traits\ApiResponse;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
 class OrderController extends Controller
 {
     use ApiResponse;
+
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum');
+    }
+
 
     /**
      * @OA\Get(
@@ -102,7 +109,7 @@ class OrderController extends Controller
         $validatedData = $request->validated();
         $order = $user->orders()->create([
             'user_address_id' => $validatedData['user_address_id'],
-            'user_card_id' => $validatedData['user_card_id'],
+            'user_card_id' => $validatedData['user_card_id'] ?? null,
             'discount_code' => $validatedData['discount_code'] ?? null,
         ]);
         $products = Product::whereIn('id', $validatedData['products'])->get()->keyBy('id');

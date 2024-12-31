@@ -29,12 +29,61 @@ class PermissionTableSeeder extends Seeder
             'product-list',
             'product-create',
             'product-edit',
-            'product-delete'
+            'product-delete',
+
+
+            
+            'category-list',
+            'category-create',
+            'category-edit',
+            'category-delete',
+
+            'blog-list',
+            'blog-create',
+            'blog-edit',
+            'blog-delete',
+
+
+            'contact-list',
+            'contact-create',
+            'contact-edit',
+            'contact-delete',
+
+
+            'coupons-list',
+            'coupons-create',
+            'coupons-edit',
+            'coupons-delete',
+
+
+            'order-list',
+            'order-create',
+            'order-edit',
+            'order-delete',
+
+
+            'setting-list',
+            'setting-create',
+            'setting-edit',
+            'setting-delete',
+
+
+
+            'testimonials-list',
+            'testimonials-create',
+            'testimonials-edit',
+            'testimonials-delete',
+
 
         ];
 
         foreach ($permissions as $permission) {
-            Permission::create(['name' => $permission]);
+            if (!Permission::where('name', $permission)->exists()) {
+                Permission::create([
+                    'name' => $permission,
+                    'guard_name' => 'admin',
+                ]);
+            }
         }
     }
 }

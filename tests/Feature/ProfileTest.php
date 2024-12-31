@@ -16,7 +16,7 @@ class ProfileTest extends TestCase
         $admin = Admin::factory()->create();
 
         $response = $this
-            ->actingAs($admin,'admin')
+            ->actingAs($admin)
             ->get('/profile');
 
         $response->assertOk();

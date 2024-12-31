@@ -10,16 +10,11 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 
-class ContactController extends Controller implements HasMiddleware
+class ContactController extends Controller
 {
     use ApiResponse;
 
-    public static function middleware(): array
-    {
-        return [
-            new Middleware('auth', except: ['create']),
-        ];
-    }
+
 
     /**
      * Display a listing of the resource.

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Traits\ApiResponse;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Str;
 use TechCell\TechcellSocialite\Facades\TechcellSocialite;
 
@@ -12,12 +14,17 @@ class SocialLoginController extends Controller
 {
     use ApiResponse;
 
+    public function __construct()
+    {
+        $this->middleware(['api', 'web']);
+    }
+
     /**
      * @OA\Get(
      *     path="/twitter-login",
      *     tags={"Auth"},
      *     @OA\Response(
-     *          response="200", 
+     *          response="200",
      *          description="ok",
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
      *      ),

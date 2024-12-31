@@ -9,10 +9,17 @@ use App\Http\Resources\Api\TestimonialResource;
 use App\Http\Requests\API\Testimonial\TestimonialStoreRequest;
 use App\Http\Requests\API\Testimonial\TestimonialUpdateRequest;
 use App\Traits\ApiResponse;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
 class TestimonialController extends Controller
 {
     use ApiResponse;
+
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')->except(['index','show']);
+    }
 
     /**
      * @OA\Get(
@@ -151,8 +158,8 @@ class TestimonialController extends Controller
      */
     public function show(Testimonial $testimonial)
     {
-        return $this->success(200, "Testimonial returned successfully!", $testimonial::with('user'));
-
+        $testimonial->user;
+        return $this->success(200, "Testimonial returned successfully!", $testimonial);
     }
 
     /**
