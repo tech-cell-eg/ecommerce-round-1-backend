@@ -157,7 +157,7 @@ class ProductController extends Controller
         $validatedData = $request->validated();
 
         if ($request->hasFile('image')) {
-            $validatedData['image'] = asset('storage/' . $request->file('image')->store('uploads', 'public'));
+            $validatedData['image'] = url('storage/' . $request->file('image')->store('uploads', 'public'));
         }
         // Create the product using validated and modified data
         $product = Product::create($validatedData);
