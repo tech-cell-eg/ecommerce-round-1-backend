@@ -124,4 +124,9 @@ class User extends Authenticatable implements MustVerifyEmail
     public function settings(){
         return $this->hasOne(UserSetting::class);
     }
+
+    public function cart()
+    {
+        return $this->hasMany(Cart::class);
+    }
 }
