@@ -30,8 +30,8 @@ class ProductResource extends JsonResource
             'size'=>$this->size,
             'color'=>$this->color,
             'category'=>[
-                'id'=>$this->category->id,
-                'name'=>$this->category->name,
+                'id'=>$this->category?->id,
+                'name'=>$this->category?->name,
                 'sub_categories' => $subCategoryNames,
             ],
             'related_products' => ProductResource::collection($this->whenLoaded('relatedProducts')),
