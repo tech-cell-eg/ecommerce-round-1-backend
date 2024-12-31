@@ -17,4 +17,9 @@ class OurStory extends Model
         "description"
     ];
 
+    public function getImageAttribute()
+    {
+        return url('storage/' . $this->attributes['image']);
+    }
+
 }
