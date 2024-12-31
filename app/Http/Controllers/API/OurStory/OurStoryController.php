@@ -9,6 +9,7 @@ use App\Traits\FileControl;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Storage;
 use Validator;
 
 class OurStoryController extends Controller
@@ -42,11 +43,13 @@ class OurStoryController extends Controller
             'description' => 'required,string',
             'image' => 'required,string,image:jpg,jpeg,png,gif,max:2048',
         ]);
-        $imagePath = $this->uploadFiles($request->image, 'ourStory', 'local');;
+        // $imagePath = $this->uploadFiles($request->image, 'ourStory', 'local');;
+        $imagePath = $request->file('image')->store('/uploads');
+        Storage::disk("public")->putFile($request->image);
         $story = OurStory::create([
             'title' => $request->title,
             'description' => $request->description,
-            'image' => $imagePath[0],
+            'image' => $imagePath,
         ]);
         return $this->success(200, "Story created successfully :)", $story);
     }
