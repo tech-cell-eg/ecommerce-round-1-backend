@@ -18,38 +18,21 @@ class DatabaseSeeder extends Seeder
     {
          // User::factory(10)->create();
 
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        //    ]);
-
-        // $this->call([
-        //     PermissionTableSeeder::class,
-        //     AdminSeeder::class,
-        //     TestimonialSeeder::class,
-        //     CategorySeeder::class,
-        //     SubCategorySeeder::class,
-        //     InstagramStoriesSeeder::class
-        // ]);
-        // $this->call([
-        //     PermissionTableSeeder::class,
-        //     AdminSeeder::class,
-        //     TestimonialSeeder::class,
-        //     CategorySeeder::class,
-        //     SubCategorySeeder::class
-        // ]);
+      
 
 
-        // Category::factory()->count(3)->create();
-        // Product::factory(5)->create();
-
-        // $this->call([
-        //     RolePermissionSeeder::class,
-        // ]);
         $this->call([
+            CategorySeeder::class,
+            SubCategorySeeder::class,
             PermissionTableSeeder::class,
-            RolePermissionSeeder::class,
             AdminSeeder::class,
+            TestimonialSeeder::class,
+            OurStorySeeder::class,
+            InstagramStoriesSeeder::class,
+                      PermissionTableSeeder::class,
+            RolePermissionSeeder::class,
         ]);
+
+      
     }
 }

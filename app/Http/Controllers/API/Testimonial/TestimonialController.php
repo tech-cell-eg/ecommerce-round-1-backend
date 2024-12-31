@@ -9,11 +9,37 @@ use App\Http\Resources\Api\TestimonialResource;
 use App\Http\Requests\API\Testimonial\TestimonialStoreRequest;
 use App\Http\Requests\API\Testimonial\TestimonialUpdateRequest;
 use App\Traits\ApiResponse;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
 class TestimonialController extends Controller
 {
     use ApiResponse;
 
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')->except(['index','show']);
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/testimonial",
+     *     tags={"testimonial"},
+     *     security={{"bearerAuth": {}}},
+     *     summary="Get all testimonials",
+     *     description="Endpoint to Get all testimonials",
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
+     *      ),
+     * )
+     */
     public function index()
     {
         $testimonials = Testimonial::with('user')->get();
@@ -21,6 +47,59 @@ class TestimonialController extends Controller
 
     }
 
+    /**
+     * @OA\Post(
+     *     path="/testimonial",
+     *     tags={"testimonial"},
+     *     security={{"bearerAuth": {}}},
+     *     summary="Create a testimonial for a product",
+     *     description="Endpoint to create a testimonial with product, text, image, and video",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"product_id", "text"},
+     *                 @OA\Property(
+     *                     property="product_id",
+     *                     type="integer",
+     *                     description="ID of the product for the testimonial",
+     *                     example=101
+     *                 ),
+     *                 @OA\Property(
+     *                     property="text",
+     *                     type="string",
+     *                     description="Testimonial text",
+     *                     example="This product changed my life!"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="image",
+     *                     type="string",
+     *                     format="binary",
+     *                     description="Testimonial image file (optional)"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="video",
+     *                     type="string",
+     *                     format="binary",
+     *                     description="Testimonial video file (optional)"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
+     *      ),
+     * )
+     */
     public function store(TestimonialStoreRequest $request)
     {
         // Find the user (replace with dynamic user if needed)
@@ -50,10 +129,37 @@ class TestimonialController extends Controller
     }
 
 
+    /**
+     * @OA\Get(
+     *     path="/testimonial/{id}",
+     *     tags={"testimonial"},
+     *     security={{"bearerAuth": {}}},
+     *     summary="Get a testimonial by id",
+     *     description="Endpoint to Get a testimonial by id",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
+     *      ),
+     * )
+     */
     public function show(Testimonial $testimonial)
     {
-        return $this->success(200, "Testimonial returned successfully!", $testimonial::with('user'));
-
+        $testimonial->user;
+        return $this->success(200, "Testimonial returned successfully!", $testimonial);
     }
 
     public function update(TestimonialUpdateRequest $request, Testimonial $testimonial)
@@ -76,6 +182,33 @@ class TestimonialController extends Controller
 
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/testimonial/{id}",
+     *     tags={"testimonial"},
+     *     security={{"bearerAuth": {}}},
+     *     summary="Delete testimonial by id",
+     *     description="Endpoint to Delete testimonial by id",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
+     *      ),
+     * )
+     */
     public function destroy(Testimonial $testimonial)
     {
         if (!$testimonial->exists())

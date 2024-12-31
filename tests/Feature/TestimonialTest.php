@@ -39,13 +39,13 @@ class TestimonialTest extends TestCase
             'text' => 'testimonial',
         ];
 
-        $response = $this->actingAs($user)->postJson('/api/testimonial', $testimonial);
+        $response = $this->actingAs($user)->postJson('/api/testimonials', $testimonial);
         $response->assertStatus(201);
     }
 
     public function user_can_show_all_testimonials()
     {
-        $response = $this->getJson('/api/testimonial');
+        $response = $this->getJson('/api/testimonials');
         $response->assertStatus(200);
     }
 
@@ -75,7 +75,7 @@ class TestimonialTest extends TestCase
             'text' => 'testimonial',
         ];
 
-        $response = $this->actingAs($user)->postJson('/api/testimonial', $testimonial);
+        $response = $this->actingAs($user)->postJson('/api/testimonials', $testimonial);
 
         $testimonialId = $response->json('data.id');
 
@@ -84,7 +84,7 @@ class TestimonialTest extends TestCase
             'text' => 'updated testimonial text'
         ];
 
-        $response = $this->actingAs($user)->putJson("/api/testimonial/{$testimonialId}", $updatedDate);
+        $response = $this->actingAs($user)->putJson("/api/testimonials/$testimonialId", $updatedDate);
         $response->assertStatus(200);
     }
 
@@ -114,11 +114,11 @@ class TestimonialTest extends TestCase
             'text' => 'testimonial',
         ];
 
-        $response = $this->actingAs($user)->postJson('/api/testimonial', $testimonial);
+        $response = $this->actingAs($user)->postJson('/api/testimonials', $testimonial);
 
         $testimonialId = $response->json('data.id');
 
-        $response = $this->actingAs($user)->deleteJson("/api/testimonial/{$testimonialId}");
+        $response = $this->actingAs($user)->deleteJson("/api/testimonials/$testimonialId");
         $response->assertStatus(200);
     }
 

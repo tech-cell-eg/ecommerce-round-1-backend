@@ -8,10 +8,18 @@ use App\Http\Requests\Blog\BlogUpdateRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Blog;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
 class AdminBlogController extends Controller
 {
     // As an admin user, I want to create, edit, and delete blog posts to ensure the content is up-to-date and relevant.
+
+    public function __construct()
+    {
+        $this->middleware(['auth:sanctum','Admin']);
+    }
+
+    
     public function index()
     {
         $blogs = Blog::where('status', 'published')

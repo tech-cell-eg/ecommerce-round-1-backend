@@ -17,4 +17,8 @@ class UserSetting extends Model
         'desktop_notification',
         'email_notifications'
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

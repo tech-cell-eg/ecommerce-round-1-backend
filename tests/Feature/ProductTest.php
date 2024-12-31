@@ -20,7 +20,7 @@ class ProductTest extends TestCase
     {
         $products = Product::factory()->create();
 
-        $response = $this->getJson('/api/product');
+        $response = $this->getJson('/api/products');
 
         $response->assertStatus(200)
             ->assertJsonCount(3);
@@ -48,7 +48,7 @@ class ProductTest extends TestCase
         ];
 
         // Post request to store the product
-        $response = $this->actingAs($user)->postJson('/api/product', $data);
+        $response = $this->actingAs($user)->postJson('/api/products', $data);
 
         // Assert response status and content
         $response->assertStatus(200)
@@ -78,7 +78,7 @@ class ProductTest extends TestCase
     {
         $user = User::factory()->create();
         // Send a request with missing required fields
-        $response = $this->actingAs($user)->postJson('/api/product', []);
+        $response = $this->actingAs($user)->postJson('/api/products', []);
 
         // Assert validation error response
         $response->assertStatus(422) // Unprocessable Entity
@@ -89,7 +89,7 @@ class ProductTest extends TestCase
     {
         $product = Product::factory()->create();
 
-        $response = $this->getJson('/api/product/' . $product->id);
+        $response = $this->getJson('/api/products/' . $product->id);
 
         $response->assertStatus(200)
             ->assertJson([
@@ -114,7 +114,7 @@ class ProductTest extends TestCase
 
     public function test_Product_Search()
     {
-        $product = Product::factory()->create(['name' => 'Searchable Product']);
+        Product::factory()->create(['name' => 'Searchable Product']);
 
         $response = $this->getJson('/api/products/search?query=Searchable');
 

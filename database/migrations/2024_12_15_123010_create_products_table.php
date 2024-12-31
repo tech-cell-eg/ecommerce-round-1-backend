@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('image')->nullable();
-            $table->float('price')->default(0);
-            $table->float('compare_price')->nullable();
+            $table->decimal('price')->default(0);
+            $table->decimal('compare_price')->nullable();
             $table->float('rating')->default(0);
             $table->boolean('featured')->default(0);
             $table->timestamps();

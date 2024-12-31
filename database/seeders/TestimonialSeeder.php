@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Product;
 use App\Models\Testimonial;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
@@ -16,6 +17,7 @@ class TestimonialSeeder extends Seeder
     {
         $faker = Faker::create();
         // becouse testimonial depend on product
+        User::factory()->create();
         Product::factory()->create();
         Testimonial::insert([
             'user_id'    => 1,

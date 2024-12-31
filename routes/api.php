@@ -1,12 +1,13 @@
 <?php
 
+use App\Http\Controllers\API\Auth\UpdateUserController;
+use App\Http\Controllers\API\Notification\NotificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\WishListController;
-use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\API\Cart\CartController;
 use App\Http\Controllers\Blog\UserBlogController;
 use App\Http\Controllers\API\Auth\LoginController;
@@ -23,102 +24,187 @@ use App\Http\Controllers\API\Auth\SocialLoginController;
 use App\Http\Controllers\API\Category\CategoryController;
 use App\Http\Controllers\API\Favorite\FavoriteController;
 use App\Http\Controllers\API\UserCard\UserCardController;
+use App\Http\Controllers\API\Auth\ForgotPasswordController;
 use App\Http\Controllers\API\Auth\ResetPasswordController;
 use App\Http\Controllers\API\Address\UserAddressController;
+use App\Http\Controllers\API\InstagramStory\InstagramStoriesController;
 use App\Http\Controllers\API\Testimonial\TestimonialController;
 use App\Http\Controllers\API\UserSetting\UserSettingController;
-use App\Http\Controllers\API\InstagramStory\InstagramStoriesController;
+use App\Http\Controllers\API\OurStory\OurStoryController;
 use App\Http\Controllers\CouponController;
+use \App\Http\Controllers\API\SubCategory\SubCategoryController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::group(['middleware' => CatchErrorsMiddleware::class], function () {
-    Route::middleware(['api', 'web'])->group(function () {
-        Route::get('/{provider}-login', [SocialLoginController::class, 'providerAuth']);
-        Route::get('/{provider}-callback', [SocialLoginController::class, 'providerCallback']);
-    });
-    Route::post('/register', RegisterController::class)->middleware('throttle:5,1');
-    Route::post('/login', LoginController::class)->middleware('throttle:10,1');
-    Route::post('/logout', LogoutController::class)->middleware('auth:sanctum');
-    Route::post('/forgot-password', App\Http\Controllers\API\Auth\ForgotPasswordController::class)->middleware('throttle:5,1');
-    Route::post('/reset-password', ResetPasswordController::class)->middleware('throttle:5,1');
 
-    Route::apiResource('addresses', UserAddressController::class)->middleware('auth:sanctum');
-    Route::get('/cards', [UserCardController::class, 'index'])->middleware('auth:sanctum');
-    Route::post('/cards/store', [UserCardController::class, 'store'])->middleware('auth:sanctum');
-    Route::delete('/cards/{userCard}', [UserCardController::class, 'destroy'])->middleware('auth:sanctum');
+// ***************************************************************
+// *** social Login
+// ***************************************************************
+Route::get('/{provider}-login', [SocialLoginController::class, 'providerAuth']);
+Route::get('/{provider}-callback', [SocialLoginController::class, 'providerCallback']);
 
-    Route::apiResource('orders', OrderController::class)->middleware('auth:sanctum');
+// ***************************************************************
+// *** login
+// ***************************************************************
+Route::post('/login', LoginController::class);
+
+// ***************************************************************
+// *** register
+// ***************************************************************
+Route::post('/register', RegisterController::class);
+
+// ***************************************************************
+// *** logout
+// ***************************************************************
+Route::post('/logout', LogoutController::class);
+
+// ***************************************************************
+// *** password
+// ***************************************************************
+Route::post('/reset-password', ResetPasswordController::class);
+Route::post('/forgot-password', ForgotPasswordController::class);
+
+// ***************************************************************
+// *** addresses
+// ***************************************************************
+Route::apiResource('addresses', UserAddressController::class);
+
+// ***************************************************************
+// *** user
+// ***************************************************************
+Route::patch('/user', UpdateUserController::class);
+Route::get('/user-settings', [UserSettingController::class, 'index']);
+Route::patch('/user-settings', [UserSettingController::class, 'update']);
+
+// ***************************************************************
+// *** cards
+// ***************************************************************
+Route::get('/cards', [UserCardController::class, 'index']);
+Route::post('/cards', [UserCardController::class, 'store']);
+Route::delete('/cards/{userCard}', [UserCardController::class, 'destroy']);
+
+// ***************************************************************
+// *** orders
+// ***************************************************************
+Route::apiResource('orders', OrderController::class);
 
 
-    Route::get('/user-settings', [UserSettingController::class, 'index'])->middleware('auth:sanctum');
-    Route::post('/user-settings', [UserSettingController::class, 'update'])->middleware('auth:sanctum');
-});
-
-Route::apiResource('product', ProductController::class);
+// ***************************************************************
+// *** product
+// ***************************************************************
 Route::get('products/search', [ProductController::class, 'search']);
+Route::apiResource('products', ProductController::class);
 
-Route::get('favorites', [FavoriteController::class, 'index'])->middleware(['auth:sanctum']);; // List favorites
-Route::post('favorites', [FavoriteController::class, 'store'])->middleware(['auth:sanctum']);;// Add favorite
-Route::delete('favorites/{product_id}', [FavoriteController::class, 'destroy'])->middleware(['auth:sanctum']); // Remove favorite
+// ***************************************************************
+// *** favorites
+// ***************************************************************
+Route::get('favorites', [FavoriteController::class, 'index']);
+Route::post('favorites', [FavoriteController::class, 'store']);
+Route::delete('favorites/{product_id}', [FavoriteController::class, 'destroy']);
 
+// ***************************************************************
+// *** categories
+// ***************************************************************
+Route::apiResource("categories", CategoryController::class);
 
-Route::apiResource("categories", CategoryController::class)->middleware(['auth:sanctum']);;
+// ***************************************************************
+// *** categories
+// ***************************************************************
+Route::apiResource("sub-categories", SubCategoryController::class);
+// ***************************************************************
+// *** testimonials
+// ***************************************************************
+Route::apiResource('/testimonials', TestimonialController::class);
+Route::get('testimonials/{testimonial}/user', [TestimonialController::class, 'GetUserByTestimonial']);
 
-
-Route::apiResource('/testimonial', TestimonialController::class);
-Route::get('testimonial/{testimonial}/user',[TestimonialController::class, 'GetUserByTestimonial']);
+// ***************************************************************
+// *** our-news
+// ***************************************************************
 Route::post('/our-news', OurNewsController::class);
 
-Route::apiResource('/setting', SettingController::class)->middleware(['auth:sanctum']);;
+// ***************************************************************
+// *** setting
+// ***************************************************************
+Route::apiResource('/setting', SettingController::class);
 
+// ***************************************************************
+// *** contact
+// ***************************************************************
 Route::apiResource('/contact', ContactController::class);
 
+// ***************************************************************
+// *** wish-list
+// ***************************************************************
 Route::apiResource('/wish-list', WishListController::class);
 
-Route::group(['middleware' => 'auth:sanctum'], function(){
-    Route::post('/blog/{blog}/comment', [UserBlogController::class, 'BlogComment'])->name('Blog.comment.create');
-    Route::put('blog/{blog}/comment',  [UserBlogController::class, 'EditComment'])->name('Blog.comment.edit');
-    Route::delete('/blog/{blog}/comment', [UserBlogController::class, 'DeleteComment'])->name('Blog.comment.delete');
-    Route::get('/blog/{blog}/like', [UserBlogController::class, 'BlogLike'])->name('Blog.like');
-    Route::post('blog/{blog}/bookmark', [UserBlogController::class, 'BookmarkBlog'])->name('Blog.bookmark');
-    Route::post('/author/{authorId}/follow', [UserBlogController::class, 'FollowAuthor'])->name('Blog.followers');
-});
+// ***************************************************************
+// *** user blog
+// ***************************************************************
+Route::post('/blog/{blog}/comment', [UserBlogController::class, 'BlogComment']);
+Route::put('blog/{blog}/comment', [UserBlogController::class, 'EditComment']);
+Route::delete('/blog/{blog}/comment', [UserBlogController::class, 'DeleteComment']);
+Route::get('/blog/{blog}/like', [UserBlogController::class, 'BlogLike']);
+Route::post('blog/{blog}/bookmark', [UserBlogController::class, 'BookmarkBlog']);
+Route::post('/author/{authorId}/follow', [UserBlogController::class, 'FollowAuthor']);
 
-Route::group(['middleware' => ['auth:sanctum', AdminMiddleware::class]], function(){
-    Route::get('blog/comments',[AdminBlogController::class, 'ModerateComments']);
-    Route::get('/blog/featured-blogs',[AdminBlogController::class, 'ShowFeaturedBlogs']);
-    Route::get('blog/draft', [AdminBlogController::class,'ShowDraftBlogs']);
-    Route::get('/blog/analytics',[AdminBlogController::class, 'ShowBlogsAnalytics']);
-    Route::put('/blog/{blog}', [AdminBlogController::class, 'update']);
-    Route::delete('blog/{blog}', [AdminBlogController::class, 'delete']);
-    Route::post('/blog',[AdminBlogController::class, 'store']);
-    Route::get('/blog',[AdminBlogController::class, 'index']);
-});
+// ***************************************************************
+// *** admin blog
+// ***************************************************************
+Route::get('blog/comments', [AdminBlogController::class, 'ModerateComments']);
+Route::get('/blog/featured-blogs', [AdminBlogController::class, 'ShowFeaturedBlogs']);
+Route::get('blog/draft', [AdminBlogController::class, 'ShowDraftBlogs']);
+Route::get('/blog/analytics', [AdminBlogController::class, 'ShowBlogsAnalytics']);
+Route::put('/blog/{blog}', [AdminBlogController::class, 'update']);
+Route::delete('blog/{blog}', [AdminBlogController::class, 'delete']);
+Route::post('/blog', [AdminBlogController::class, 'store']);
+Route::get('/blog', [AdminBlogController::class, 'index']);
 
+// ***************************************************************
+// *** guest blog
+// ***************************************************************
 Route::get('/blog/search', [GuestBlogController::class, 'search']);
 Route::get('/blog/recents', [GuestBlogController::class, 'show_recent_blogs']);
 Route::apiResource('/blog', GuestBlogController::class);
 
 
-// Route::group(['middleware'=> 'auth:sanctum'],function(){
-//     Route::apiResource('/testimonial', TestimonialController::class);
-// });
-
-Route::group(['middleware' => 'auth:sanctum'], function () {
-    Route::apiResource('/testimonial', TestimonialController::class);
-});
-
+// ***************************************************************
+// *** reviews
+// ***************************************************************
 Route::apiResource("reviews", ReviewController::class);
-Route::get("instagram-stories", [InstagramStoriesController::class, "index"]);
-Route::apiResource("cart", CartController::class)->middleware('auth:sanctum');
 
-Route::group(['middleware' => 'auth:sanctum'], function () {
-    Route::get("notifications", [NotificationController::class, "index"]);
-    Route::get("notifications/{id}", [NotificationController::class, "show"]);
-    Route::delete("notifications/{id}", [NotificationController::class, "destroy"]);
-});
 
+// ***************************************************************
+// *** our-stories
+// ***************************************************************
+Route::get("our-stories", [OurStoryController::class, "index"]);
+Route::post("our-stories", [OurStoryController::class, "store"]);
+Route::get("our-stories/{ourStory}", [OurStoryController::class, "show"]);
+
+
+// ***************************************************************
+// *** cart
+// ***************************************************************
+Route::delete('/cart/clear', [CartController::class, 'clearAllCart']);
+Route::apiResource("cart", CartController::class);
+
+
+// ***************************************************************
+// *** notifications
+// ***************************************************************
+Route::get("notifications", [NotificationController::class, "index"]);
+Route::get("notifications/{id}", [NotificationController::class, "show"]);
+Route::delete("notifications/{id}", [NotificationController::class, "destroy"]);
+
+
+// ***************************************************************
+// *** coupon
+// ***************************************************************
 Route::post('/apply-coupon', [CouponController::class, 'applyCoupon']);
+
+
+// ***************************************************************
+// *** instagram-stories
+// ***************************************************************
+Route::get("instagram-stories", [InstagramStoriesController::class, "index"]);

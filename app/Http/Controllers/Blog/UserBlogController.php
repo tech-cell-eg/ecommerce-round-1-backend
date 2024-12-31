@@ -7,9 +7,15 @@ use Illuminate\Http\Request;
 use App\Models\Blog;
 use App\Models\User;
 use App\Models\Comment;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
 class UserBlogController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(['auth:sanctum']);
+    }
 
     public function BlogComment(Request $request, Blog $blog)
     {

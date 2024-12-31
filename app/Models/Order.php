@@ -19,7 +19,8 @@ class Order extends Model
         'discount_code',
         'delivery_charge',
         'grand_total',
-        'review'
+        'review',
+        'payment_method',
     ];
 
     

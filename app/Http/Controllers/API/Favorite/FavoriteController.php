@@ -10,15 +10,37 @@ use App\Models\User;
 use App\Notifications\FavoriteNotification;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
-
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Auth;
 
 class FavoriteController extends Controller
 {
     use ApiResponse;
 
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum');
+    }
+
+
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/favorites",
+     *     tags={"favorite"},
+     *     security={{"bearerAuth": {}}},
+     *     summary="Get all favorites product",
+     *     description="Endpoint to get all favorites product",
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
+     *      ),
+     * )
      */
     public function index()
     {
@@ -28,17 +50,71 @@ class FavoriteController extends Controller
         return $this->success(200, "all favorites", $favorites);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/favorites/{product_id}",
+     *     tags={"favorite"},
+     *     security={{"bearerAuth": {}}},
+     *     summary="Add product to favorites by id",
+     *     description="Endpoint to Add product to favorites by id",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
+     *      ),
+     * )
+     */
     public function store(FavoriteRequest $request)
     {
         $user = Auth::user();
         optional($user)->favorites()->syncWithoutDetaching([$request->product_id]);
-        $product_name = Product::find($request->product_id)->name;
+        $product_name = Product::find($request->product_id);
         // $favorite->notify(new FavoriteNotification($product_name . " has been added to favorites"));
-        return $this->success(200, "Product added to favorites");
+        return $this->success(200, "Product added to favorites", $product_name);
 
     }
 
 
+    /**
+     * @OA\Delete(
+     *     path="/favorites/{id}",
+     *     tags={"favorite"},
+     *     security={{"bearerAuth": {}}},
+     *     summary="remove product from favorites",
+     *     description="Endpoint to remove product from favorites",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
+     *      ),
+     * )
+     */
     public function destroy($product_id)
     {
 

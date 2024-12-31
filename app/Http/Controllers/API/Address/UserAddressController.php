@@ -6,36 +6,60 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\Address\StoreUserAddress;
 use App\Http\Requests\API\Address\UpdateUserAddress;
 use App\Traits\ApiResponse;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
 class UserAddressController extends Controller
 {
     use ApiResponse;
 
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum');
+    }
+
     public function index()
     {
         $user = auth()->user();
-        return $this->success(200, 'Address list', $user->addresses()->orderBy('default_address', 'desc')->get());
+        
+        return $this->success(200, 'Address list', $user->addresses()->orderBy('default_address', 'desc')->latest()->get());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreUserAddress $request)
     {
         $validatedData = $request->validated();
         $user = auth()->user();
-        if ($validatedData['default_address']) {
-            $user->addresses()->update(['default_address' => false]);
+        if ($validatedData['default_address'] == 1) {
+            $user->addresses()->update(['default_address' => 0]);
         }
         $address = $user->addresses()->create($validatedData);
         return $this->success(200, 'New address added', $address);
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     *     path="/addresses/{id}",
+     *     tags={"address"},
+     *     security={{"bearerAuth": {}}},
+     *     summary="Get address by id",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
+     *      ),
+     * )
      */
     public function show(string $id)
     {
@@ -45,8 +69,88 @@ class UserAddressController extends Controller
 
     }
 
+
     /**
-     * Update the specified resource in storage.
+     * @OA\Put(
+     *     path="/addresses/{id}",
+     *     tags={"address"},
+     *     security={{"bearerAuth": {}}},
+     *     summary="update user address",
+     *     description="Endpoint to update user's address",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             type="object",
+     *             required={},
+     *             @OA\Property(
+     *                 property="name",
+     *                 type="string",
+     *                 description="Name of the recipient",
+     *                 example="John Doe"
+     *             ),
+     *             @OA\Property(
+     *                 property="mobile_number",
+     *                 type="string",
+     *                 description="Mobile number of the recipient",
+     *                 example="9876543210"
+     *             ),
+     *             @OA\Property(
+     *                 property="address",
+     *                 type="string",
+     *                 description="Street address of the recipient",
+     *                 example="123 Elm Street"
+     *             ),
+     *             @OA\Property(
+     *                 property="area",
+     *                 type="string",
+     *                 description="Area or locality of the address",
+     *                 example="Downtown"
+     *             ),
+     *             @OA\Property(
+     *                 property="pin_code",
+     *                 type="string",
+     *                 description="Postal code of the address",
+     *                 example="560001"
+     *             ),
+     *             @OA\Property(
+     *                 property="city",
+     *                 type="string",
+     *                 description="City of the address",
+     *                 example="Bangalore"
+     *             ),
+     *             @OA\Property(
+     *                 property="state",
+     *                 type="string",
+     *                 description="State of the address",
+     *                 example="Karnataka"
+     *             ),
+     *             @OA\Property(
+     *                 property="default_address",
+     *                 type="boolean",
+     *                 description="Indicates if this is the default address",
+     *                 example=true
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
+     *      ),
+     * )
      */
     public function update(UpdateUserAddress $request, string $id)
     {
@@ -61,7 +165,30 @@ class UserAddressController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     *     path="/addresses/{id}",
+     *     tags={"address"},
+     *     security={{"bearerAuth": {}}},
+     *     summary="Delete address by id",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *          response="200", 
+     *          description="ok",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     *      ),
+     *     @OA\Response(
+     *          response="401", 
+     *          description="Error: Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
+     *      ),
+     * )
      */
     public function destroy(string $id)
     {

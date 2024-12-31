@@ -6,23 +6,32 @@ use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Middleware\PermissionMiddleware;
+use Spatie\Permission\Middleware\RoleMiddleware;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
-class UserController extends Controller implements HasMiddleware
+class UserController extends Controller
 {
-    public static function middleware(): array
+    public function __construct()
     {
-        return [
-            'permission:user-list|user-create|user-edit|user-delete',
-            new Middleware(\Spatie\Permission\Middleware\RoleMiddleware::using('permission:user-list|user-create|user-edit|user-delete'), only: ['index', 'store']),
-            new Middleware(\Spatie\Permission\Middleware\RoleMiddleware::using('permission:user-create'), only: ['create', 'store']),
-            new Middleware(\Spatie\Permission\Middleware\PermissionMiddleware::using('permission:user-edit'), only: ['edit', 'update']),
-            new Middleware(\Spatie\Permission\Middleware\PermissionMiddleware::using('permission:user-delete'), only: ['destroy']),
-        ];
+        $this->middleware('permission:user-list|user-create|user-edit|user-delete');
+
+        $this->middleware(RoleMiddleware::class . ':permission:user-list|user-create|user-edit|user-delete')
+            ->only(['index', 'store']);
+
+        $this->middleware(RoleMiddleware::class . ':permission:user-create')
+            ->only(['create', 'store']);
+
+        $this->middleware(PermissionMiddleware::class . ':permission:user-edit')
+            ->only(['edit', 'update']);
+
+        $this->middleware(PermissionMiddleware::class . ':permission:user-delete')
+            ->only(['destroy']);
     }
+
     /**
      * Display a listing of the resource.
      */
@@ -31,6 +40,7 @@ class UserController extends Controller implements HasMiddleware
         $data = User::orderBy('id', 'DESC')->paginate(5);
         return view('users.index', compact('data'))->with('i', ($request->input('page', 1) - 1) * 5);
     }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -87,7 +97,7 @@ class UserController extends Controller implements HasMiddleware
      */
     public function update(Request $request, string $id)
     {
-        $request->validate( [
+        $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $id,
             'password' => 'same:confirm-password',
@@ -104,9 +114,7 @@ class UserController extends Controller implements HasMiddleware
         $user = User::find($id);
         $user->update($input);
         DB::table('model_has_roles')->where('model_id', $id)->delete();
-
         $user->assignRole($request->input('roles'));
-
         return redirect()->route('users.index')->with('success', 'User updated successfully');
     }
 
