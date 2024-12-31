@@ -18,10 +18,10 @@ class ProductController extends Controller
 {
     use ApiResponse;
 
-    public function __construct()
-    {
-        $this->middleware('auth:sanctum')->only(['store']);
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:sanctum')->only(['store']);
+    // }
 
 
     /**
@@ -49,7 +49,7 @@ class ProductController extends Controller
         if ($request->has('maxPrice')) {
             $model->where('price', '<=', $request->get('maxPrice'));
         }
-        return $this->success(200, 'Products retrieved successfully.', $model->get()->load('category','reviews'));
+        return $this->success(200, 'Products retrieved successfully.', $model->with('category', 'reviews')->paginate(8));
     }
 
 
@@ -213,6 +213,7 @@ class ProductController extends Controller
         $validatedData = $request->validated();
 
         if ($request->hasFile('image')) {
+
             // $validatedData['image'] = $request->file('image');
             $validatedData['image'] = $request->file('image')->store('/uploads');
             Storage::disk("public")->putFile($request->image);
