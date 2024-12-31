@@ -12,7 +12,7 @@ class OrderController extends Controller
     // List all orders
     public function index()
     {
-        $orders = Order::with(['user', 'products', 'address', 'card'])->get();
+        $orders = Order::with(['user', 'products', 'address', 'card'])->paginate();
         return view('admin.Orders.index', compact('orders'));
     }
 
