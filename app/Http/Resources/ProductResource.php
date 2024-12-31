@@ -23,7 +23,7 @@ class ProductResource extends JsonResource
             'name'=>$this->name,
             'price'=>$this->price,
             'description'=>$this->description,
-            'image'=> url('uploads/'. $this->image),
+            'image'=> url('storage/'. $this->image),
             'compare_price'=>$this->compare_price,
             'rating'=>$this->rating,
             'featured'=>$this->featured,
