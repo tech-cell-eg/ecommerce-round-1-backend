@@ -37,16 +37,16 @@ class OurStoryController extends Controller
      */
     function store(Request $request)
     {
-        Validator::make($request->all(), [
+        $request->validate([
             'title' => 'required,string',
             'description' => 'required,string',
             'image' => 'required,string,image:jpg,jpeg,png,gif,max:2048',
         ]);
-        $imagePath = $this->uploadFiles($request->image, 'ourStory', 'local');;
+        // $imagePath = $this->uploadFiles($request->image, 'ourStory', 'local');
         $story = OurStory::create([
             'title' => $request->title,
             'description' => $request->description,
-            'image' => $imagePath[0],
+            'image' => asset('storage/' . $request->file('image')->store('ourStory', 'public')),
         ]);
         return $this->success(200, "Story created successfully :)", $story);
     }

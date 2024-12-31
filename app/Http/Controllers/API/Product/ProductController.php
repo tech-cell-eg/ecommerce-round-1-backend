@@ -47,7 +47,7 @@ class ProductController extends Controller
         if ($request->has('maxPrice')) {
             $model->where('price', '<=', $request->get('maxPrice'));
         }
-        return $this->success(200, 'Products retrieved successfully.', $model->get()->load('category','reviews'));
+        return $this->success(200, 'Products retrieved successfully.', $model->with('category', 'reviews')->paginate(8));
     }
 
 
@@ -157,7 +157,7 @@ class ProductController extends Controller
         $validatedData = $request->validated();
 
         if ($request->hasFile('image')) {
-            $validatedData['image'] = $request->file('image')->store('uploads', 'public');
+            $validatedData['image'] = asset('storage/' . $request->file('image')->store('uploads', 'public'));
         }
         // Create the product using validated and modified data
         $product = Product::create($validatedData);
