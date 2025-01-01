@@ -8,13 +8,13 @@ use App\Models\UserSetting;
 use App\Traits\ApiResponse;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
-class UserSettingController extends Controller
+class UserSettingController extends Controller implements HasMiddleware
 {
     use ApiResponse;
 
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware('auth:sanctum');
+        return ['auth:sanctum'];
     }
 
     public function index()

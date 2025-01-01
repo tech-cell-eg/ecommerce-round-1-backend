@@ -12,13 +12,15 @@ use App\Traits\ApiResponse;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 
-class TestimonialController extends Controller
+class TestimonialController extends Controller implements HasMiddleware
 {
     use ApiResponse;
 
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware('auth:sanctum')->except(['index','show']);
+        return [
+            new Middleware('auth:sanctum', except: ['index', "show"]),
+        ];
     }
 
     /**

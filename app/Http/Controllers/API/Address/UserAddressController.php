@@ -8,13 +8,13 @@ use App\Http\Requests\API\Address\UpdateUserAddress;
 use App\Traits\ApiResponse;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
-class UserAddressController extends Controller
+class UserAddressController extends Controller implements HasMiddleware
 {
     use ApiResponse;
 
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware('auth:sanctum');
+        return ['auth:sanctum'];
     }
 
     public function index()
