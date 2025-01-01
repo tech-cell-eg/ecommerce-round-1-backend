@@ -43,6 +43,15 @@ class CategoryController extends Controller
         return $this->success(200, "all categories", $categories);
     }
 
+    public function sub() {
+        $categories = Category::has('subCategories')->get();
+        foreach ($categories as $category) {
+            $data = $category->subCategories->pluck("name")->toArray();
+            $category["sub-category"] = $data;
+            $category->makeHidden(["subCategories"]);
+        }
+        return $this->success(200, "categories with sub-categories", $categories);
+    }
     /**
      * @OA\Post(
      *     path="/categories",
@@ -117,11 +126,11 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
 
         // extract Sub-category names from sub prop 
-        $data = $category->sub->pluck("name")->toArray();
+        $data = $category->subCategories->pluck("name")->toArray();
         $category["sub-category"] = $data;
 
         // hide sub prop
-        $category->makeHidden(["sub"]);
+        $category->makeHidden(["subCategories"]);
 
         return $this->success(200, "category found!", $category);
     }

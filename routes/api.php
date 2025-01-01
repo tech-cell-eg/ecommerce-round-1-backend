@@ -107,6 +107,7 @@ Route::delete('favorites/{product_id}', [FavoriteController::class, 'destroy']);
 // ***************************************************************
 // *** categories
 // ***************************************************************
+Route::get("categories/sub", [CategoryController::class, "sub"]);
 Route::apiResource("categories", CategoryController::class);
 
 // ***************************************************************

@@ -7,15 +7,19 @@ use App\Models\OurStory;
 use App\Traits\ApiResponse;
 use App\Traits\FileControl;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Storage;
 
-class OurStoryController extends Controller
+class OurStoryController extends Controller implements HasMiddleware
 {
     use ApiResponse, FileControl;
 
-    public function __construct()
+     public static function middleware(): array
     {
-        $this->middleware('auth:sanctum')->only(['store']);
+        return [
+            new Middleware('auth:sanctum', only: ['store']),
+        ];
     }
 
     function index()
