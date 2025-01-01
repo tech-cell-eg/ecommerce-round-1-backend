@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Category extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = ["name"];
 
     // hide unnecessary prop
@@ -20,12 +20,14 @@ class Category extends Model
         'updated_at',
     ];
 
-    function sub(): HasMany {
-        return $this->hasMany(SubCategory::class);
-    }
-
     public function products()
     {
         return $this->hasMany(Product::class);
     }
+
+    public function subCategories()
+    {
+        return $this->hasMany(SubCategory::class);
+    }
+
 }

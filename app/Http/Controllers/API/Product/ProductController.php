@@ -7,27 +7,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\Product\StoreProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
+use App\Models\SubCategory;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controllers\HasMiddleware;
-use Illuminate\Routing\Controllers\Middleware;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
-<<<<<<< HEAD
-class ProductController extends Controller 
-{
-    use ApiResponse;
-
-=======
 class ProductController extends Controller
 {
     use ApiResponse;
-
-    // public function __construct()
-    // {
-    //     $this->middleware('auth:sanctum')->only(['store']);
-    // }
 
 
     /**
@@ -43,12 +30,15 @@ class ProductController extends Controller
      * )
      */
 
->>>>>>> 748174592067e6e0959270e184b9a93737589bc6
     public function index(Request $request)
     {
         $model = Product::query();
         if ($request->has('category_id')) {
             $model->where('category_id', $request->get('category_id'));
+        }
+        if ($request->filled('sub_category_id')) {
+            $categoryId = SubCategory::where('id', $request->get('sub_category_id'))->first()->category_id;
+            $model->where('category_id', $categoryId);
         }
         if ($request->has('minPrice')) {
             $model->where('price', '>=', $request->get('minPrice'));
@@ -158,60 +148,60 @@ class ProductController extends Controller
      *          @OA\JsonContent(ref="#/components/schemas/ApiResponse-2")
      *      ),
      * )
-     * 
-     * 
-     * 
-     *        if($request->hasFile("image")) {
-            File::delete(public_path($request->image));
-            $image = $request->file("image");
-            $fileName = $image->store("/", "public");
-            $filePath = "uploads/".$fileName;
-            $product->image = $filePath;
-        }
-
-        $product->name = $request->name;
-        $product->price = $request->price;
-        $product->short_description = $request->short_description;
-        $product->description = $request->description;
-        $product->quantity = $request->qty;
-        $product->sku = $request->sku;
-        $product->save();
-
-        // insert colors
-        if($request->has("colors") && $request->filled("colors")) {
-
-            foreach ($product->colors as $color) {
-                $color->delete();
-            }
-
-            foreach ($request->colors as $color) {
-                ProductColor::create([
-                    "name" => $color,
-                    "product_id" => $product->id
-                ]);
-            }
-        }
-            
-        if($request->hasFile("images")) {
-
-            foreach ($product->images as $image) {
-                File::delete(public_path($image->path));
-            }
-            $product->images()->delete();
-
-            foreach ($request->file("images") as  $image) {
-                $fileName = $image->store("/", "public");
-                $filePath = "uploads/".$fileName;
-                ProductImage::create([
-                    "path" => $filePath,
-                    "product_id" => $product->id
-                ]);
-            }
-        }
-
-
-        notyf('Product Updated Successfully.');
-        return redirect()->back();
+     *
+     *
+     *
+     *       if($request->hasFile("image")) {
+     * File::delete(public_path($request->image));
+     * $image = $request->file("image");
+     * $fileName = $image->store("/", "public");
+     * $filePath = "uploads/".$fileName;
+     * $product->image = $filePath;
+     * }
+     *
+     * $product->name = $request->name;
+     * $product->price = $request->price;
+     * $product->short_description = $request->short_description;
+     * $product->description = $request->description;
+     * $product->quantity = $request->qty;
+     * $product->sku = $request->sku;
+     * $product->save();
+     *
+     * // insert colors
+     * if($request->has("colors") && $request->filled("colors")) {
+     *
+     * foreach ($product->colors as $color) {
+     * $color->delete();
+     * }
+     *
+     * foreach ($request->colors as $color) {
+     * ProductColor::create([
+     * "name" => $color,
+     * "product_id" => $product->id
+     * ]);
+     * }
+     * }
+     *
+     * if($request->hasFile("images")) {
+     *
+     * foreach ($product->images as $image) {
+     * File::delete(public_path($image->path));
+     * }
+     * $product->images()->delete();
+     *
+     * foreach ($request->file("images") as  $image) {
+     * $fileName = $image->store("/", "public");
+     * $filePath = "uploads/".$fileName;
+     * ProductImage::create([
+     * "path" => $filePath,
+     * "product_id" => $product->id
+     * ]);
+     * }
+     * }
+     *
+     *
+     * notyf('Product Updated Successfully.');
+     * return redirect()->back();
      */
     // This function just for testing images
     public function store(StoreProductRequest $request)
