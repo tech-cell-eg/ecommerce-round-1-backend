@@ -10,13 +10,13 @@ use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Str;
 use TechCell\TechcellSocialite\Facades\TechcellSocialite;
 
-class SocialLoginController extends Controller
+class SocialLoginController extends Controller implements HasMiddleware
 {
     use ApiResponse;
 
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware(['api', 'web']);
+        return ['api', 'web'];
     }
 
     /**

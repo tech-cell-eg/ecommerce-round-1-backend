@@ -9,14 +9,14 @@ use App\Models\UserSetting;
 use App\Traits\ApiResponse;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
-class RegisterController extends Controller
+class RegisterController extends Controller implements HasMiddleware
 {
     use ApiResponse;
 
 
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware('throttle:5,1');
+        return ['throttle:5,1'];
     }
 
 

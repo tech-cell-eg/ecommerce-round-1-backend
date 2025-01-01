@@ -8,13 +8,13 @@ use App\Models\User;
 use App\Traits\ApiResponse;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
-class UpdateUserController extends Controller
+class UpdateUserController extends Controller implements HasMiddleware
 {
     use ApiResponse;
 
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware('auth:sanctum');
+        return ['auth:sanctum'];
     }
 
     public function __invoke(UpdateUserRequest $request)

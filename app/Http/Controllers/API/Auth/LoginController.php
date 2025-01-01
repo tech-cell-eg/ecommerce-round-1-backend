@@ -9,13 +9,13 @@ use App\Http\Requests\API\Auth\LoginRequest;
 use App\Traits\ApiResponse;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
-class LoginController extends Controller
+class LoginController extends Controller implements HasMiddleware
 {
     use ApiResponse;
 
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware('throttle:5,1');
+        return ['throttle:5,1'];
     }
 
 
