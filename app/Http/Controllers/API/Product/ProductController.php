@@ -9,12 +9,21 @@ use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use App\Models\SubCategory;
 use App\Traits\ApiResponse;
+use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Storage;
 
-class ProductController extends Controller
+class ProductController extends Controller implements HasMiddleware
 {
     use ApiResponse;
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth:sanctum', only: ['store']),
+        ];
+    }
 
 
     /**

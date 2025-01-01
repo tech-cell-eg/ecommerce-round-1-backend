@@ -15,7 +15,7 @@ class OurStoryController extends Controller implements HasMiddleware
 {
     use ApiResponse, FileControl;
 
-     public static function middleware(): array
+    public static function middleware(): array
     {
         return [
             new Middleware('auth:sanctum', only: ['store']),

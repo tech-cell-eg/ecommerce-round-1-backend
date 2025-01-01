@@ -9,12 +9,12 @@ use App\Models\User;
 use App\Models\Comment;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
-class UserBlogController extends Controller
+class UserBlogController extends Controller implements HasMiddleware
 {
 
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware(['auth:sanctum']);
+        return ['auth:sanctum'];
     }
 
     public function BlogComment(Request $request, Blog $blog)
