@@ -54,7 +54,7 @@
                                             <td> {{$product->rating}} </td>
                                             <td> {{$product->color}} </td>
                                             <td> {{$product->size}} </td>
-                                            <td> {{$product->category->name}} </td>
+                                            <td> {{$product->category->name ?? 'No Category'}} </td>
                                             <td>
                                                 @can('product-edit')
                                             <th><a href="{{route('products.edit',[$product->id])}}" class="btn btn-primary btn-sm">Update</a></th>
