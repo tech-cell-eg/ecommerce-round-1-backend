@@ -9,9 +9,9 @@ use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use App\Models\SubCategory;
 use App\Traits\ApiResponse;
-use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller implements HasMiddleware

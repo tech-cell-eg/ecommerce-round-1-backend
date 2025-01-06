@@ -6,11 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\Auth\UpdateUserRequest;
 use App\Models\User;
 use App\Traits\ApiResponse;
+use App\Traits\FileControl;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
 class UpdateUserController extends Controller implements HasMiddleware
 {
-    use ApiResponse;
+    use ApiResponse, FileControl;
 
     public static function middleware(): array
     {
@@ -21,6 +22,12 @@ class UpdateUserController extends Controller implements HasMiddleware
     {
         $validatedData = $request->validated();
         $user = auth()->user();
+        if (isset($validatedData['image'])) {
+            $imagePath = $this->uploadFiles($validatedData['image'],'/Users/Profiles','public')[0];
+            $user->update([
+                'image' => config("app.url") . "/storage/".$imagePath,
+            ]);
+        }
         if (isset($validatedData['first_name']) || isset($validatedData['last_name']) || isset($validatedData['email'])) {
             $user->update($validatedData);
         }

@@ -31,8 +31,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'last_name',
         'password',
         'terms_agreed',
-        'role'
-
+        'role',
+        'image'
     ];
 
     /**
@@ -121,7 +121,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(User::class, 'followers', 'follower_id', 'author_id');
     }
 
-    public function settings(){
+    public function settings()
+    {
         return $this->hasOne(UserSetting::class);
     }
 

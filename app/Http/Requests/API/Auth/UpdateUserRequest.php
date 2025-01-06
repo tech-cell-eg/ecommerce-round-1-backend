@@ -24,6 +24,7 @@ class UpdateUserRequest extends FormRequest
         return [
             'first_name' => ['nullable', 'string', 'max:255'],
             'last_name' => ['nullable', 'string', 'max:255'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             'mobile_number' => ['nullable', 'string', 'size:11','required_with:address'],
             'email' => ['nullable', 'email'],
             'address' => ['nullable', 'string','required_with:mobile_number' ,function ($attribute, $value, $fail) {
