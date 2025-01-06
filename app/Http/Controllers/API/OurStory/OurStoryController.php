@@ -44,10 +44,8 @@ class OurStoryController extends Controller implements HasMiddleware
             'image' => 'required|image',
         ]);
 
-        // $imagePath = $this->uploadFiles($request->image, 'ourStory', 'local');;
-        $imagePath = $request->file('image')->store('/uploads');
-        Storage::disk("public")->putFile($request->image);
-        
+        $imagePath = $this->uploadFiles($request->image, '/Stories', 'public')[0];
+
         $story = OurStory::create([
             'title' => $request->title,
             'description' => $request->description,

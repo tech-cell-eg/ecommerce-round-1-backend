@@ -9,6 +9,7 @@ use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use App\Models\SubCategory;
 use App\Traits\ApiResponse;
+use App\Traits\FileControl;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller implements HasMiddleware
 {
-    use ApiResponse;
+    use ApiResponse, FileControl;
 
     public static function middleware(): array
     {
@@ -220,9 +221,9 @@ class ProductController extends Controller implements HasMiddleware
 
         if ($request->hasFile('image')) {
 
-            // $validatedData['image'] = $request->file('image');
-            $validatedData['image'] = $request->file('image')->store('/uploads');
-            Storage::disk("public")->putFile($request->image);
+            $imagePath = $this->uploadFiles($validatedData['image'], '/Products', 'public')[0];
+            $validatedData['image'] = $imagePath;
+
         }
         // Create the product using validated and modified data
         $product = Product::create($validatedData);
